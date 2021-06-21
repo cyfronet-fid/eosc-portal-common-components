@@ -8,8 +8,7 @@
 - [Documentation](#documentation)
   - [Prerequisites](#prerequisites)
   - [Quickstart](#quickstart)
-  - [Components](#components)
-    - [Main header](#main-header)
+  - [Components](https://cyfronet-fid.github.io/eosc-portal-commons-components/){:target="_blank"}
 
 ### Description
 Library contains the custom UI components of the EOSC Portal services. 
@@ -53,7 +52,7 @@ You'll need to know a bit of HTML and JS.
 For refresher see [HTML tutorial](https://www.w3schools.com/html/) or [JS tutorial](https://www.w3schools.com/js/default.asp).
 
 ##### Quickstart
-Add library to file with extension `.html`. It can be done by appending `<header>...</header>` section.
+Add library to file with extension `.html`. It can be done by appending it into `<body>...</body>` section.
 
 For debugging purposes
 ```html
@@ -82,14 +81,3 @@ For production purposes
 ```html
 <script type="application/json"  scr=""></script>
 ```
-   
-#### Components
-
-##### Main header
-> Header at top of the application
-
-tag: `eosc-main-header`
-
-Example of usage: `<eosc-main-header name="test" surname="test"></eosc-main-header>`
-
-[Example template](./examples/main-header.html)
