@@ -1,6 +1,9 @@
 import {configuration, defaultConfiguration} from "./main-header.config";
 import * as _ from 'lodash';
 import React, { Component } from "react";
+import {render} from "react-dom";
+
+import "./main-header.scss";
 
 export class EoscMainHeader extends Component<{name: string, surname: string}> {
     render() {
@@ -37,3 +40,12 @@ export class EoscMainHeader extends Component<{name: string, surname: string}> {
         );
     }
 }
+
+const eoscMainHeader = document.getElementsByTagName("eosc-main-header")[0];
+render(
+    <EoscMainHeader
+        name={ eoscMainHeader.getAttribute("name") }
+        surname={ eoscMainHeader.getAttribute("surname") }
+    />,
+    eoscMainHeader
+);
