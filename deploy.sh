@@ -22,7 +22,7 @@ git checkout build
 git reset --hard "origin/$CURRENT_BRANCH"
 shopt -s extglob
 git rm -fr .
-git checkout "origin/$CURRENT_BRANCH" -- .gitignore
+git checkout "origin/$CURRENT_BRANCH" -- .gitignore index.html README.md styles/*.css
 mv -f dist/* ./ && rm -fR dist
 
 echo "Pushing new dist to build branch..."

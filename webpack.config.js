@@ -3,14 +3,16 @@ const magicImporter = require('node-sass-magic-importer');
 
 module.exports = {
     mode: "production",
-    entry: [path.resolve(__dirname, "index.tsx")],
+    entry: {
+        "index": path.resolve(__dirname, "index.tsx"),
+        "main-header": path.resolve(__dirname, "src/main-header/main-header.tsx")
+    },
     output: {
-        path: path.resolve(__dirname, "dist/"),
-        filename: "index.js",
-        publicPath: "/"
+        path: path.resolve(__dirname, "dist"),
+        filename: "[name].js"
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.scss', '.json'],
+        extensions: ['.tsx', '.ts', '.js', '.scss', '.json', '.css'],
         modules: ["node_modules"]
     },
     module: {
