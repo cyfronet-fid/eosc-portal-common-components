@@ -1,19 +1,14 @@
-import {configuration, defaultConfiguration} from "./main-header.config";
 import * as _ from 'lodash';
 import React, { Component } from "react";
 import {render} from "react-dom";
 
 import "./main-header.scss";
+import {environment} from "../../env/env";
 
 export class EoscMainHeader extends Component<{name: string, surname: string}> {
     render() {
         const currentDomain = window.location.hostname;
-        let navBtnsConfig = (configuration as any)[currentDomain];
-        let isDemoMode = false;
-        if (!navBtnsConfig) {
-            isDemoMode = true;
-            navBtnsConfig = defaultConfiguration;
-        }
+        let navBtnsConfig = environment.mainHeaderConfig[currentDomain];
 
         const loginBtnConfig = navBtnsConfig.find((btn: any) => btn.label === "login");
         const logoutBtnConfig = navBtnsConfig.find((btn: any) => btn.label === "logout");
@@ -25,7 +20,7 @@ export class EoscMainHeader extends Component<{name: string, surname: string}> {
             : <li><a href={ loginBtnConfig.url }>{ _.upperFirst(loginBtnConfig.label) }</a></li>;
 
         return (
-            <nav className="top">
+            <nav className={`top ${environment.production ? "" : "demo"}`}>
                 <div className="container">
                     <ul className="right-inks">
                         {

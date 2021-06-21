@@ -4,8 +4,12 @@ has_changed_files=$(git status --porcelain --untracked-files=no | wc -l)
 
 if [[ $has_changed_files -gt 0 ]]
 then
-  git add -A
-  git commit -m "[TEMP]"
+  ED='\033[0;31m'
+  echo
+  tput setaf 1; echo "!!! Commit all local changes before deployment !!!"
+  echo
+  echo
+  [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1
 fi
 
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
