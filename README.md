@@ -16,7 +16,7 @@ Uses the JS scripts, and the SCSS styles for consistent visualization and events
 
 ### Requirements
 Only for build purposes
-- nodejs >= 10.x.x LTE
+- nodejs >= 14.17.1 LTE
 
 ### Dependencies installation
 Only for building purposes
@@ -29,6 +29,7 @@ npm i
 Building produce `index.js` library under `build` branch automatically by running the command
 
 ```bash
+npm install --global gulp-cli
 npm run build
 ```
 
@@ -36,6 +37,7 @@ npm run build
 Deployment of artifacts like `index.js` to branch `build` available under [URL](https://raw.githubusercontent.com/cyfronet-fid/eosc-portal-commons-components/build/index.js).
 
 ```bash
+npm install --global gulp-cli
 npm run deploy
 ```
 

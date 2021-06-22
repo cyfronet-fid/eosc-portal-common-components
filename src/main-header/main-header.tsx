@@ -1,8 +1,6 @@
 import * as _ from 'lodash';
 import React, { Component } from "react";
 import {render} from "react-dom";
-
-import "./main-header.scss";
 import {environment} from "../../env/env";
 
 export class EoscMainHeader extends Component<{name: string, surname: string}> {
