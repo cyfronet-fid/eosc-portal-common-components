@@ -3,3 +3,4 @@ node_modules/
 
 # IDE misc
 .idea
+env/env.temp.js
