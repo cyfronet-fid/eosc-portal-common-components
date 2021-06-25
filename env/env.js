@@ -1,6 +1,6 @@
-const mainHeaderConfig = require("../configurations/main-header.production.config.json");
+const mainHeaderConfig = require("../configurations/main-header.default.config.json");
 
 exports.environment = {
     mainHeaderConfig: mainHeaderConfig.default,
-    production: true
+    production: false
 }

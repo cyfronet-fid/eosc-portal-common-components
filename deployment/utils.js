@@ -1,7 +1,5 @@
-const {src, dest} = require('gulp');
 const path = require('path');
-const del = require('del');
-const rename = require('gulp-rename');
+const execa = require('execa');
 
 /**
  *
@@ -82,41 +80,20 @@ exports.getFileNameFrom = function (filePath) {
     .join('.');
 }
 
-/**
- *
- * @param cb
- * @param mode
- * @return {*}
- */
-exports.replaceEnvConfig = (cb, mode) => {
-  if (mode === "development") {
-    cb();
-    return;
+exports.hasLocalBranch = async (branch) => {
+  try {
+    let {stdout} = await execa('git', ['show-ref', `refs/heads/${branch}`]);
+    return !!stdout;
+  } catch (error) {
+    return false;
   }
-
-  return src(`env/env.js`)
-    .pipe(rename('env.temp.js'))
-    .pipe(dest('env/.'))
-    .pipe(src(`env/env.${mode}.js`))
-    .pipe(rename(`env.js`))
-    .pipe(dest('env/.'));
 }
 
-/**
- *
- * @param cb
- * @param mode
- * @return {*}
- */
-exports.restoreEnvFiles = (cb, mode) => {
-  if (mode === "development") {
-    cb();
-    return;
+exports.hasRemoteBranch = async (branch) => {
+  try {
+    let {stdout} = await execa('git', ['ls-remote', '--exit-code', '--heads', 'origin', branch]);
+    return !!stdout;
+  } catch (error) {
+    return false;
   }
-
-  return src(`env/env.temp.js`)
-    .pipe(rename(`env.js`))
-    .pipe(dest('env/.'))
-    .on('end', (cb) => del('env/env.temp.js', cb));
 }
-
