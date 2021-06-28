@@ -9,16 +9,16 @@ const {STYLES_PATHS} = require("../index");
 const {COMPONENTS_PATHS} = require("../index");
 const concat = require('gulp-concat');
 const {getScssWebpackConfig, getFileNameFrom, getTsWebpackConfig} = require("./utils");
+const log = require('fancy-log');
+const parser = require("yargs-parser");
+const _ = require("lodash");
 
-/**
- *
- * @param {"development"|"production"} mode
- * @param {string} distPath
- * @return {*}
- */
-exports.buildLib = (mode, distPath) => {
+exports.buildLib = (argv = process.argv.slice(2)) => {
+  const parsedParams = getProcessParams(argv);
+  const {mode, dist_path: distPath, env} = parsedParams;
   return series(
-    replaceEnvConfig(mode),
+    validParams(parsedParams, "mode", "dist_path", "env"),
+    replaceEnvConfigBy(env),
     removeOldDist(distPath),
     parallel(
       transpileComponentsToSeparateFiles(mode, distPath),
@@ -33,22 +33,22 @@ exports.buildLib = (mode, distPath) => {
 
 /**
  *
- * @param {"development"|"production"} mode
+ * @param {string} env
  * @param {string} rootPath
  * @return {*}
  */
-const replaceEnvConfig = (mode, rootPath = path.resolve(__dirname, "../")) => {
+const replaceEnvConfigBy = (env, rootPath = path.resolve(__dirname, "../")) => {
   function replaceEnvConfig(cb) {
-    if (mode === "development") {
+    const envPath = path.resolve(rootPath, 'env');
+    if (env === path.resolve(envPath, "env.js")) {
       cb();
       return;
     }
 
-    const envPath = path.resolve(rootPath, 'env');
     return src(path.resolve(envPath, `env.js`))
       .pipe(rename('env.temp.js'))
       .pipe(dest(envPath))
-      .pipe(src(path.resolve(envPath, `env.${mode}.js`)))
+      .pipe(src(env))
       .pipe(rename(`env.js`))
       .pipe(dest(envPath));
   }
@@ -206,4 +206,45 @@ const deleteWebpackMisc = (distPath, rootPath = path.resolve(__dirname, '../')) 
   }
 
   return deleteWebpackMisc;
+}
+
+const getProcessParams = (argv) => {
+  const parsedParams = parser(argv);
+
+  if (!!parsedParams["env"]) {
+    parsedParams["env"] = parsedParams["mode"] === "development"
+      ? path.resolve(__dirname, `../env/env.js`)
+      : path.resolve(__dirname, `../env/env.production.js`);
+  }
+  else {
+    parsedParams["env"] = path.resolve(__dirname, "../" + parsedParams["env"]);
+  }
+
+  return parsedParams;
+}
+
+const validParams = (parsedParams, ...requiredFields) => {
+  function validParams(cb) {
+    const hasAllRequired = _.every(
+      requiredFields
+        .map(requiredKey => Object.keys(parsedParams).includes(requiredKey))
+    );
+    const ALLOWED_MODES = ["production", "development"];
+    if (!hasAllRequired || !ALLOWED_MODES.includes(parsedParams["mode"])) {
+      log("You're missing the required fields: " + requiredFields.join(", "));
+      log("or mode has other value than development or production")
+
+      // Help message
+      log("\n[build_lib] process produce transpiled files to `dist_path` depend on `mode`\n");
+
+      log("--dist_path path where will be available transpiled files under ~/eosc-portal-common-components/dist/<dist_path>")
+      log("--mode enum with allowed values 'production'|'development' which will produce different output")
+
+      process.exit(1);
+    }
+
+    cb();
+  }
+
+  return validParams;
 }

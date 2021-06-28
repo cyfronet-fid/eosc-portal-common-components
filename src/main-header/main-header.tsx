@@ -5,9 +5,7 @@ import {environment} from "../../env/env";
 
 export class EoscMainHeader extends Component<{name: string, surname: string}> {
     render() {
-        const currentDomain = window.location.hostname;
-        let navBtnsConfig = environment.mainHeaderConfig[currentDomain];
-
+        const navBtnsConfig = environment.mainHeaderConfig as any;
         const loginBtnConfig = navBtnsConfig.find((btn: any) => btn.label === "login");
         const logoutBtnConfig = navBtnsConfig.find((btn: any) => btn.label === "logout");
         const auth = !!this.props.name && this.props.surname
