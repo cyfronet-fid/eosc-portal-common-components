@@ -19,15 +19,17 @@ exports.buildLib = (argv = process.argv.slice(2)) => {
   return series(
     validParams(parsedParams, "mode", "dist_path", "env"),
     replaceEnvConfigBy(env),
-    removeOldDist(distPath),
+    async function removeOldDist(cb) {
+      await execa('rm', ['-fR', `./dist/${distPath}`], {stdio: 'inherit'});
+      cb();
+    }.bind(distPath),
     parallel(
       transpileComponentsToSeparateFiles(mode, distPath),
       transpileStylesToSeparateFiles(mode, distPath),
       transpileComponentsBundle(mode, distPath),
       transpileStylesBundle(mode, distPath)
     ),
-    deleteWebpackMisc(distPath),
-    restoreEnvFiles(mode)
+    deleteWebpackMisc(distPath)
   );
 }
 
@@ -38,59 +40,14 @@ exports.buildLib = (argv = process.argv.slice(2)) => {
  * @return {*}
  */
 const replaceEnvConfigBy = (env, rootPath = path.resolve(__dirname, "../")) => {
-  function replaceEnvConfig(cb) {
+  function replaceEnvConfig() {
     const envPath = path.resolve(rootPath, 'env');
-    if (env === path.resolve(envPath, "env.js")) {
-      cb();
-      return;
-    }
-
-    return src(path.resolve(envPath, `env.js`))
-      .pipe(rename('env.temp.js'))
-      .pipe(dest(envPath))
-      .pipe(src(env))
+    return src(env)
       .pipe(rename(`env.js`))
       .pipe(dest(envPath));
   }
 
   return replaceEnvConfig;
-}
-
-/**
- *
- * @param {"development"|"production"} mode
- * @param {string} rootPath
- * @return {*}
- */
-const restoreEnvFiles = (mode, rootPath = path.resolve(__dirname, "../")) => {
-  function restoreEnvFiles(cb) {
-    if (mode === "development") {
-      cb();
-      return;
-    }
-
-    const envPath = path.resolve(rootPath, 'env');
-    return src(path.resolve(envPath, `env.temp.js`))
-      .pipe(rename(`env.js`))
-      .pipe(dest(envPath))
-      .on('end', (cb) => del(path.resolve(envPath, 'env.temp.js'), cb));
-  }
-
-  return restoreEnvFiles;
-}
-
-/**
- *
- * @param {string} distPath
- * @return {(function(*): Promise<void>)|*}
- */
-const removeOldDist = (distPath) => {
-  async function removeOldDist(cb) {
-    await execa('rm', ['-fR', `./dist/${distPath}`], {stdio: 'inherit'});
-    cb();
-  }
-
-  return removeOldDist;
 }
 
 /**
@@ -209,15 +166,17 @@ const deleteWebpackMisc = (distPath, rootPath = path.resolve(__dirname, '../')) 
 }
 
 const getProcessParams = (argv) => {
-  const parsedParams = parser(argv);
-
-  if (!!parsedParams["env"]) {
-    parsedParams["env"] = parsedParams["mode"] === "development"
-      ? path.resolve(__dirname, `../env/env.js`)
-      : path.resolve(__dirname, `../env/env.production.js`);
-  }
-  else {
-    parsedParams["env"] = path.resolve(__dirname, "../" + parsedParams["env"]);
+  const parsedParams = parser(argv, {default: {env: ""}});
+  if (!parsedParams["env"]) {
+    switch (parsedParams["mode"]) {
+      case "production":
+        parsedParams["env"] = 'env/env.production.js';
+        break;
+      case "development":
+      default:
+        parsedParams["env"] = 'env/env.development.js';
+        break;
+    }
   }
 
   return parsedParams;

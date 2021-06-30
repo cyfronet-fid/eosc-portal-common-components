@@ -22,7 +22,7 @@ const transpileDocumentationComponentsBundle = (rootPath = path.resolve(__dirnam
   function transpileComponentsBundle() {
     return webpackStream(
       getTsWebpackConfig(
-        "production",
+        "development",
         {"index": path.resolve(rootPath, "documentation/index.tsx")}
       ),
       webpack
