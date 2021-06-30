@@ -4,8 +4,9 @@ const del = require('del');
 const path = require('path');
 const {buildLib} = require("./lib-build.helper");
 const parser = require("yargs-parser");
+const {buildDocumentation} = require("./doc-build.helper");
 
-exports.serve = (cb) => {
+exports.serve = () => {
   const rootPath = path.resolve(__dirname, "../");
 
   del(path.resolve(rootPath, "./dist"));
@@ -15,11 +16,11 @@ exports.serve = (cb) => {
     ...process.argv.splice(0, 3),
     '--mode', 'development',
     '--dist_path', distPath,
-    '--env', parsedArgv["env"]
+    '--env', !!parsedArgv["env"] ? parsedArgv["env"] : ""
   ];
 
-  const filesToBuild = [
-    path.resolve(rootPath, 'src/**/*.ts'),
+  const libFilesToBuild = [
+    path.resolve(rootPath, `src/**/*.ts`),
     path.resolve(rootPath, 'src/**/*.tsx'),
     path.resolve(rootPath, 'src/**/*.js'),
     path.resolve(rootPath, 'src/**/*.json'),
@@ -37,8 +38,17 @@ exports.serve = (cb) => {
     startPath: path.resolve(rootPath, "/documentation/index.html")
   });
 
-  watch(filesToBuild, options, series(
+  watch(libFilesToBuild, options, series(
     buildLib(argv),
+    browserSync.reload
+  ));
+
+  const docFilesToBuild = [
+    path.resolve(rootPath, 'documentation/**/*.tsx'),
+    path.resolve(rootPath, 'documentation/**/*.ts')
+  ];
+  watch(docFilesToBuild, options, series(
+    buildDocumentation(),
     browserSync.reload
   ));
 
@@ -48,6 +58,4 @@ exports.serve = (cb) => {
   ];
   watch(filesToWatch)
     .on('change', browserSync.reload);
-
-  cb();
 }

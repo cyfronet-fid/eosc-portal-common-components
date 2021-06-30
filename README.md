@@ -3,7 +3,7 @@
 ### Table of contents
 - [Description](#description)
 - [Requirements](#requirements)
-  [Dependencies installation](#dependencies-installation)
+- [Dependencies installation](#dependencies-installation)
 - [Development](#development)
 - [Building](#building)
 - [Unit testing](#unit-testing)
@@ -39,7 +39,7 @@ npm i
   
   gulp serve --env env/env.test.js
   ```
-- Include locally transpiled and/or bundled files in `documentation/index.html`.
+- (Optional) Include locally transpiled and/or bundled files in `documentation/index.html`.
   ```html
   <body>
     ...
@@ -66,7 +66,7 @@ Examples
 ```bash
 # Command will produce transpiled and/or bundled files 
 # for development purpose into `dist/test` folder
-# using `env.js` configuration
+# using `env.development.js` configuration
 gulp build_lib --mode development --dist_path test
 ```
 
@@ -92,13 +92,11 @@ from `dist/<dist_path>`.
 - dest_branch
   > Branch to which will be pushed transpiled and/or bundled files
 - dist_path
-  > `dist/<dist_path>` from which files will be pushed
-- git_paths_to_include (optional)
-  > git files that should be included while pushing changes
+  > Folder from which files will be pushed
   
 Examples
 ```bash
-gulp push_to_branch --dest_branch stable --dist_path stable --git_paths_to_include README.md
+gulp push_to_branch --dest_branch stable --dist_path stable
 ```
 
 ```bash
@@ -121,23 +119,46 @@ For refresher see [HTML tutorial](https://www.w3schools.com/html/) or [JS tutori
 - Attaching all components at once
   > Add script and styles to file with extension `.html`. It can be done by appending it into `<body>...</body>` section.
   
-  Examples
-  ```html
-  <body>
-    ...
-    <script type="application/javascript" src="https://raw.githubusercontent.com/cyfronet-fid/eosc-portal-commons-components/stable/index.min.js"></script>
-    <link type="text/css" src="https://raw.githubusercontent.com/cyfronet-fid/eosc-portal-commons-components/stable/index.min.css" />
-  </body>
-  ```
+  **Examples**
+  
+  - Using public version
+    ```html
+    <body>
+      ...
+      <script type="application/javascript" src="https://raw.githubusercontent.com/cyfronet-fid/eosc-portal-commons-components/stable/index.min.js"></script>
+      <link src="https://raw.githubusercontent.com/cyfronet-fid/eosc-portal-commons-components/stable/index.min.css">
+    </body>
+    ```
+  
+  - Using local build
+    ```html
+    <body>
+      ...
+      <script type="application/javascript" src="../<dist_path>/index.min.js"></script>
+      <link src="../<dist_path>/index.min.css">
+    </body>
+    ```
+
 - Attaching specific component from [list](https://cyfronet-fid.github.io/eosc-portal-commons-components)
   by its name
   > Add script and styles to file with extension `.html`. It can be done by appending it into `<body>...</body>` section.
   
-  Examples
+  **Examples**
+  
+  - Using public version
   ```html
   <body>
     ...
     <script type="application/javascript" src="https://raw.githubusercontent.com/cyfronet-fid/eosc-portal-commons-components/stable/<component-name>.min.js"></script>
-    <link type="text/css" src="https://raw.githubusercontent.com/cyfronet-fid/eosc-portal-commons-components/stable/<component-name>.min.css" />
+    <link src="https://raw.githubusercontent.com/cyfronet-fid/eosc-portal-commons-components/stable/<component-name>.min.css">
   </body>
   ```
+  
+  - Using local build
+    ```html
+    <body>
+      ...
+      <script type="application/javascript" src="../<dist_path>/<component-name>.min.js"></script>
+      <link src="../<dist_path>/<component_name>.min.css">
+    </body>
+    ```

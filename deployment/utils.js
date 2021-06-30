@@ -79,21 +79,3 @@ exports.getFileNameFrom = function (filePath) {
     .slice(0, -1)
     .join('.');
 }
-
-exports.hasLocalBranch = async (branch) => {
-  try {
-    let {stdout} = await execa('git', ['show-ref', `refs/heads/${branch}`]);
-    return !!stdout;
-  } catch (error) {
-    return false;
-  }
-}
-
-exports.hasRemoteBranch = async (branch) => {
-  try {
-    let {stdout} = await execa('git', ['ls-remote', '--exit-code', '--heads', 'origin', branch]);
-    return !!stdout;
-  } catch (error) {
-    return false;
-  }
-}
