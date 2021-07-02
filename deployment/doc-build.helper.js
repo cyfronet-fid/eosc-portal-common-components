@@ -8,7 +8,8 @@ exports.buildDocumentation = () => {
     transpileToBundle(
       path.resolve(rootPath, 'documentation/*.tsx'),
       "production",
-      "documentation"
+      "documentation",
+      'env/env.production.js'
     ),
     () => src(path.resolve(rootPath, "documentation/*.css"))
       .pipe(dest(path.resolve(rootPath, 'dist/documentation/'))),

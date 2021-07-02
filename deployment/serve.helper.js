@@ -40,7 +40,8 @@ exports.serve = () => {
       transpileToBundle(
         COMPONENTS_PATHS.map(componentPath => path.resolve(rootPath, componentPath)),
         'development',
-        'serve'
+        'serve',
+        'env/env.production.js'
       ),
       (cb) => { browserSync.reload(); cb();}
     )
