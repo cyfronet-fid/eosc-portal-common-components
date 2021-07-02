@@ -3,6 +3,6 @@ exports.COMPONENTS_PATHS = [
 ];
 
 exports.STYLES_PATHS = [
-    './styles/main-header.scss'
+  './styles/main-header.scss'
 ];
 

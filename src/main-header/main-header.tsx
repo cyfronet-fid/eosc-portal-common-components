@@ -10,10 +10,10 @@ export class EoscMainHeader extends Component<{name: string, surname: string}> {
     const logoutBtnConfig = navBtnsConfig.find((btn: any) => btn.label === "logout");
     const auth = !!this.props.name && !!this.props.surname
       ? <>
-        <li>{this.props.name} {this.props.surname}</li>
-        <li id="logout-btn"><a href={logoutBtnConfig.url}>{_.upperFirst(logoutBtnConfig.label)}</a></li>
+        <li key={_.uniqueId("eosc-main-header-li")}>{this.props.name} {this.props.surname}</li>
+        <li key={_.uniqueId("eosc-main-header-li")} id="logout-btn"><a href={logoutBtnConfig.url}>{_.upperFirst(logoutBtnConfig.label)}</a></li>
       </>
-      : <li><a href={ loginBtnConfig.url }>{ _.upperFirst(loginBtnConfig.label) }</a></li>;
+      : <li key={_.uniqueId("eosc-main-header-li")} id={"logout-btn"}><a href={ loginBtnConfig.url }>{ _.upperFirst(loginBtnConfig.label) }</a></li>;
     const currentUrl = location.protocol + '//' + location.host + location.pathname;
 
     return (
@@ -23,7 +23,7 @@ export class EoscMainHeader extends Component<{name: string, surname: string}> {
             {
               navBtnsConfig
                 .filter((btn: any) => btn.label !== "login" && btn.label !== "logout")
-                .map((btn: any) => <li>
+                .map((btn: any) => <li key={_.uniqueId("eosc-main-header-li")}>
                   <a
                     className={currentUrl === btn.url ? "acive" : ""}
                     href={ btn.url }
