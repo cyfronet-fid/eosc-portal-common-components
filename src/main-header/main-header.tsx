@@ -2,6 +2,8 @@ import * as _ from 'lodash';
 import React, { Component } from "react";
 import {render} from "react-dom";
 import {environment} from "../../env/env";
+import {faUser} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export class EoscMainHeader extends Component<{name: string, surname: string}> {
   render() {
@@ -10,12 +12,18 @@ export class EoscMainHeader extends Component<{name: string, surname: string}> {
     const logoutBtnConfig = navBtnsConfig.find((btn: any) => btn.label.toLowerCase() === "logout");
     const auth = !!this.props.name && !!this.props.surname
       ? <>
-        <li key={_.uniqueId("eosc-main-header-li")}>{this.props.name} {this.props.surname}</li>
-        <li key={_.uniqueId("eosc-main-header-li")} id="logout-btn"><a href={logoutBtnConfig.url}>{_.upperFirst(logoutBtnConfig.label)}</a></li>
-      </>
-      : <li key={_.uniqueId("eosc-main-header-li")} id={"logout-btn"}><a href={ loginBtnConfig.url }>{ _.upperFirst(loginBtnConfig.label) }</a></li>;
+          <li key={_.uniqueId("eosc-main-header-li")}>
+            <FontAwesomeIcon icon={faUser}/>
+            {this.props.name} {this.props.surname}
+          </li>
+          <li key={_.uniqueId("eosc-main-header-li")} id="logout-btn">
+            <strong><a href={logoutBtnConfig.url}>{_.upperFirst(logoutBtnConfig.label)}</a></strong>
+          </li>
+        </>
+      : <li key={_.uniqueId("eosc-main-header-li")} id="logout-btn">
+          <strong><a href={ loginBtnConfig.url }>{ _.upperFirst(loginBtnConfig.label) }</a></strong>
+        </li>;
     const currentUrl = location.protocol + '//' + location.host + location.pathname;
-
     return (
       <nav className={`top ${environment.production ? "" : "demo"}`}>
         <div className="container">
