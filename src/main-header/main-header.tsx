@@ -6,8 +6,8 @@ import {environment} from "../../env/env";
 export class EoscMainHeader extends Component<{name: string, surname: string}> {
   render() {
     const navBtnsConfig = environment.mainHeaderConfig as any;
-    const loginBtnConfig = navBtnsConfig.find((btn: any) => btn.label === "login");
-    const logoutBtnConfig = navBtnsConfig.find((btn: any) => btn.label === "logout");
+    const loginBtnConfig = navBtnsConfig.find((btn: any) => btn.label.toLowerCase() === "login");
+    const logoutBtnConfig = navBtnsConfig.find((btn: any) => btn.label.toLowerCase() === "logout");
     const auth = !!this.props.name && !!this.props.surname
       ? <>
         <li key={_.uniqueId("eosc-main-header-li")}>{this.props.name} {this.props.surname}</li>
@@ -22,13 +22,13 @@ export class EoscMainHeader extends Component<{name: string, surname: string}> {
           <ul className="right-inks">
             {
               navBtnsConfig
-                .filter((btn: any) => btn.label !== "login" && btn.label !== "logout")
+                .filter((btn: any) => btn.label.toLowerCase() !== "login" && btn.label.toLowerCase() !== "logout")
                 .map((btn: any) => <li key={_.uniqueId("eosc-main-header-li")}>
                   <a
-                    className={currentUrl === btn.url ? "acive" : ""}
+                    className={currentUrl === btn.url ? "active" : ""}
                     href={ btn.url }
                   >
-                    { _.upperFirst(btn.label) }
+                    { btn.label }
                   </a>
                 </li>)
             }
