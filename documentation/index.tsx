@@ -25,7 +25,7 @@ interface ComponentDocInfo {
 export class EoscComponentDoc extends Component<ComponentDocInfo> {
   render() {
     return (
-      <div>
+      <div key={_.uniqueId("eosc-component-doc")}>
         <h3>{this.props.name}</h3>
 
         <blockquote>
@@ -56,7 +56,7 @@ export class EoscComponentDoc extends Component<ComponentDocInfo> {
         <ul>
           {params.map((param: any) => (
             <>
-              <li>{param.name}</li>
+              <li key={_.uniqueId("eosc-component-doc-li")}>{param.name}</li>
               <blockquote><p dangerouslySetInnerHTML={{ __html: param.htmlDescription }} /></blockquote>
             </>
           ))}
@@ -76,7 +76,7 @@ export class EoscComponentDoc extends Component<ComponentDocInfo> {
         <ul>
           {functions.map((docFunction: any) => (
             <>
-              <li>{docFunction.name}</li>
+              <li key={_.uniqueId("eosc-component-doc-li")}>{docFunction.name}</li>
               <blockquote><p dangerouslySetInnerHTML={{ __html: docFunction.htmlDescription }} /></blockquote>
             </>
           ))}
@@ -96,7 +96,7 @@ export class EoscComponentDoc extends Component<ComponentDocInfo> {
         <ul>
           {examples.map((example: any) => (
             <>
-              <li>{example.isGood ? "Good" : "Bad"}</li>
+              <li key={_.uniqueId("eosc-component-doc-li")}>{example.isGood ? "Good" : "Bad"}</li>
               {
                 !!example.htmlDescription
                   ? <blockquote><p dangerouslySetInnerHTML={{ __html: example.htmlDescription }} /></blockquote>
@@ -117,7 +117,7 @@ render(
     <React.Fragment>
       {
         ((componentsDocsInfo as any).default as ComponentDocInfo[])
-          .map((info, index) => {
+          .map((info) => {
             return <EoscComponentDoc
               key={_.uniqueId("eosc-component-doc")}
               name={info.name}

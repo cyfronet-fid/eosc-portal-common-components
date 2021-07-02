@@ -33,44 +33,6 @@ exports.getTsWebpackConfig = function (mode = "development", entry = null) {
   return config;
 }
 
-/**
- *
- * @param entry
- * @param {"production" | "development"} mode
- */
-exports.getScssWebpackConfig = function (mode = "development", entry = null) {
-  const config = {
-    mode,
-    target: 'web',
-    output: {
-      filename: ''
-    },
-    resolve: {
-      extensions: ['.scss'],
-      modules: ["node_modules"]
-    },
-    module: {
-      rules: [
-        {
-          test: /\.s[ac]ss$/i,
-          exclude: /node_modules/,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {name: '[name].min.css'}
-            },
-            {loader: 'sass-loader'}
-          ],
-        }
-      ],
-    }
-  };
-  if (entry) {
-    config["entry"] = entry;
-  }
-  return config;
-}
-
 exports.getFileNameFrom = function (filePath) {
   return path
     .parse(filePath)

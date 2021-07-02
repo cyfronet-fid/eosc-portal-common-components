@@ -8,71 +8,109 @@ const webpack = require('webpack');
 const {STYLES_PATHS} = require("../index");
 const {COMPONENTS_PATHS} = require("../index");
 const concat = require('gulp-concat');
-const {getScssWebpackConfig, getFileNameFrom, getTsWebpackConfig} = require("./utils");
+const {getFileNameFrom, getTsWebpackConfig} = require("./utils");
 const log = require('fancy-log');
 const parser = require("yargs-parser");
 const _ = require("lodash");
+const sass = require('gulp-sass')(require('sass'));
 
+const rootPath = path.resolve(__dirname, "../");
 exports.buildLib = (argv = process.argv.slice(2)) => {
   const parsedParams = getProcessParams(argv);
   const {mode, dist_path: distPath, env} = parsedParams;
   return series(
     validParams(parsedParams, "mode", "dist_path", "env"),
-    replaceEnvConfigBy(env),
     async function removeOldDist(cb) {
       await execa('rm', ['-fR', `./dist/${distPath}`], {stdio: 'inherit'});
       cb();
-    }.bind(distPath),
+    },
+    function replaceEnvConfig() {
+      const envPath = path.resolve(rootPath, 'env');
+      return src(env)
+        .pipe(rename(`env.js`))
+        .pipe(dest(envPath));
+    },
     parallel(
-      transpileComponentsToSeparateFiles(mode, distPath),
-      transpileStylesToSeparateFiles(mode, distPath),
-      transpileComponentsBundle(mode, distPath),
-      transpileStylesBundle(mode, distPath)
+      transpileToSeparateFiles(
+        Object.assign({}, ...COMPONENTS_PATHS
+          .map(componentPath => path.resolve(rootPath, componentPath))
+          .map(componentPath => ({[getFileNameFrom(componentPath)]: componentPath}))),
+        mode,
+        distPath
+      ),
+      transpileToBundle(
+        COMPONENTS_PATHS.map(componentPath => path.resolve(rootPath, componentPath)),
+        mode,
+        distPath
+      )
     ),
+    preprocessStyles(distPath),
     deleteWebpackMisc(distPath)
   );
 }
 
-/**
- *
- * @param {string} env
- * @param {string} rootPath
- * @return {*}
- */
-const replaceEnvConfigBy = (env, rootPath = path.resolve(__dirname, "../")) => {
-  function replaceEnvConfig() {
-    const envPath = path.resolve(rootPath, 'env');
-    return src(env)
-      .pipe(rename(`env.js`))
-      .pipe(dest(envPath));
-  }
-
-  return replaceEnvConfig;
+const transpileTs = (mode, distPath, env) => {
+  return series(
+    function replaceEnvConfig() {
+      const envPath = path.resolve(rootPath, 'env');
+      return src(env)
+        .pipe(rename(`env.js`))
+        .pipe(dest(envPath));
+    },
+    parallel(
+      transpileToSeparateFiles(
+        Object.assign({}, ...COMPONENTS_PATHS
+          .map(componentPath => path.resolve(rootPath, componentPath))
+          .map(componentPath => ({[getFileNameFrom(componentPath)]: componentPath}))),
+        mode,
+        distPath
+      ),
+      transpileToBundle(mode, distPath)
+    )
+  );
 }
+
+const preprocessStyles = (distPath, browserSync = null) => {
+  return parallel(
+    function preprocessStylesToSeparateFiles() {
+      let pipe = src(STYLES_PATHS.map(stylesPath => path.resolve(rootPath, stylesPath)))
+        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+        .pipe(dest(path.resolve(rootPath, `dist/${distPath}/`)));
+      if (!!browserSync) {
+        pipe = pipe.pipe(browserSync.stream())
+      }
+      return pipe;
+    },
+    function preprocessStylesBundle() {
+      let pipe = src(path.resolve(rootPath, 'styles/index.scss'))
+        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+        .pipe(dest(path.resolve(rootPath, `dist/${distPath}/`)));
+      if (!!browserSync) {
+        pipe = pipe.pipe(browserSync.stream())
+      }
+      return pipe;
+    }
+  )
+}
+exports.preprocessStyles = preprocessStyles;
 
 /**
  *
  * @param {"development"|"production"} mode
+ * @param entries
+ * @param mode
  * @param distPath
- * @param rootPath
  * @return {*}
  */
-const transpileComponentsToSeparateFiles = (mode, distPath, rootPath = path.resolve(__dirname, "../")) => {
+const transpileToSeparateFiles = (entries, mode, distPath) => {
   function transpileComponentsToSeparateFiles() {
-    return webpackStream(
-      getTsWebpackConfig(
-        mode,
-        Object.assign({}, ...COMPONENTS_PATHS
-          .map(componentPath => path.resolve(rootPath, componentPath))
-          .map(componentPath => ({[getFileNameFrom(componentPath)]: componentPath})))
-      ),
-      webpack
-    )
+    return webpackStream(getTsWebpackConfig(mode, entries), webpack)
       .pipe(dest(path.resolve(rootPath, `dist/${distPath}/`)))
   }
 
   return transpileComponentsToSeparateFiles;
 }
+exports.transpileToSeparateFiles = transpileToSeparateFiles;
 
 /**
  *
@@ -81,33 +119,9 @@ const transpileComponentsToSeparateFiles = (mode, distPath, rootPath = path.reso
  * @param rootPath
  * @return {function(): *}
  */
-const transpileStylesToSeparateFiles = (mode, distPath, rootPath = path.resolve(__dirname, "../")) => {
-  function transpileScssToSeparateFiles() {
-    return webpackStream(
-      getScssWebpackConfig(
-        mode,
-        Object.assign({}, ...STYLES_PATHS
-          .map(stylesPath => path.resolve(rootPath, stylesPath))
-          .map(stylesPath => ({[getFileNameFrom(stylesPath)]: stylesPath})))
-      ),
-      webpack
-    )
-      .pipe(dest(path.resolve(rootPath, `dist/${distPath}/`)));
-  }
-
-  return transpileScssToSeparateFiles;
-}
-
-/**
- *
- * @param {"development"|"production"} mode
- * @param distPath
- * @param rootPath
- * @return {function(): *}
- */
-const transpileComponentsBundle = (mode, distPath, rootPath = path.resolve(__dirname, "../")) => {
+const transpileToBundle = (entries, mode, distPath) => {
   function transpileComponentsBundle() {
-    return src(COMPONENTS_PATHS.map(componentPath => path.resolve(rootPath, componentPath)))
+    return src(entries)
       .pipe(concat('bundle.tsx'))
       .pipe(dest(path.resolve(rootPath, `dist/${distPath}/`)))
       .pipe(
@@ -125,28 +139,7 @@ const transpileComponentsBundle = (mode, distPath, rootPath = path.resolve(__dir
 
   return transpileComponentsBundle;
 }
-
-/**
- *
- * @param {"development"|"production"} mode
- * @param distPath
- * @param rootPath
- * @return {function(): *}
- */
-const transpileStylesBundle = (mode, distPath, rootPath = path.resolve(__dirname, '../')) => {
-  function transpileStylesBundle() {
-    return webpackStream(
-      getScssWebpackConfig(
-        mode,
-        {"index": path.resolve(rootPath, 'styles/index.scss')}
-      ),
-      webpack
-    )
-      .pipe(dest(path.resolve(rootPath, `dist/${distPath}/`)));
-  }
-
-  return transpileStylesBundle;
-}
+exports.transpileToBundle = transpileToBundle;
 
 /**
  *
