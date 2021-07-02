@@ -40,7 +40,6 @@
     "gulp-concat": "^2.6.1",
     "gulp-rename": "^2.0.0",
     "gulp-sass": "^5.0.0",
-    "gulp-typescript": "^6.0.0-alpha.1",
     "jest": "^27.0.4",
     "loader-utils": "^2.0.0",
     "sass": "^1.35.0",
