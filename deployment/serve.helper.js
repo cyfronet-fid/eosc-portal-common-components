@@ -31,7 +31,7 @@ exports.serve = () => {
     path.resolve(rootPath, `src/**/*.ts`),
     path.resolve(rootPath, 'src/**/*.tsx'),
     path.resolve(rootPath, 'src/**/*.js'),
-    path.resolve(rootPath, 'src/**/*.json'),
+    path.resolve(rootPath, 'configurations/**/*/json')
   ];
   watch(
     libFilesToBuild,
