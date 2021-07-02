@@ -49,27 +49,6 @@ exports.buildLib = (argv = process.argv.slice(2)) => {
   );
 }
 
-const transpileTs = (mode, distPath, env) => {
-  return series(
-    function replaceEnvConfig() {
-      const envPath = path.resolve(rootPath, 'env');
-      return src(env)
-        .pipe(rename(`env.js`))
-        .pipe(dest(envPath));
-    },
-    parallel(
-      transpileToSeparateFiles(
-        Object.assign({}, ...COMPONENTS_PATHS
-          .map(componentPath => path.resolve(rootPath, componentPath))
-          .map(componentPath => ({[getFileNameFrom(componentPath)]: componentPath}))),
-        mode,
-        distPath
-      ),
-      transpileToBundle(mode, distPath)
-    )
-  );
-}
-
 const preprocessStyles = (distPath, browserSync = null) => {
   return parallel(
     function preprocessStylesToSeparateFiles() {
@@ -94,14 +73,6 @@ const preprocessStyles = (distPath, browserSync = null) => {
 }
 exports.preprocessStyles = preprocessStyles;
 
-/**
- *
- * @param {"development"|"production"} mode
- * @param entries
- * @param mode
- * @param distPath
- * @return {*}
- */
 const transpileToSeparateFiles = (entries, mode, distPath) => {
   function transpileComponentsToSeparateFiles() {
     return webpackStream(getTsWebpackConfig(mode, entries), webpack)
@@ -112,13 +83,6 @@ const transpileToSeparateFiles = (entries, mode, distPath) => {
 }
 exports.transpileToSeparateFiles = transpileToSeparateFiles;
 
-/**
- *
- * @param {"development"|"production"} mode
- * @param distPath
- * @param rootPath
- * @return {function(): *}
- */
 const transpileToBundle = (entries, mode, distPath) => {
   function transpileComponentsBundle() {
     return src(entries)
@@ -141,12 +105,6 @@ const transpileToBundle = (entries, mode, distPath) => {
 }
 exports.transpileToBundle = transpileToBundle;
 
-/**
- *
- * @param distPath
- * @param rootPath
- * @return {function(*=): Promise<string[]> | *}
- */
 const deleteWebpackMisc = (distPath, rootPath = path.resolve(__dirname, '../')) => {
   function deleteWebpackMisc(cb) {
     return del([

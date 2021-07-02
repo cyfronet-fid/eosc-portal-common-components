@@ -27,7 +27,6 @@ export class EoscComponentDoc extends Component<ComponentDocInfo> {
     return (
       <div key={_.uniqueId("eosc-component-doc")}>
         <h3>{this.props.name}</h3>
-
         <blockquote>
           <p dangerouslySetInnerHTML={{ __html: this.props.htmlDescription }} />
         </blockquote>
