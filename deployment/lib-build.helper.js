@@ -3,15 +3,12 @@ const path = require('path');
 const del = require('del');
 const rename = require('gulp-rename');
 const execa = require('execa');
-const webpackStream = require('webpack-stream');
-const webpack = require('webpack');
 const {STYLES_PATHS} = require("../index");
 const {COMPONENTS_PATHS} = require("../index");
-const concat = require('gulp-concat');
-const {getFileNameFrom, getTsWebpackConfig} = require("./utils");
 const log = require('fancy-log');
 const parser = require("yargs-parser");
 const _ = require("lodash");
+const {transpileToBundle} = require("./utils");
 const sass = require('gulp-sass')(require('sass'));
 
 const rootPath = path.resolve(__dirname, "../");
@@ -31,13 +28,6 @@ exports.buildLib = (argv = process.argv.slice(2)) => {
         .pipe(dest(envPath));
     },
     parallel(
-      transpileToSeparateFiles(
-        Object.assign({}, ...COMPONENTS_PATHS
-          .map(componentPath => path.resolve(rootPath, componentPath))
-          .map(componentPath => ({[getFileNameFrom(componentPath)]: componentPath}))),
-        mode,
-        distPath
-      ),
       transpileToBundle(
         COMPONENTS_PATHS.map(componentPath => path.resolve(rootPath, componentPath)),
         mode,
@@ -72,38 +62,6 @@ const preprocessStyles = (distPath, browserSync = null) => {
   )
 }
 exports.preprocessStyles = preprocessStyles;
-
-const transpileToSeparateFiles = (entries, mode, distPath) => {
-  function transpileComponentsToSeparateFiles() {
-    return webpackStream(getTsWebpackConfig(mode, entries), webpack)
-      .pipe(dest(path.resolve(rootPath, `dist/${distPath}/`)))
-  }
-
-  return transpileComponentsToSeparateFiles;
-}
-exports.transpileToSeparateFiles = transpileToSeparateFiles;
-
-const transpileToBundle = (entries, mode, distPath) => {
-  function transpileComponentsBundle() {
-    return src(entries)
-      .pipe(concat('bundle.tsx'))
-      .pipe(dest(path.resolve(rootPath, `dist/${distPath}/`)))
-      .pipe(
-        webpackStream(
-          getTsWebpackConfig(
-            mode,
-            {"index": path.resolve(rootPath, `dist/${distPath}/bundle.tsx`)}
-          ),
-          webpack
-        )
-      )
-      .pipe(dest(path.resolve(rootPath, `dist/${distPath}/`)))
-      .on('end', () => del(path.resolve(rootPath, `dist/${distPath}/bundle.tsx`)));
-  }
-
-  return transpileComponentsBundle;
-}
-exports.transpileToBundle = transpileToBundle;
 
 const deleteWebpackMisc = (distPath, rootPath = path.resolve(__dirname, '../')) => {
   function deleteWebpackMisc(cb) {

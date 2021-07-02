@@ -2,25 +2,7 @@ import React, { Component } from "react";
 import {render} from "react-dom";
 import * as componentsDocsInfo from "./index.json";
 import * as _ from "lodash";
-
-interface ComponentDocInfo {
-  name: string;
-  htmlDescription: string;
-  htmlTag: string;
-  examples: {
-    isGood: boolean;
-    htmlDescription?: string;
-    htmlTag: string;
-  }[];
-  parameters?: {
-    name: string;
-    htmlDescription: string;
-  }[];
-  functions?: {
-    name: string;
-    htmlDescription: string;
-  }[];
-};
+import {ComponentDocInfo} from "./component-doc-info.interface";
 
 export class EoscComponentDoc extends Component<ComponentDocInfo> {
   render() {

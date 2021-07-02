@@ -1,43 +1,37 @@
 const path = require('path');
-const execa = require('execa');
+const concat = require('gulp-concat');
+const {src, dest} = require('gulp');
+const webpackStream = require('webpack-stream');
+const webpack = require('webpack');
+const named = require('vinyl-named');
 
-/**
- *
- * @param entry
- * @param {"production" | "development"} mode
- */
-exports.getTsWebpackConfig = function (mode = "development", entry = null) {
-  const config = {
-    mode,
-    target: "web",
-    output: {
-      filename: '[name].min.js'
-    },
-    resolve: {
-      extensions: ['.tsx', '.ts', '.js', '.json'],
-      modules: ["node_modules"]
-    },
-    module: {
-      rules: [
-        {
-          test: /\.tsx?$/i,
-          exclude: /node_modules|\.git/,
-          use: 'ts-loader'
-        }
-      ],
-    }
-  };
-  if (entry) {
-    config["entry"] = entry;
+const rootPath = path.resolve(__dirname, "../");
+
+const webpackConf = {
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js', '.json'],
+    modules: ["node_modules"]
+  },
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/i,
+        exclude: /node_modules|\.git/,
+        use: 'ts-loader'
+      }
+    ],
   }
-  return config;
-}
+};
+const transpileToBundle = (entries, mode, distPath) => {
+  function transpileToBundle() {
+    return src(entries)
+      .pipe(named((file) => file.path.replace(/^.*[\\\/]/, '').replace(/\.[^/.]+$/, "") + ".min"))
+      .pipe(webpackStream({...webpackConf, mode}, webpack))
+      .pipe(dest(path.resolve(rootPath, `dist/${distPath}/`)))
+      .pipe(concat('index.min.js'))
+      .pipe(dest(path.resolve(rootPath, `dist/${distPath}/`)));
+  }
 
-exports.getFileNameFrom = function (filePath) {
-  return path
-    .parse(filePath)
-    .base
-    .split('.')
-    .slice(0, -1)
-    .join('.');
+  return transpileToBundle;
 }
+exports.transpileToBundle = transpileToBundle;
