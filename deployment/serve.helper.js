@@ -1,10 +1,8 @@
 const {watch, series} = require("gulp");
 const del = require('del');
 const path = require('path');
-const {buildLib} = require("./lib-build.helper");
-const parser = require("yargs-parser");
+const {transpileToBundle} = require("./utils");
 const {COMPONENTS_PATHS} = require("../index");
-const {transpileToBundle} = require("./lib-build.helper");
 const {preprocessStyles} = require("./lib-build.helper");
 const {buildDocumentation} = require("./doc-build.helper");
 const browserSync = require('browser-sync').create();
@@ -50,8 +48,8 @@ exports.serve = () => {
 
   // on documentation changes
   const docFilesToBuild = [
-    path.resolve(rootPath, 'documentation/index.tsx'),
-    path.resolve(rootPath, 'documentation/index.json')
+    path.resolve(rootPath, 'documentation/**/*.tsx'),
+    path.resolve(rootPath, 'documentation/**/*.json')
   ];
   watch(
     docFilesToBuild,
