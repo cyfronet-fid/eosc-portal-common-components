@@ -6,18 +6,33 @@
     "parameters": [
       {
         "name": "name",
-        "htmlDescription": "name of logged in user"
+        "htmlDescription": "The name of logged in user"
       },
       {
         "name": "surname",
-        "htmlDescription": "surname of logged in user"
+        "htmlDescription": "The surname of logged in user"
       }
     ],
     "examples": [
       {
         "isGood": true,
-        "htmlDescription": "",
+        "htmlDescription": "The user & surname Fields are both filled up",
         "htmlTag": "<eosc-main-header name=\"test1\" surname=\"test2\"></eosc-main-header>"
+      },
+      {
+        "isGood": true,
+        "htmlDescription": "The user & surname fields are both empty",
+        "htmlTag": "<eosc-main-header name=\"\" surname=\"\"></eosc-main-header>"
+      },
+      {
+        "isGood": false,
+        "htmlDescription": "The user & surname Fields aren't both filled up",
+        "htmlTag": "<eosc-main-header name=\"\" surname=\"test2\"></eosc-main-header>"
+      },
+      {
+        "isGood": false,
+        "htmlDescription": "The user & surname Fields aren't both filled up",
+        "htmlTag": "<eosc-main-header name=\"test1\" surname=\"\"></eosc-main-header>"
       }
     ]
   },

@@ -106,7 +106,7 @@ render(
               htmlTag={info.htmlTag}
               examples={info.examples}
               parameters={info.parameters}
-              functions={info.parameters}
+              functions={info.functions}
             />
           })
       }
