@@ -76,7 +76,7 @@ const deleteWebpackMisc = (distPath, rootPath = path.resolve(__dirname, '../')) 
 
 const getProcessParams = (argv) => {
   const parsedParams = parser(argv, {default: {env: ""}});
-  if (!parsedParams["env"]) {
+  if (!parsedParams["env"] || parsedParams["env"] === "") {
     switch (parsedParams["mode"]) {
       case "production":
         parsedParams["env"] = 'env/env.production.js';
