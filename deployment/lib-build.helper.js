@@ -15,25 +15,14 @@ const rootPath = path.resolve(__dirname, "../");
 exports.buildLib = (argv = process.argv.slice(2)) => {
   const parsedParams = getProcessParams(argv);
   const {mode, dist_path: distPath, env} = parsedParams;
+  const bundleEntries = COMPONENTS_PATHS.map(componentPath => path.resolve(rootPath, componentPath));
   return series(
     validParams(parsedParams, "mode", "dist_path", "env"),
     async function removeOldDist(cb) {
       await execa('rm', ['-fR', `./dist/${distPath}`], {stdio: 'inherit'});
       cb();
     },
-    function replaceEnvConfig() {
-      const envPath = path.resolve(rootPath, 'env');
-      return src(env)
-        .pipe(rename(`env.js`))
-        .pipe(dest(envPath));
-    },
-    parallel(
-      transpileToBundle(
-        COMPONENTS_PATHS.map(componentPath => path.resolve(rootPath, componentPath)),
-        mode,
-        distPath
-      )
-    ),
+    transpileToBundle(bundleEntries, mode, distPath, env),
     preprocessStyles(distPath),
     deleteWebpackMisc(distPath)
   );
