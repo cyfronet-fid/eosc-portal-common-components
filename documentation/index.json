@@ -16,7 +16,7 @@
       {
         "isGood": true,
         "htmlDescription": "User is logged in when name and surname is set",
-        "htmlTag": "<eosc-main-header name=\"user-name\" surname=\"user-surname\"></eosc-main-header>"
+        "htmlTag": "<eosc-main-header name=\"name\" surname=\"surname\"></eosc-main-header>"
       },
       {
         "isGood": true,
