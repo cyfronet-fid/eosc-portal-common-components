@@ -13,10 +13,6 @@ export class EoscComponentDoc extends Component<ComponentDocInfo> {
           <p dangerouslySetInnerHTML={{ __html: this.props.htmlDescription }} />
         </blockquote>
 
-        <b>Visualization</b>
-        <div dangerouslySetInnerHTML={{ __html: this.props.htmlTag }} />
-        <br />
-
         {EoscComponentDoc._getParams(this.props.parameters)}
         {EoscComponentDoc._getFunctions(this.props.functions)}
         {EoscComponentDoc._getExamples(this.props.examples)}
@@ -83,6 +79,8 @@ export class EoscComponentDoc extends Component<ComponentDocInfo> {
                   ? <blockquote><p dangerouslySetInnerHTML={{ __html: example.htmlDescription }} /></blockquote>
                   : <></>
               }
+              <div dangerouslySetInnerHTML={{ __html: example.htmlTag }} />
+              <br />
               <pre><code>{example.htmlTag}</code></pre>
             </>
           ))}
