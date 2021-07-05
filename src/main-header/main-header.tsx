@@ -48,11 +48,13 @@ export class EoscMainHeader extends Component<{name: string, surname: string}> {
   }
 }
 
-const eoscMainHeader = document.getElementsByTagName("eosc-main-header")[0];
-render(
-  <EoscMainHeader
-    name={ eoscMainHeader.getAttribute("name") }
-    surname={ eoscMainHeader.getAttribute("surname") }
-  />,
-  eoscMainHeader
-);
+const eoscMainHeaders = document.getElementsByTagName("eosc-main-header");
+Array.from(eoscMainHeaders)
+  .map(eoscMainHeader => render(
+    <EoscMainHeader
+      key={ _.uniqueId("eosc-main-header") }
+      name={ eoscMainHeader.getAttribute("name") }
+      surname={ eoscMainHeader.getAttribute("surname") }
+    />,
+    eoscMainHeader
+  ));
