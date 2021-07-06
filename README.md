@@ -141,7 +141,7 @@ For refresher see [HTML tutorial](https://www.w3schools.com/html/) or [JS tutori
     </body>
     ```
 
-- Attaching specific component from [list](https://cyfronet-fid.github.io/eosc-portal-commons-components)
+- Attaching specific component from [list](https://cyfronet-fid.github.io/eosc-portal-common-components)
   by its name
   > Add script and styles to file with extension `.html`. It can be done by appending it into `<body>...</body>` section.
   
