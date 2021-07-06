@@ -1,4 +1,4 @@
-# EOSC Portal commons components
+# EOSC Portal common components
 
 ### Table of contents
 - [Description](#description)
