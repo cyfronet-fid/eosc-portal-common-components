@@ -25,9 +25,9 @@ jobs:
       - name: Install dependecies
         run: npm install && npm install -g gulp-cli
       - name: Build documentation & related
-        run: gulp build_doc --mode production --dist_path documentation
+        run: gulp build_doc --mode production
       - name: Push to documentation branch
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: documentation
-          folder: dist/documentation
+          folder: dist
