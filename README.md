@@ -116,7 +116,6 @@ or [JS tutorial](https://www.w3schools.com/js/default.asp).
             logoutUrl="https://marketplace.eosc-portal.eu/users/logout"
           ></eosc-common-main-header>
       
-          <!-- Work in progress on deployment to S3 -->
           <script src="https://s3.cloud.cyfronet.pl/eosc-portal-common/index.production.min.js"></script>
           <link rel="stylesheet" href="https://s3.cloud.cyfronet.pl/eosc-portal-common/index.production.min.css" />
         </body>
@@ -165,7 +164,6 @@ or [JS tutorial](https://www.w3schools.com/js/default.asp).
             logoutUrl="https://marketplace.eosc-portal.eu/users/logout"
           ></eosc-common-main-header> 
         
-          <!-- Work in progress on deployment to S3 -->
           <script src="https://s3.cloud.cyfronet.pl/eosc-portal-common/main-header.production.min.js"></script>
           <link rel="stylesheet" href="https://s3.cloud.cyfronet.pl/eosc-portal-common/main-header.production.min.css" />
         </body>

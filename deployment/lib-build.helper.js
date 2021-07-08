@@ -45,7 +45,7 @@ const preprocessStyles = (mode, env, browserSync = null) => {
         pipe = pipe.pipe(sourcemaps.init())
       }
       pipe = pipe
-        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+        .pipe(sass({outputStyle: 'compressed', includePaths: [rootPath, path.resolve(rootPath, "styles")]}).on('error', sass.logError))
         .pipe(rename({ extname: `.${getSuffixBy(env)}.min.css` }))
 
       if (mode === "development") {
@@ -64,7 +64,7 @@ const preprocessStyles = (mode, env, browserSync = null) => {
         pipe = pipe.pipe(sourcemaps.init())
       }
       pipe = pipe
-        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+        .pipe(sass({outputStyle: 'compressed', includePaths: [rootPath, path.resolve(rootPath, "styles")]}).on('error', sass.logError))
         .pipe(rename({ extname: `.${getSuffixBy(env)}.min.css` }));
       if (mode === "development") {
         pipe = pipe.pipe(sourcemaps.write('.'));
