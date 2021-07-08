@@ -7,10 +7,11 @@ const named = require('vinyl-named');
 const rename = require('gulp-rename');
 const log = require('fancy-log');
 const _ = require("lodash");
-const sourcemaps = require('gulp-sourcemaps');
+const sourcemaps = require("gulp-sourcemaps");
+const through = require("through2");
+const del = require("del");
 
 const rootPath = path.resolve(__dirname, "../");
-
 const webpackConf = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.json'],
@@ -36,14 +37,7 @@ const transpileToBundle = (entries, mode, env, bundleName = `index`) => {
     function transpileToBundle() {
       return src(entries)
         .pipe(named((file) => file.path.replace(/^.*[\\\/]/, '').replace(/\.[^/.]+$/, "") + `.${getSuffixBy(env)}.min`))
-        .pipe(webpackStream(
-          {
-            ...webpackConf,
-            mode,
-            devtool: mode === "development" ? 'source-map' : false
-          },
-          webpack
-        ))
+        .pipe(webpackStream({...webpackConf, mode, devtool: mode === "development" ? 'inline-source-map' : false}, webpack))
         .pipe(dest(path.resolve(rootPath, `dist`)))
         .pipe(concat(`${bundleName}.${getSuffixBy(env)}.min.js`))
         .pipe(dest(path.resolve(rootPath, `dist`)));
