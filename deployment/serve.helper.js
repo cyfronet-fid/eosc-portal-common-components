@@ -26,7 +26,7 @@ exports.serve = () => {
   watch(
     stylesPathsPatterns,
     options,
-    preprocessStyles('env/env.production.js', browserSync)
+    preprocessStyles('development', 'env/env.production.js', browserSync)
   );
 
   // on lib ts changes

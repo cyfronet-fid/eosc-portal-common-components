@@ -5,9 +5,9 @@ const webpackStream = require('webpack-stream');
 const webpack = require('webpack');
 const named = require('vinyl-named');
 const rename = require('gulp-rename');
-const parser = require('yargs-parser');
 const log = require('fancy-log');
 const _ = require("lodash");
+const sourcemaps = require('gulp-sourcemaps');
 
 const rootPath = path.resolve(__dirname, "../");
 
@@ -36,7 +36,14 @@ const transpileToBundle = (entries, mode, env, bundleName = `index`) => {
     function transpileToBundle() {
       return src(entries)
         .pipe(named((file) => file.path.replace(/^.*[\\\/]/, '').replace(/\.[^/.]+$/, "") + `.${getSuffixBy(env)}.min`))
-        .pipe(webpackStream({...webpackConf, mode}, webpack))
+        .pipe(webpackStream(
+          {
+            ...webpackConf,
+            mode,
+            devtool: mode === "development" ? 'source-map' : false
+          },
+          webpack
+        ))
         .pipe(dest(path.resolve(rootPath, `dist`)))
         .pipe(concat(`${bundleName}.${getSuffixBy(env)}.min.js`))
         .pipe(dest(path.resolve(rootPath, `dist`)));
@@ -50,24 +57,6 @@ const getSuffixBy = (envPath) => {
     .split(".")[1];
 }
 exports.getSuffixBy = getSuffixBy;
-
-const getProcessParams = (argv) => {
-  const parsedParams = parser(argv, {default: {env: ""}});
-  if (!parsedParams["env"] || parsedParams["env"] === "") {
-    switch (parsedParams["mode"]) {
-      case "production":
-        parsedParams["env"] = 'env/env.production.js';
-        break;
-      case "development":
-      default:
-        parsedParams["env"] = 'env/env.development.js';
-        break;
-    }
-  }
-
-  return parsedParams;
-}
-exports.getProcessParams = getProcessParams;
 
 const validParams = (parsedParams, ...requiredFields) => {
   function validParams(cb) {
@@ -92,9 +81,8 @@ const validParams = (parsedParams, ...requiredFields) => {
     if (hasError) {
       log(`
         To get more knowledge about params please see documentation under URL:\n
-        - https://github.com/cyfronet-fid/eosc-portal-commons-components#development
-        - https://github.com/cyfronet-fid/eosc-portal-commons-components#building
-        - https://github.com/cyfronet-fid/eosc-portal-commons-components#deploying
+        - https://github.com/cyfronet-fid/eosc-portal-common#development
+        - https://github.com/cyfronet-fid/eosc-portal-common#building
       `)
       process.exit(1);
     }
