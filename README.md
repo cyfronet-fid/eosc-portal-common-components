@@ -58,7 +58,7 @@ npm i
 
 ### Building
 
-Building produce `*.min.js`, `*.min.css` files into `dist/<dist_path>` folder.
+Building produce `*.min.js`, `*.min.css` files into `dist` folder.
 `index.min.js` and `index.mn.css` contains all library components. Other scripts and styles will be named as components.
 
 **Params**
@@ -68,12 +68,11 @@ Building produce `*.min.js`, `*.min.css` files into `dist/<dist_path>` folder.
   > - `development` mode create an additional source maps for debugging purpose
 - env
   > Relative path to specific configuration starting at `root` level,
-  > - by default env files are chosen by `mode`
 
 Examples
 
 ```bash
-gulp build_lib --mode development 
+gulp build_lib --mode development --env env/env.production.js 
 ```
 
 ```bash

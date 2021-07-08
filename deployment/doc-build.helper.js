@@ -1,13 +1,13 @@
 const path = require('path');
 const {validParams} = require("./utils");
-const {getProcessParams} = require("./utils");
 const {buildLib} = require("./lib-build.helper");
 const {transpileToBundle} = require("./utils");
 const {dest, parallel, src, series} = require('gulp');
+const parser = require('yargs-parser');
 
 const rootPath = path.resolve(__dirname, "../")
 exports.buildDocumentation = (argv = process.argv.slice(2)) => {
-  const parsedParams = getProcessParams(argv);
+  const parsedParams = parser(argv);
   const {mode, env} = parsedParams;
   return series(
     validParams(parsedParams, "mode", "env"),
@@ -20,7 +20,7 @@ exports.buildDocumentation = (argv = process.argv.slice(2)) => {
       transpileToBundle(
         path.resolve(rootPath, 'documentation/*.tsx'),
         mode,
-        'env/env.production.js',
+        env,
         'documentation'
       ),
       function moveCssFiles() {
