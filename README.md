@@ -127,8 +127,8 @@ or [JS tutorial](https://www.w3schools.com/js/default.asp).
             logoutUrl="https://marketplace.eosc-portal.eu/users/logout"
           ></eosc-common-main-header> 
       
-          <script src="<dist_path>/index.producition.min.js"></script>
-          <link rel="stylesheet" href="<dist_path>/index.production.min.css" />
+          <script src="../dist/index.production.min.js"></script>
+          <link rel="stylesheet" href="../dist/index.production.min.css" />
         </body>
       </html>
       ```
@@ -175,8 +175,8 @@ or [JS tutorial](https://www.w3schools.com/js/default.asp).
             logoutUrl="https://marketplace.eosc-portal.eu/users/logout"
           ></eosc-common-main-header> 
         
-          <script src="<dist_path>/main-header.production.min.js"></script>
-          <link rel="stylesheet" href="<dist_path>/main-header.production.min.css" />
+          <script src="../dist/main-header.production.min.js"></script>
+          <link rel="stylesheet" href="../dist/main-header.production.min.css" />
         </body>
       </html>
       ```
@@ -194,8 +194,8 @@ The URL pattern for:
   ```
 
   The lib versions:
-  - pr-<pull-request-number>
-  - latest
+  - `pr-<pull-request-number>`
+  - `latest`
 
 Data instances:
 - development
