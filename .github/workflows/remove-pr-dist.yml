@@ -1,10 +1,12 @@
-name: Remove PR dist from S3
+name: remove pr dist from s3
 on:
-  delete:
+  pull_request:
     branches:
       - '**'
       - '!master'
       - '!development'
+    types:
+      - closed
 
 jobs:
   deploy:
@@ -12,10 +14,6 @@ jobs:
     steps:
       - uses: jwalton/gh-find-current-pr@v1
         id: findPr
-      - run: echo "Your PR is ${PR}"
-        if: success() && steps.findPr.outputs.number
-        env:
-          PR: ${{ steps.findPr.outputs.pr }}
       - name: Remove from S3
         if: success() && steps.findPr.outputs.number
         uses: vitorsgomes/s3-rm-action@master
