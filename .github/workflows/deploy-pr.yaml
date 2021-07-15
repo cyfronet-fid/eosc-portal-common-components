@@ -19,14 +19,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: jwalton/gh-find-current-pr@v1
-        id: findPr
+      - run: echo ::set-env name=PULL_NUMBER::$(echo "$GITHUB_REF" | awk -F / '{print $3}')
+        shell: bash
       - uses: actions/setup-node@v2
-        if: success() && steps.findPr.outputs.number
+        if: PULL_NUMBER
         with:
           node-version: '14'
       - name: Cache node modules
-        if: success() && steps.findPr.outputs.number
+        if: PULL_NUMBER
         uses: actions/cache@v2
         env:
           cache-name: cache-node-modules
@@ -38,13 +38,13 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       - name: Install dependecies
-        if: success() && steps.findPr.outputs.number
+        if: PULL_NUMBER
         run: npm install && npm install -g gulp-cli
       - name: Build library with production data
-        if: success() && steps.findPr.outputs.number
+        if: PULL_NUMBER
         run: gulp build_doc --mode development --env env/env.production.js --dist_path https://s3.cloud.cyfronet.pl/eosc-portal-common/pr-${{ steps.findPr.outputs.number }}/
       - uses: jakejarvis/s3-sync-action@master
-        if: success() && steps.findPr.outputs.number
+        if: PULL_NUMBER
         with:
           args: --acl public-read --follow-symlinks --delete
         env:
@@ -53,12 +53,12 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_S3_ENDPOINT: ${{ secrets.AWS_S3_ENDPOINT }}
           SOURCE_DIR: 'dist'
-          DEST_DIR: "pr-${{ steps.findPr.outputs.number }}"
+          DEST_DIR: "pr-${{ PULL_NUMBER }}"
       - name: Build library with development data
-        if: success() && steps.findPr.outputs.number
+        if: PULL_NUMBER
         run: gulp build_doc --mode development --env env/env.development.js --dist_path https://s3.cloud.cyfronet.pl/eosc-portal-common/pr-${{ steps.findPr.outputs.number }}/
       - uses: jakejarvis/s3-sync-action@master
-        if: success() && steps.findPr.outputs.number
+        if: PULL_NUMBER
         with:
           args: --acl public-read --follow-symlinks
         env:
@@ -67,4 +67,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_S3_ENDPOINT: ${{ secrets.AWS_S3_ENDPOINT }}
           SOURCE_DIR: 'dist'
-          DEST_DIR: 'pr-${{ steps.findPr.outputs.number }}'
+          DEST_DIR: 'pr-${{ PULL_NUMBER }}'
