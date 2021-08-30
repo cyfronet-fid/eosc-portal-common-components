@@ -35,7 +35,7 @@ export function tryLogin(props: IEoscMainHeader) {
     return;
   }
 
-  console.warn("Login attempt goes wrong. Your session may expired.");
+  console.warn("Login attempt goes wrong. Your session may expired!");
 }
 
 export function valid(props: IEoscMainHeader) {
