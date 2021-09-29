@@ -10,16 +10,9 @@
     "resolveJsonModule": true,
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
-    "lib": [
-      "es2017",
-      "DOM"
-    ],
+    "lib": ["es2017", "DOM"],
     "sourceMap": true,
     "removeComments": true
   },
-  "exclude": [
-    "**/*.d.ts",
-    "typings/**/*",
-    "node_modules"
-  ]
+  "exclude": ["**/*.d.ts", "typings/**/*", "node_modules"]
 }

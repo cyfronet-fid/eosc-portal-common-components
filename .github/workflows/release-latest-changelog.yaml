@@ -2,10 +2,10 @@ name: Release latest changelog
 on:
   push:
     branches:
-      - 'develop'
+      - "develop"
     paths-ignore:
-      - 'package.json'
-      - 'CHANGELOG.md'
+      - "package.json"
+      - "CHANGELOG.md"
 
 jobs:
   release-latest-changelog:
@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: '0'
+          fetch-depth: "0"
       - name: Build Changelog
         id: github_release
         uses: mikepenz/release-changelog-builder-action@v2.1.0
@@ -24,8 +24,8 @@ jobs:
       - name: Create Release
         uses: ncipollo/release-action@v1.8.6
         with:
-          tag: 'latest'
-          name: 'Latest'
+          tag: "latest"
+          name: "Latest"
           prerelease: true
           allowUpdates: true
           body: ${{steps.github_release.outputs.changelog}}

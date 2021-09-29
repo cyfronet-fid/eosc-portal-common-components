@@ -1,84 +1,152 @@
-const {src, dest, series, parallel} = require('gulp');
-const path = require('path');
-const del = require('del');
-const execa = require('execa');
-const {getSuffixBy} = require("./utils");
-const {STYLES_PATHS} = require("../app");
-const {COMPONENTS_PATHS} = require("../app");
-const parser = require('yargs-parser');
 const {
-  validParams,
-  transpileToBundle
-} = require("./utils");
-const sass = require('gulp-sass')(require('sass'));
-const rename = require('gulp-rename');
-const sourcemaps = require('gulp-sourcemaps');
+ src, dest, series, parallel 
+} = require("gulp");
+const path = require("path");
+const parser = require("yargs-parser");
+const gulpIf = require("gulp-if");
+const sass = require("gulp-sass")(require("sass"));
+const rename = require("gulp-rename");
+const sourcemaps = require("gulp-sourcemaps");
+const concat = require("gulp-concat");
+const named = require("vinyl-named");
+const webpack = require("webpack");
+const webpackStream = require("gulp-webpack");
+const TerserPlugin = require("terser-webpack-plugin");
+const { validEnvArgv } = require("./validators");
+const { validProductionArgv } = require("./validators");
+const { COMPONENTS_PATHS } = require("../app");
+const { STYLES_PATHS } = require("../app");
+const { getSuffixBy } = require("./utils");
 
 const rootPath = path.resolve(__dirname, "../");
 exports.buildLib = (argv = process.argv.slice(2)) => {
-  const parsedParams = parser(argv);
-  const {mode, env} = parsedParams;
-  const bundleEntries = COMPONENTS_PATHS.map(componentPath => path.resolve(rootPath, componentPath));
+  const { production, env } = parser(argv);
+  const bundleEntries = COMPONENTS_PATHS.map((componentPath) => path.resolve(rootPath, componentPath));
   return series(
-    validParams(parsedParams, "mode", "env"),
-    async function removeOldDist(cb) {
-      await execa('rm', ['-fR', `dist`], {stdio: 'inherit'});
-      cb();
-    },
+    parallel(validProductionArgv(production), validEnvArgv(env)),
     function moveAssets() {
-      return src(path.resolve(rootPath, "styles/assets/*"))
-        .pipe(dest(path.resolve(rootPath, "dist/assets")))
+      return src(path.resolve(rootPath, "styles/assets/*")).pipe(dest(path.resolve(rootPath, "dist/assets")));
     },
-    transpileToBundle(bundleEntries, mode, env),
-    preprocessStyles(mode, env),
-    function deleteWebpackMisc(cb) {
-      return del([
-        path.resolve(rootPath, `dist/*.js`),
-        "!" + path.resolve(rootPath, `dist/*.min.js`)
-      ], cb);
-    }
+    parallel(
+      series(replaceEnvConfig(env), transpileFiles(bundleEntries, production, env))
+      // preprocessStyles(production, env)
+    )
   );
-}
+};
 
-const preprocessStyles = (mode, env, browserSync = null) => {
+const preprocessStyles = (production, env, browserSync = null) => {
   return parallel(
-    function preprocessStylesToSeparateFiles() {
-      let pipe = src(STYLES_PATHS.map(stylesPath => path.resolve(rootPath, stylesPath)));
-
-      if (mode === "development") {
-        pipe = pipe.pipe(sourcemaps.init())
+    series(
+      function preprocessStylesToSeparateFiles() {
+        return src(STYLES_PATHS.map((stylesPath) => path.resolve(rootPath, stylesPath)))
+          .pipe(gulpIf(!production, sourcemaps.init()))
+          .pipe(
+            sass({
+              errLogToConsole: true,
+              outputStyle: "compressed",
+              includePaths: [rootPath, path.resolve(rootPath, "styles"), "./"],
+            }).on("error", sass.logError)
+          )
+          .pipe(rename({ extname: `.${getSuffixBy(env)}.min.css` }))
+          .pipe(gulpIf(!production, sourcemaps.write(".")))
+          .pipe(dest(path.resolve(rootPath, "dist")));
+      },
+      (cb) => {
+        if (browserSync) {
+          browserSync.stream();
+        }
+        cb();
       }
-      pipe = pipe
-        .pipe(sass({outputStyle: 'compressed', includePaths: [rootPath, path.resolve(rootPath, "styles")]}).on('error', sass.logError))
-        .pipe(rename({ extname: `.${getSuffixBy(env)}.min.css` }))
-
-      if (mode === "development") {
-        pipe = pipe.pipe(sourcemaps.write('.'));
+    ),
+    series(
+      function preprocessStylesBundle() {
+        return src(path.resolve(rootPath, "styles/index.scss"))
+          .pipe(gulpIf(!production, sourcemaps.init()))
+          .pipe(
+            sass({
+              errLogToConsole: true,
+              outputStyle: "compressed",
+              includePaths: [rootPath, path.resolve(rootPath, "styles"), "./"],
+            }).on("error", sass.logError)
+          )
+          .pipe(rename({ extname: `.${getSuffixBy(env)}.min.css` }))
+          .pipe(gulpIf(!production, sourcemaps.write(".")))
+          .pipe(dest(path.resolve(rootPath, "dist")));
+      },
+      (cb) => {
+        if (browserSync) {
+          browserSync.stream();
+        }
+        cb();
       }
-      pipe = pipe.pipe(dest(path.resolve(rootPath, `dist`)));
-      if (!!browserSync) {
-        pipe = pipe.pipe(browserSync.stream())
-      }
-      return pipe;
-    },
-    function preprocessStylesBundle() {
-      let pipe = src(path.resolve(rootPath, 'styles/index.scss'));
-
-      if (mode === "development") {
-        pipe = pipe.pipe(sourcemaps.init())
-      }
-      pipe = pipe
-        .pipe(sass({outputStyle: 'compressed', includePaths: [rootPath, path.resolve(rootPath, "styles")]}).on('error', sass.logError))
-        .pipe(rename({ extname: `.${getSuffixBy(env)}.min.css` }));
-      if (mode === "development") {
-        pipe = pipe.pipe(sourcemaps.write('.'));
-      }
-      pipe = pipe.pipe(dest(path.resolve(rootPath, `dist`)));
-      if (!!browserSync) {
-        pipe = pipe.pipe(browserSync.stream())
-      }
-      return pipe;
-    }
-  )
-}
+    )
+  );
+};
 exports.preprocessStyles = preprocessStyles;
+
+function transpileFiles(paths, production, env, bundleName = "index") {
+  const webpackConf = {
+    mode: production ? "production" : "development",
+    resolve: {
+      extensions: [".jsx", ".js", ".json"],
+      modules: ["node_modules"],
+    },
+    module: {
+      rules: [
+        {
+          test: /\.jsx?$/i,
+          exclude: /node_modules|\.git/,
+          use: {
+            loader: "babel-loader",
+          },
+        },
+      ],
+    },
+    optimization: {
+      minimize: production,
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            ecma: "5",
+            topLevel: true,
+            compress: true,
+          },
+        }),
+      ],
+    },
+  };
+  function transpileFiles() {
+    return (
+      src(paths)
+        .pipe(
+          named(
+            (file) =>
+              `${file.path
+              .replace(/^.*[\\/]/, "")
+              .replace(/\.[^/.]+$/, "")
+              .replace(".component", "")}.${getSuffixBy(env)}.min`
+          )
+        )
+        .pipe(gulpIf(!production, sourcemaps.init()))
+        .pipe(webpackStream(webpackConf, webpack))
+        .pipe(gulpIf(!production, sourcemaps.write(".")))
+        .pipe(dest(path.resolve(rootPath, "dist")))
+
+        // concat to bundle
+        .pipe(concat(`${bundleName}.${getSuffixBy(env)}.min.js`))
+        .pipe(dest(path.resolve(rootPath, "dist")))
+    );
+  }
+
+  return transpileFiles;
+}
+
+function replaceEnvConfig(env) {
+  function replaceEnvConfig() {
+    return src(path.resolve(rootPath, env))
+      .pipe(rename("env.js"))
+      .pipe(dest(path.resolve(rootPath, "env")));
+  }
+
+  return replaceEnvConfig;
+}

@@ -18,11 +18,5 @@
   {
     "label": "Providers Documentation",
     "url": "https://eoscportal.docker-fid.grid.cyf-kr.edu.pl/providers-documentation"
-  },
-  {
-    "label": "Login"
-  },
-  {
-    "label": "Logout"
   }
 ]
