@@ -51,7 +51,7 @@ export class EoscMainFooter extends PureComponent {
         </div>
         <div className="col-md-9 my-auto copyright">
           <span className="copy-text">
-            Copyright 2020 - All rights reserved
+            Copyright 2021 - All rights reserved
           </span>
           <a className="ml-4 text-uppercase" href="https://eosc-portal.eu/privacy-policy-summary">
             privacy policy
