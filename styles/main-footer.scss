@@ -12,18 +12,18 @@ eosc-common-main-footer {
       display: block;
       width: 162px;
       height: 60px;
-      background: url('assets/arrow-up.png') top center no-repeat;
+      background: url("assets/arrow-up.png") top center no-repeat;
     }
 
     .logo-one {
-      background: url('assets/eosc-logo-mono.png') top center no-repeat;
+      background: url("assets/eosc-logo-mono.png") top center no-repeat;
       width: 203px;
       height: 79px;
       display: block;
     }
 
     .logo-two {
-      background: url('assets/eosc-footer-logo.png') center no-repeat;
+      background: url("assets/eosc-footer-logo.png") center no-repeat;
       width: 148px;
       height: 79px;
       display: block;
@@ -66,7 +66,6 @@ eosc-common-main-footer {
             text-decoration: none;
           }
         }
-
       }
     }
 
@@ -109,11 +108,11 @@ eosc-common-main-footer {
     }
 
     .twitter-logo {
-      background: url('assets/t-icon.svg') top center no-repeat;
+      background: url("assets/t-icon.svg") top center no-repeat;
     }
 
     .yt-logo {
-      background: url('assets/yt-icon.svg') top center no-repeat;
+      background: url("assets/yt-icon.svg") top center no-repeat;
     }
   }
 }
