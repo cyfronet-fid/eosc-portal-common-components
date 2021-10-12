@@ -4,15 +4,14 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ["eslint:recommended", "plugin:prettier/recommended", "plugin:react/recommended", "airbnb"],
+  extends: ["eslint:recommended", "plugin:prettier/recommended", "airbnb", "preact"],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
     ecmaVersion: 12,
-    sourceType: "module"
+    sourceType: "module",
   },
-  plugins: ["react"],
   rules: {
     "prettier/prettier": "error",
     "linebreak-style": ["error", "unix"],
@@ -26,6 +25,10 @@ module.exports = {
     "no-use-before-define": "off",
     "max-len": ["error", { code: 120, tabWidth: 2 }],
     "comma-dangle": "off",
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": "off",
+    "react/static-property-placement": "off",
+    "react/no-unused-prop-types": "off",
+    "react/forbid-foreign-prop-types": "off",
+    "react-hooks/rules-of-hooks": "off",
   },
 };

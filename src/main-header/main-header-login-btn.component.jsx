@@ -1,14 +1,26 @@
-import React, { PureComponent } from "react";
 import uniqueId from "lodash-es/uniqueId";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
 import requiredIf from "react-required-if";
+import { Component } from "preact";
 import { getCookieConfig, LOGIN_ATTEMPT_COOKIE_NAME } from "./auto-login.utils";
-import { callAll, isJsScript } from "../../lib/core";
+import usePropTypes from "../../core/utils";
+import { isJsScript } from "../../core/callback.validators";
+import callAll from "../../core/callback";
 
-class EoscMainHeaderLoginBtn extends PureComponent {
-  render() {
-    const { loginUrl, "(onLogin)": onLogin } = this.props;
+export default class EoscMainHeaderLoginBtn extends Component {
+  static propTypes = {
+    loginUrl: requiredIf(PropTypes.string, (props) => !props["(onLogin)"] || props["(onLogin)"].trim() === ""),
+    "(onLogin)": requiredIf(isJsScript, (props) => !props.loginUrl || props.loginUrl.trim() === ""),
+  };
+
+  static defaultProps = {
+    loginUrl: "",
+    "(onLogin)": "",
+  };
+
+  render(props) {
+    const { loginUrl, "(onLogin)": onLogin } = usePropTypes(props, EoscMainHeaderLoginBtn);
     return (
       <li key={uniqueId("eosc-main-header-li")} id="login-btn">
         <strong>
@@ -26,14 +38,3 @@ class EoscMainHeaderLoginBtn extends PureComponent {
     );
   }
 }
-
-EoscMainHeaderLoginBtn.propTypes = {
-  loginUrl: requiredIf(PropTypes.string, (props) => !props["(onLogin)"] || props["(onLogin)"].trim() === ""),
-  "(onLogin)": requiredIf(isJsScript, (props) => !props.loginUrl || props.loginUrl.trim() === ""),
-};
-EoscMainHeaderLoginBtn.defaultProps = {
-  loginUrl: "",
-  "(onLogin)": "",
-};
-
-export default EoscMainHeaderLoginBtn;

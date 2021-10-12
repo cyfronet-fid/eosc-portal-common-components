@@ -1,6 +1,4 @@
-import React from "react";
-
-function EoscMainFooterLogoBar() {
+export default function EoscMainFooterLogoBar() {
   return (
     <div className="row h-100">
       <div className="col-md-3 my-auto">
@@ -17,5 +15,3 @@ function EoscMainFooterLogoBar() {
     </div>
   );
 }
-
-export default EoscMainFooterLogoBar;

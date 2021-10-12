@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import { environment } from "../../env/env";
-import { callAll } from "../../lib/core";
+import callAll from "../../core/callback";
 
 export const AUTOLOGIN_COOKIE_NAME = "_eosc_common_autologin";
 export const LOGIN_ATTEMPT_COOKIE_NAME = "_eosc_common_login_attempt";
@@ -20,6 +20,10 @@ export function tryAutologin(props) {
   }
 
   tryLogin(props);
+}
+
+export function isAutologinOn(autoLogin) {
+  return autoLogin === "true" || autoLogin === "1" || autoLogin === 1 || autoLogin === undefined;
 }
 
 export function getCookieConfig(domain) {

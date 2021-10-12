@@ -1,21 +1,34 @@
-import React, { PureComponent } from "react";
 import uniqueId from "lodash-es/uniqueId";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
 import requiredIf from "react-required-if";
+import { Component, Fragment } from "preact";
 import { environment } from "../../env/env";
 import { AUTOLOGIN_COOKIE_NAME, getCookieConfig, LOGOUT_ATTEMPT_COOKIE_NAME } from "./auto-login.utils";
-import { callAll, isJsScript } from "../../lib/core";
+import { isJsScript } from "../../core/callback.validators";
+import usePropTypes from "../../core/utils";
+import callAll from "../../core/callback";
+import FasUserIcon from "../../core/icons/fas-user.icon";
 
-class EoscMainHeaderLogoutBtn extends PureComponent {
-  render() {
-    const { username, logoutUrl, "(onLogout)": onLogout } = this.props;
+export default class EoscMainHeaderLogoutBtn extends Component {
+  static propTypes = {
+    username: PropTypes.string,
+    logoutUrl: requiredIf(PropTypes.string, (props) => !props["(onLogout)"] || props["(onLogout)"].trim() === ""),
+    "(onLogout)": requiredIf(isJsScript, (props) => !props.logoutUrl || props.logoutUrl.trim() === ""),
+  };
+
+  static defaultProps = {
+    username: "",
+    logoutUrl: "",
+    "(onLogout)": "",
+  };
+
+  render(props) {
+    const { username, logoutUrl, "(onLogout)": onLogout } = usePropTypes(props, EoscMainHeaderLogoutBtn);
     return (
-      <>
+      <Fragment>
         <li key={uniqueId("eosc-main-header-li")}>
-          <FontAwesomeIcon icon={faUser} />
+          <FasUserIcon />
           {username}
         </li>
         <li key={uniqueId("eosc-main-header-li")} id="logout-btn">
@@ -34,21 +47,7 @@ class EoscMainHeaderLogoutBtn extends PureComponent {
             </a>
           </strong>
         </li>
-      </>
+      </Fragment>
     );
   }
 }
-
-EoscMainHeaderLogoutBtn.propTypes = {
-  username: PropTypes.string,
-  logoutUrl: requiredIf(PropTypes.string, (props) => !props["(onLogout)"] || props["(onLogout)"].trim() === ""),
-  "(onLogout)": requiredIf(isJsScript, (props) => !props.logoutUrl || props.logoutUrl.trim() === ""),
-};
-
-EoscMainHeaderLogoutBtn.defaultProps = {
-  username: "",
-  logoutUrl: "",
-  "(onLogout)": "",
-};
-
-export default EoscMainHeaderLogoutBtn;

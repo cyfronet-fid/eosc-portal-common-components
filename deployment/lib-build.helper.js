@@ -24,12 +24,15 @@ exports.buildLib = (argv = process.argv.slice(2)) => {
   const bundleEntries = COMPONENTS_PATHS.map((componentPath) => path.resolve(rootPath, componentPath));
   return series(
     parallel(validProductionArgv(production), validEnvArgv(env)),
-    function moveAssets() {
-      return src(path.resolve(rootPath, "styles/assets/*")).pipe(dest(path.resolve(rootPath, "dist/assets")));
-    },
     parallel(
-      series(replaceEnvConfig(env), transpileFiles(bundleEntries, production, env))
-      // preprocessStyles(production, env)
+      function moveAssets() {
+        return src(path.resolve(rootPath, "styles/assets/*")).pipe(dest(path.resolve(rootPath, "dist/assets")));
+      },
+      function moveFonts() {
+        return src(path.resolve(rootPath, "styles/icons/*")).pipe(dest(path.resolve(rootPath, "dist/icons")));
+      },
+      series(replaceEnvConfig(env), transpileFiles(bundleEntries, production, env)),
+      preprocessStyles(production, env)
     )
   );
 };
@@ -90,6 +93,12 @@ function transpileFiles(paths, production, env, bundleName = "index") {
     resolve: {
       extensions: [".jsx", ".js", ".json"],
       modules: ["node_modules"],
+      alias: {
+        react: "preact/compat",
+        "react-dom/test-utils": "preact/test-utils",
+        "react-dom": "preact/compat", // Must be below test-utils
+        "react/jsx-runtime": "preact/jsx-runtime",
+      },
     },
     module: {
       rules: [

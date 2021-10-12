@@ -1,11 +1,31 @@
-import React, { PureComponent } from "react";
 import uniqueId from "lodash-es/uniqueId";
 import PropTypes from "prop-types";
+import { Component, Fragment } from "preact";
 import { environment } from "../../env/env";
+import usePropTypes from "../../core/utils";
 
-class EoscMainFooterCols extends PureComponent {
-  render() {
-    const { cols } = this.props;
+export default class EoscMainFooterCols extends Component {
+  static propTypes = {
+    cols: PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.string.isRequired,
+        url: PropTypes.string,
+        navBtns: PropTypes.arrayOf(
+          PropTypes.shape({
+            label: PropTypes.string.isRequired,
+            url: PropTypes.string.isRequired,
+          })
+        ).isRequired,
+      })
+    ),
+  };
+
+  static defaultProps = {
+    cols: environment.mainFooterConfig.cols,
+  };
+
+  render(props) {
+    const { cols } = usePropTypes(props, EoscMainFooterCols);
     return (
       <div className="row">
         {cols.map((col) => (
@@ -21,7 +41,7 @@ class EoscMainFooterCols extends PureComponent {
                   </li>
                 ))
               ) : (
-                <></>
+                <Fragment />
               )}
             </ul>
           </div>
@@ -30,24 +50,3 @@ class EoscMainFooterCols extends PureComponent {
     );
   }
 }
-
-EoscMainFooterCols.propTypes = {
-  cols: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      url: PropTypes.string,
-      navBtns: PropTypes.arrayOf(
-        PropTypes.shape({
-          label: PropTypes.string.isRequired,
-          url: PropTypes.string.isRequired,
-        })
-      ).isRequired,
-    })
-  ),
-};
-
-EoscMainFooterCols.defaultProps = {
-  cols: environment.mainFooterConfig.cols,
-};
-
-export default EoscMainFooterCols;

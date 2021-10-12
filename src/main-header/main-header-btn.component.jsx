@@ -1,10 +1,17 @@
-import React from "react";
 import uniqueId from "lodash-es/uniqueId";
 import PropTypes from "prop-types";
+import { Component } from "preact";
+import usePropTypes from "../../core/utils";
 
-class EoscMainHeaderBtn extends React.PureComponent {
-  render() {
-    const { url, label, isActive } = this.props;
+export default class EoscMainHeaderBtn extends Component {
+  static propTypes = {
+    label: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+    isActive: PropTypes.bool.isRequired,
+  };
+
+  render(props) {
+    const { url, label, isActive } = usePropTypes(props, EoscMainHeaderBtn);
     return (
       <li key={uniqueId("eosc-main-header-li")}>
         <a className={isActive ? "active" : ""} href={url}>
@@ -14,11 +21,3 @@ class EoscMainHeaderBtn extends React.PureComponent {
     );
   }
 }
-
-EoscMainHeaderBtn.propTypes = {
-  label: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
-  isActive: PropTypes.bool.isRequired,
-};
-
-export default EoscMainHeaderBtn;

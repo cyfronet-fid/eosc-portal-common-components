@@ -1,13 +1,14 @@
-import React from "react";
 import PropTypes from "prop-types";
 import requiredIf from "react-required-if";
 import uniqueId from "lodash-es/uniqueId";
+import { Component } from "preact";
 import { environment } from "../../env/env";
-import { tryAutologin } from "./auto-login.utils";
-import { EoscPureComponent, isJsScript, Render } from "../../lib/core";
+import { isAutologinOn, tryAutologin } from "./auto-login.utils";
 import EoscMainHeaderBtn from "./main-header-btn.component";
-import EoscMainHeaderLogoutBtn from "./main-header-logout-btn.component";
-import EoscMainHeaderLoginBtn from "./main-header-login-btn.component";
+import { getAuthBtn, isBtnActive } from "./main-header.utils";
+import { isJsScript } from "../../core/callback.validators";
+import usePropTypes from "../../core/utils";
+import Render from "../../core/renders";
 
 /**
  * @version 1.0
@@ -59,41 +60,42 @@ import EoscMainHeaderLoginBtn from "./main-header-login-btn.component";
  *   login-url="https://marketplace.eosc-portal.eu/users/auth/checkin"w
  * ></eosc-common-main-header>
  */
-class EoscMainHeader extends EoscPureComponent {
-  static _isBtnActive(btnsUrls, btnUrl) {
-    const currentUrlBase = location.protocol + "//" + location.hostname; // eslint-disable-line
-    if (!btnUrl.includes(currentUrlBase)) {
-      return false;
-    }
+@Render({
+  selector: "eosc-common-main-header",
+  rwd: ["lg", "xl"],
+})
+// eslint-disable-next-line no-unused-vars
+class EoscMainHeader extends Component {
+  static propTypes = {
+    /**
+     * Username property
+     */
+    username: PropTypes.string,
+    loginUrl: requiredIf(PropTypes.string, (props) => !props["(onLogin)"] || props["(onLogin)"].trim() === ""),
+    logoutUrl: requiredIf(PropTypes.string, (props) => !props["(onLogout)"] || props["(onLogout)"].trim() === ""),
+    "(onLogin)": requiredIf(isJsScript, (props) => !props.loginUrl || props.loginUrl.trim() === ""),
+    "(onLogout)": requiredIf(isJsScript, (props) => !props.logoutUrl || props.logoutUrl.trim() === ""),
+    autoLogin: PropTypes.bool,
+  };
 
-    const allBtnsSubpages = btnsUrls
-      .filter((url) => !!url && url.trim() !== "")
-      .map((url) => new URL(url).pathname)
-      .filter((path) => path !== "/");
-    const parsedBtnUrl = new URL(btnUrl);
-    const shouldBeActivatedOnSubpages = parsedBtnUrl.pathname === "/" && !allBtnsSubpages.includes(location.pathname); //eslint-disable-line
-    const isSpecificSubpage = location.pathname !== "/" && new URL(btnUrl).pathname.includes(location.pathname); // eslint-disable-line
-    return shouldBeActivatedOnSubpages || isSpecificSubpage;
-  }
+  static defaultProps = {
+    username: "",
+    loginUrl: "",
+    logoutUrl: "",
+    "(onLogout)": "",
+    "(onLogin)": "",
+    autoLogin: true,
+  };
 
-  componentDidMount() {
+  render(props) {
     /**
      * IMPORTANT!!! By default is on
      */
-    const { autoLogin } = this.props;
-    const isAutoLoginOn = autoLogin === "true" || autoLogin === "1" || autoLogin === 1 || autoLogin === undefined;
-    if (isAutoLoginOn) {
-      tryAutologin(this.props);
+    const { autoLogin } = usePropTypes(props, EoscMainHeader);
+    if (isAutologinOn(autoLogin)) {
+      tryAutologin(props);
     }
-  }
 
-  _getAuthBtn() {
-    const { username } = this.props;
-    const isLoggedIn = !!username && username.trim() !== "";
-    return isLoggedIn ? <EoscMainHeaderLogoutBtn {...this.props} /> : <EoscMainHeaderLoginBtn {...this.props} />;
-  }
-
-  render() {
     return (
       <nav className={`top ${environment.production ? "" : "demo"}`}>
         <div className="container">
@@ -103,43 +105,17 @@ class EoscMainHeader extends EoscPureComponent {
                 key={uniqueId("eosc-main-header-btn")}
                 {...{
                   ...config,
-                  isActive: EoscMainHeader._isBtnActive(
+                  isActive: isBtnActive(
                     environment.mainHeaderConfig.map((btn) => btn.url),
                     config.url
                   ),
                 }}
               />
             ))}
-            {this._getAuthBtn()}
+            {getAuthBtn(usePropTypes(props, EoscMainHeader))}
           </ul>
         </div>
       </nav>
     );
   }
 }
-
-EoscMainHeader.propTypes = {
-  /**
-   * Username property
-   */
-  username: PropTypes.string,
-  loginUrl: requiredIf(PropTypes.string, (props) => !props["(onLogin)"] || props["(onLogin)"].trim() === ""),
-  logoutUrl: requiredIf(PropTypes.string, (props) => !props["(onLogout)"] || props["(onLogout)"].trim() === ""),
-  "(onLogin)": requiredIf(isJsScript, (props) => !props.loginUrl || props.loginUrl.trim() === ""),
-  "(onLogout)": requiredIf(isJsScript, (props) => !props.logoutUrl || props.logoutUrl.trim() === ""),
-  autoLogin: PropTypes.bool,
-};
-
-EoscMainHeader.defaultProps = {
-  username: "",
-  loginUrl: "",
-  logoutUrl: "",
-  "(onLogout)": "",
-  "(onLogin)": "",
-  autoLogin: true,
-};
-
-Render({
-  selector: "eosc-common-main-header",
-  rwd: ["lg", "xl"],
-})(EoscMainHeader);

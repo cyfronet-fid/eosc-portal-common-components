@@ -4,10 +4,11 @@
  */
 
 const { environment } = require("./env/env");
+
 module.exports = {
-  ///////////////
+  /// ////////////
   // TESTS SETUP
-  ///////////////
+  /// ////////////
   cacheDirectory: "./.cache",
   clearMocks: true,
   maxWorkers: "80%",
@@ -20,10 +21,16 @@ module.exports = {
   testURL: "http://localhost:3000",
   verbose: true,
   moduleFileExtensions: ["js", "jsx", "json", "node"],
+  moduleNameMapper: {
+    "^react$": "preact/compat",
+    "^react-dom/test-utils$": "preact/test-utils",
+    "^react-dom$": "preact/compat",
+    "^react/jsx-runtime$": "preact/jsx-runtime",
+  },
 
-  ///////////////
+  /// ////////////
   // COVERAGE SETUP
-  ///////////////
+  /// ////////////
   collectCoverageFrom: ["lib/**/*.{js,jsx}", "src/**/*.{js,jsx}", "!**/node_modules/**", "!**/vendor/**"],
   coverageDirectory: "coverage",
   coverageThreshold: {

@@ -1,4 +1,3 @@
-import React from "react";
 import uniqueId from "lodash-es/uniqueId";
 import { useMediaQuery } from "react-responsive";
 import { environment } from "../env/env";
