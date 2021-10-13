@@ -17,7 +17,6 @@ import Render from "../core/renders";
 @Render({
   selector: "eosc-common-eu-information",
 })
-// eslint-disable-next-line no-unused-vars
 class EoscEuInformation extends Component {
   static propTypes = {
     description: PropTypes.string,
@@ -47,3 +46,5 @@ class EoscEuInformation extends Component {
     );
   }
 }
+
+export default EoscEuInformation;

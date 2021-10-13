@@ -63,3 +63,5 @@ class EoscMainFooter extends Component {
     );
   }
 }
+
+export default EoscMainFooter;

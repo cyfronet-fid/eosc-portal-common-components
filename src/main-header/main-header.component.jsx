@@ -64,7 +64,6 @@ import Render from "../../core/renders";
   selector: "eosc-common-main-header",
   rwd: ["lg", "xl"],
 })
-// eslint-disable-next-line no-unused-vars
 class EoscMainHeader extends Component {
   static propTypes = {
     /**
@@ -119,3 +118,5 @@ class EoscMainHeader extends Component {
     );
   }
 }
+
+export default EoscMainHeader;

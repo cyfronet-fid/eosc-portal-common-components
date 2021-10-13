@@ -1,17 +1,16 @@
-const {
- src, dest, series, parallel 
-} = require("gulp");
+const { src, dest, series, parallel } = require("gulp");
 const path = require("path");
 const parser = require("yargs-parser");
 const gulpIf = require("gulp-if");
 const sass = require("gulp-sass")(require("sass"));
 const rename = require("gulp-rename");
 const sourcemaps = require("gulp-sourcemaps");
-const concat = require("gulp-concat");
 const named = require("vinyl-named");
 const webpack = require("webpack");
 const webpackStream = require("gulp-webpack");
-const TerserPlugin = require("terser-webpack-plugin");
+// const gzip = require("gulp-gzip");
+const execa = require("execa");
+const { webpackConfig } = require("./webpack.helper");
 const { validEnvArgv } = require("./validators");
 const { validProductionArgv } = require("./validators");
 const { COMPONENTS_PATHS } = require("../app");
@@ -88,66 +87,54 @@ const preprocessStyles = (production, env, browserSync = null) => {
 exports.preprocessStyles = preprocessStyles;
 
 function transpileFiles(paths, production, env, bundleName = "index") {
-  const webpackConf = {
-    mode: production ? "production" : "development",
-    resolve: {
-      extensions: [".jsx", ".js", ".json"],
-      modules: ["node_modules"],
-      alias: {
-        react: "preact/compat",
-        "react-dom/test-utils": "preact/test-utils",
-        "react-dom": "preact/compat", // Must be below test-utils
-        "react/jsx-runtime": "preact/jsx-runtime",
-      },
-    },
-    module: {
-      rules: [
-        {
-          test: /\.jsx?$/i,
-          exclude: /node_modules|\.git/,
-          use: {
-            loader: "babel-loader",
-          },
-        },
-      ],
-    },
-    optimization: {
-      minimize: production,
-      minimizer: [
-        new TerserPlugin({
-          terserOptions: {
-            ecma: "5",
-            topLevel: true,
-            compress: true,
-          },
-        }),
-      ],
-    },
-  };
+  // const gzipConfig = { gzipOptions: { level: 9 }, skipGrowingFiles: true, append: false };
   function transpileFiles() {
     return (
       src(paths)
-        .pipe(
-          named(
-            (file) =>
-              `${file.path
-              .replace(/^.*[\\/]/, "")
-              .replace(/\.[^/.]+$/, "")
-              .replace(".component", "")}.${getSuffixBy(env)}.min`
-          )
-        )
+        .pipe(named((file) => `${_toName(file.path)}.${getSuffixBy(env)}.min`))
         .pipe(gulpIf(!production, sourcemaps.init()))
-        .pipe(webpackStream(webpackConf, webpack))
+        .pipe(webpackStream(webpackConfig(production), webpack))
         .pipe(gulpIf(!production, sourcemaps.write(".")))
-        .pipe(dest(path.resolve(rootPath, "dist")))
-
-        // concat to bundle
-        .pipe(concat(`${bundleName}.${getSuffixBy(env)}.min.js`))
+        // .pipe(gulpIf(production, gzip(gzipConfig)))
         .pipe(dest(path.resolve(rootPath, "dist")))
     );
   }
 
-  return transpileFiles;
+  const importsFilePath = path.resolve(rootPath, "dist/app.js");
+  function transpileBundle() {
+    const imports = paths
+      .map((path) => {
+        const alias = _toName(path).replace("-", "_");
+        return `import {default as ${alias}} from "${path}"; ${alias};`;
+      })
+      .join("");
+    require("fs").writeFileSync(importsFilePath, imports);
+
+    return (
+      src(importsFilePath)
+        .pipe(gulpIf(!production, sourcemaps.init()))
+        .pipe(webpackStream(webpackConfig(production), webpack))
+        .pipe(gulpIf(!production, sourcemaps.write(".")))
+        // .pipe(gulpIf(production, gzip(gzipConfig)))
+        .pipe(rename({ basename: `${bundleName}.${getSuffixBy(env)}.min` }))
+        .pipe(dest(path.resolve(rootPath, "dist")))
+    );
+  }
+
+  return parallel(
+    transpileFiles,
+    series(transpileBundle, async (cb) => {
+      await execa("rm", ["-fR", path.resolve(rootPath, importsFilePath)], { stdio: "inherit" });
+      cb();
+    })
+  );
+}
+
+function _toName(path) {
+  return path
+    .replace(/^.*[\\/]/, "")
+    .replace(/\.[^/.]+$/, "")
+    .replace(".component", "");
 }
 
 function replaceEnvConfig(env) {

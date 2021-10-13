@@ -4,6 +4,7 @@ const path = require("path");
 const { preprocessStyles } = require("./lib-build.helper");
 const browserSync = require("browser-sync").create();
 const execa = require("execa");
+const compression = require("compression");
 
 const rootPath = path.resolve(__dirname, "../");
 exports.serve = series(
@@ -16,7 +17,8 @@ exports.serve = series(
   () => {
     browserSync.init({
       server: rootPath,
-      startPath: path.resolve(rootPath, `/dist/docs/index.html`),
+      startPath: path.resolve(rootPath, "/dist/docs/index.html"),
+      middleware: [compression()],
     });
 
     // on lib SCSS changes
