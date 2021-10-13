@@ -1,37 +1,26 @@
-/*
- * For a detailed explanation regarding each configuration property, visit:
- * https://jestjs.io/docs/configuration
- */
-
-const { environment } = require("./env/env");
-
 module.exports = {
   /// ////////////
   // TESTS SETUP
   /// ////////////
+  preset: "jest-preset-preact",
+  setupFiles: ["./jest.setup.js"],
   cacheDirectory: "./.cache",
-  clearMocks: true,
   maxWorkers: "80%",
+  transform: { "\\.jsx?$": "babel-jest" },
   moduleDirectories: ["node_modules"],
   notify: true,
-  roots: ["src", "lib", "configurations"],
+  roots: ["src", "core", "configurations"],
   slowTestThreshold: 5,
   testMatch: ["**/__tests__/**/*.js?(x)", "**/?(*.)+(spec|test).js?(x)"],
   testPathIgnorePatterns: ["\\\\node_modules\\\\"],
-  testURL: "http://localhost:3000",
+  testURL: "http://localhost:8000",
   verbose: true,
-  moduleFileExtensions: ["js", "jsx", "json", "node"],
-  moduleNameMapper: {
-    "^react$": "preact/compat",
-    "^react-dom/test-utils$": "preact/test-utils",
-    "^react-dom$": "preact/compat",
-    "^react/jsx-runtime$": "preact/jsx-runtime",
-  },
+  moduleFileExtensions: ["js", "jsx"],
 
   /// ////////////
   // COVERAGE SETUP
   /// ////////////
-  collectCoverageFrom: ["lib/**/*.{js,jsx}", "src/**/*.{js,jsx}", "!**/node_modules/**", "!**/vendor/**"],
+  collectCoverageFrom: ["core/**/*.{js,jsx}", "src/**/*.{js,jsx}", "!**/node_modules/**", "!**/vendor/**"],
   coverageDirectory: "coverage",
   coverageThreshold: {
     global: {

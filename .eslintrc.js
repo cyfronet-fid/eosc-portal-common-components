@@ -30,5 +30,7 @@ module.exports = {
     "react/no-unused-prop-types": "off",
     "react/forbid-foreign-prop-types": "off",
     "react-hooks/rules-of-hooks": "off",
+    "react/jsx-key": "off",
+    "react/prefer-stateless-function": "off",
   },
 };

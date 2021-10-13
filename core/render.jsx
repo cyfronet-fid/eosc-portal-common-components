@@ -1,4 +1,3 @@
-import uniqueId from "lodash-es/uniqueId";
 import { render } from "preact";
 import { fetchPropertiesAsCamelCaseFrom } from "./parsers";
 import rwdHOC from "./rwd.hoc";
@@ -34,6 +33,5 @@ export default function Render(params) {
 function _render(element, WrappedComponent) {
   const props = fetchPropertiesAsCamelCaseFrom(element);
   element.classList.add("eosc-common");
-  const UID = uniqueId(`${element.tagName}-${WrappedComponent.name}-`);
-  render(<WrappedComponent key={UID} {...props} />, element);
+  render(<WrappedComponent {...props} />, element);
 }

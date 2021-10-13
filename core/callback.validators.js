@@ -4,16 +4,19 @@
  * @return {boolean}
  */
 export function allValidScripts(...JSscripts) {
-  if (!JSscripts && JSscripts.some((script) => !isStaticallyValid(script))) {
+  if (!JSscripts || JSscripts.some((script) => !isStaticallyValid(script))) {
     return false;
   }
 
-  return !JSscripts.map((script) => script.split(";"))
-    .reduce((acc, callbacks) => [...acc, ...callbacks])
-    .filter((callback) => {
-      return isStaticallyValid(callback);
-    })
-    .some((callback) => !isDynamicallyValid(callback));
+  const scriptsCallbacks = JSscripts.map((script) => script.split(";"));
+  const callbacks = scriptsCallbacks.reduce((acc, callbacks) => [...acc, ...callbacks]);
+  return !callbacks.some((callback) => {
+    try {
+      return !isDynamicallyValid(callback);
+    } catch (e) {
+      return true;
+    }
+  });
 }
 
 /**

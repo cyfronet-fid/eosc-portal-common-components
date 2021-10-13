@@ -2,7 +2,7 @@ import EoscMainHeaderLogoutBtn from "./main-header-logout-btn.component";
 import EoscMainHeaderLoginBtn from "./main-header-login-btn.component";
 
 export function isBtnActive(btnsUrls, btnUrl) {
-  const currentUrlBase = location.protocol + "//" + location.hostname; // eslint-disable-line
+  const currentUrlBase = `${window.location.protocol}//${window.location.hostname}`;
   if (!btnUrl.includes(currentUrlBase)) {
     return false;
   }
@@ -12,8 +12,16 @@ export function isBtnActive(btnsUrls, btnUrl) {
     .map((url) => new URL(url).pathname)
     .filter((path) => path !== "/");
   const parsedBtnUrl = new URL(btnUrl);
-  const shouldBeActivatedOnSubpages = parsedBtnUrl.pathname === "/" && !allBtnsSubpages.includes(location.pathname); //eslint-disable-line
-  const isSpecificSubpage = location.pathname !== "/" && new URL(btnUrl).pathname.includes(location.pathname); // eslint-disable-line
+
+  // Global active btn
+  const isMainPageBtn = parsedBtnUrl.pathname === "/";
+  const isMainBtnRestrictedSubpage = !allBtnsSubpages.includes(window.location.pathname);
+  const shouldBeActivatedOnSubpages = isMainPageBtn && isMainBtnRestrictedSubpage;
+
+  // Subpage btn
+  const isMainPage = window.location.pathname !== "/";
+  const isSpecificSubpage = isMainPage && new URL(btnUrl).pathname.includes(window.location.pathname);
+
   return shouldBeActivatedOnSubpages || isSpecificSubpage;
 }
 

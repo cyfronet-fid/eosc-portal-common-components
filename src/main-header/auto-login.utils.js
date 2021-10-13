@@ -23,7 +23,7 @@ export function tryAutologin(props) {
 }
 
 export function isAutologinOn(autoLogin) {
-  return autoLogin === "true" || autoLogin === "1" || autoLogin === 1 || autoLogin === undefined;
+  return autoLogin === true || autoLogin === "true" || autoLogin === "1" || autoLogin === 1 || autoLogin === undefined;
 }
 
 export function getCookieConfig(domain) {
@@ -38,7 +38,7 @@ export function getCookieConfig(domain) {
 function setAutologinCookie(isLoggedIn) {
   const _setAutologinCookie = !!Cookies.get(LOGIN_ATTEMPT_COOKIE_NAME) && isLoggedIn;
   if (_setAutologinCookie) {
-    Cookies.remove(LOGIN_ATTEMPT_COOKIE_NAME, { domain: location.hostname }); // eslint-disable-line
+    Cookies.remove(LOGIN_ATTEMPT_COOKIE_NAME, { domain: window.location.hostname });
     const setAutologin = (domain) => Cookies.set(AUTOLOGIN_COOKIE_NAME, AUTOLOGIN_COOKIE_NAME, getCookieConfig(domain));
     environment.defaultConfiguration.autoLoginDomains.forEach((domain) => setAutologin(domain));
   }
@@ -48,7 +48,7 @@ function setAutologinCookie(isLoggedIn) {
 function removeAutologinCookie(isLoggedIn) {
   const _removeAutologinCookie = !!Cookies.get(LOGIN_ATTEMPT_COOKIE_NAME) && !isLoggedIn;
   if (_removeAutologinCookie) {
-    Cookies.remove(LOGIN_ATTEMPT_COOKIE_NAME, getCookieConfig(location.hostname)); // eslint-disable-line
+    Cookies.remove(LOGIN_ATTEMPT_COOKIE_NAME, getCookieConfig(window.location.hostname));
     const removeAutologin = (domain) => Cookies.remove(AUTOLOGIN_COOKIE_NAME, getCookieConfig(domain));
     environment.defaultConfiguration.autoLoginDomains.forEach((domain) => removeAutologin(domain));
   }
@@ -59,19 +59,13 @@ function shouldSkipAutologin(isLoggedIn) {
   const logoutAttempt = !!Cookies.get(LOGOUT_ATTEMPT_COOKIE_NAME);
   const _shouldSkipAutologin = (!Cookies.get(AUTOLOGIN_COOKIE_NAME) && !isLoggedIn) || logoutAttempt || isLoggedIn;
   if (_shouldSkipAutologin) {
-    const getCookieOptions = (domain) => ({
-      domain,
-      secure: environment.production,
-      sameSite: "strict",
-    });
-    const removeLogoutAttempt = (domain) => Cookies.remove(LOGOUT_ATTEMPT_COOKIE_NAME, getCookieOptions(domain));
-    environment.defaultConfiguration.autoLoginDomains.forEach((domain) => removeLogoutAttempt(domain));
+    Cookies.remove(LOGOUT_ATTEMPT_COOKIE_NAME, { domain: window.location.hostname });
   }
   return _shouldSkipAutologin;
 }
 
 function tryLogin(props) {
-  Cookies.set(LOGIN_ATTEMPT_COOKIE_NAME, LOGIN_ATTEMPT_COOKIE_NAME, getCookieConfig(location.hostname));
+  Cookies.set(LOGIN_ATTEMPT_COOKIE_NAME, LOGIN_ATTEMPT_COOKIE_NAME, getCookieConfig(window.location.hostname));
 
   if (props.loginUrl) {
     window.location.href = props.loginUrl;

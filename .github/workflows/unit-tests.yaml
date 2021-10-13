@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - "**"
-      - "!develop"
       - "!master"
 
 jobs:
@@ -27,5 +26,7 @@ jobs:
             ${{ runner.os }}-
       - name: Install dependecies
         run: npm install
+      - name: Move env file
+        run: mv env/env.production.js env/env.js
       - name: Run unit tests
         run: npm test
