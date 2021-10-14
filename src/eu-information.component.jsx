@@ -2,7 +2,7 @@ import { Component } from "preact";
 import PropTypes from "prop-types";
 import { environment } from "../env/env";
 import usePropTypes from "../core/utils";
-import Render from "../core/renders";
+import Render from "../core/render";
 
 /**
  * @version 1.0

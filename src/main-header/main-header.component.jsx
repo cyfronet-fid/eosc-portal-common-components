@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import requiredIf from "react-required-if";
-import uniqueId from "lodash-es/uniqueId";
 import { Component } from "preact";
 import { environment } from "../../env/env";
 import { isAutologinOn, tryAutologin } from "./auto-login.utils";
@@ -8,7 +7,7 @@ import EoscMainHeaderBtn from "./main-header-btn.component";
 import { getAuthBtn, isBtnActive } from "./main-header.utils";
 import { isJsScript } from "../../core/callback.validators";
 import usePropTypes from "../../core/utils";
-import Render from "../../core/renders";
+import Render from "../../core/render";
 
 /**
  * @version 1.0
@@ -101,7 +100,6 @@ class EoscMainHeader extends Component {
           <ul className="right-links">
             {environment.mainHeaderConfig.map((config) => (
               <EoscMainHeaderBtn
-                key={uniqueId("eosc-main-header-btn")}
                 {...{
                   ...config,
                   isActive: isBtnActive(

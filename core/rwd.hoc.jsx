@@ -1,4 +1,3 @@
-import uniqueId from "lodash-es/uniqueId";
 import { useMediaQuery } from "react-responsive";
 import { environment } from "../env/env";
 import { GRID_FIELD, GRID_KEYS } from "./globals";
@@ -11,9 +10,8 @@ import { GRID_FIELD, GRID_KEYS } from "./globals";
 export default function rwdHOC(WrappedComponent, showOnBreakpoints) {
   function Wrapper(props) {
     const styles = { display: isComponentVisible(showOnBreakpoints) ? "block" : "none" };
-    const uid = uniqueId(`rwd-hoc-${WrappedComponent.name}-`);
     return (
-      <div key={uid} style={styles}>
+      <div style={styles}>
         <WrappedComponent {...props} /> {/* eslint-disable-line */}
       </div>
     );

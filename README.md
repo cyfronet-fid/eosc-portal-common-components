@@ -26,7 +26,7 @@ consistent visualization and events triggering through many services.
 
 Only for build purposes
 
-- nodejs >= 14.18.0 LTE
+- nodejs >= 14.17.1 LTE
 
 ### Dependencies installation
 

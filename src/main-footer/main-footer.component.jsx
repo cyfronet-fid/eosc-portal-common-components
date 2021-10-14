@@ -1,11 +1,10 @@
-import uniqueId from "lodash-es/uniqueId";
 import PropTypes from "prop-types";
 import { Component } from "preact";
 import { environment } from "../../env/env";
 import EoscMainFooterLogoBar from "./main-footer-logo-bar.component";
 import EoscMainFooterCols from "./main-footer-cols.component";
 import usePropTypes from "../../core/utils";
-import Render from "../../core/renders";
+import Render from "../../core/render";
 
 /**
  * @version 1.0
@@ -51,7 +50,7 @@ class EoscMainFooter extends Component {
             <div className="col-md-6">
               {socialIcons.map((social) => {
                 return (
-                  <a key={uniqueId("main-footer-social-icon")} className={social.class} href={social.url}>
+                  <a className={social.class} href={social.url}>
                     &nbsp;
                   </a>
                 );

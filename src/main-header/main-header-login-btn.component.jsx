@@ -1,4 +1,3 @@
-import uniqueId from "lodash-es/uniqueId";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
 import requiredIf from "react-required-if";
@@ -22,12 +21,16 @@ export default class EoscMainHeaderLoginBtn extends Component {
   render(props) {
     const { loginUrl, "(onLogin)": onLogin } = usePropTypes(props, EoscMainHeaderLoginBtn);
     return (
-      <li key={uniqueId("eosc-main-header-li")} id="login-btn">
+      <li id="login-btn">
         <strong>
           <a
             href={loginUrl || "#!"}
             onClick={(event) => {
-              Cookies.set(LOGIN_ATTEMPT_COOKIE_NAME, LOGIN_ATTEMPT_COOKIE_NAME, getCookieConfig(location.hostname)); // eslint-disable-line
+              Cookies.set(
+                LOGIN_ATTEMPT_COOKIE_NAME,
+                LOGIN_ATTEMPT_COOKIE_NAME,
+                getCookieConfig(window.location.hostname)
+              );
               callAll(event, onLogin);
             }}
           >

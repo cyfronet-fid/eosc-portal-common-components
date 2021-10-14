@@ -24,7 +24,11 @@ function _call(JSscript, event = {}) {
         new Function(`{ return ${callback} };`).call(null); // eslint-disable-line
       }
     } catch (e) {
-      throw new Error(`Calling ${callback} on ${event.type} ${event.target} has been crashed: ${e}`);
+      if (event) {
+        throw new Error(`Calling ${callback} on ${event.type} ${event.target} has been crashed: ${e}`);
+      } else {
+        throw new Error(`Calling ${callback} has been crashed: ${e}`);
+      }
     }
   });
 }

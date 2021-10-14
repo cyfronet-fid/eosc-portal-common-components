@@ -1,4 +1,3 @@
-import uniqueId from "lodash-es/uniqueId";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
 import requiredIf from "react-required-if";
@@ -27,16 +26,20 @@ export default class EoscMainHeaderLogoutBtn extends Component {
     const { username, logoutUrl, "(onLogout)": onLogout } = usePropTypes(props, EoscMainHeaderLogoutBtn);
     return (
       <Fragment>
-        <li key={uniqueId("eosc-main-header-li")}>
+        <li>
           <FasUserIcon />
           {username}
         </li>
-        <li key={uniqueId("eosc-main-header-li")} id="logout-btn">
+        <li id="logout-btn">
           <strong>
             <a
               href={logoutUrl || "#!"}
               onClick={(event) => {
-                Cookies.set(LOGOUT_ATTEMPT_COOKIE_NAME, LOGOUT_ATTEMPT_COOKIE_NAME, getCookieConfig(location.hostname)); // eslint-disable-line
+                Cookies.set(
+                  LOGOUT_ATTEMPT_COOKIE_NAME,
+                  LOGOUT_ATTEMPT_COOKIE_NAME,
+                  getCookieConfig(window.location.hostname)
+                );
                 const { autoLoginDomains } = environment.defaultConfiguration;
                 autoLoginDomains.forEach((domain) => Cookies.remove(AUTOLOGIN_COOKIE_NAME, getCookieConfig(domain)));
                 callAll(event, onLogout);
