@@ -1,10 +1,7 @@
 const { src, dest, series, parallel } = require("gulp");
 const path = require("path");
 const parser = require("yargs-parser");
-const gulpIf = require("gulp-if");
-const sass = require("gulp-sass")(require("sass"));
 const rename = require("gulp-rename");
-const sourcemaps = require("gulp-sourcemaps");
 const named = require("vinyl-named");
 const webpack = require("webpack");
 const webpackStream = require("gulp-webpack");
@@ -27,12 +24,23 @@ exports.buildLib = (argv = process.argv.slice(2)) => {
       function moveAssets() {
         return src(path.resolve(rootPath, "styles/assets/*")).pipe(dest(path.resolve(rootPath, "dist/assets")));
       },
-      function moveFonts() {
-        return src(path.resolve(rootPath, "styles/icons/*")).pipe(dest(path.resolve(rootPath, "dist/icons")));
-      },
       series(replaceEnvConfig(env), transpileFiles(bundleEntries, production, env)),
       preprocessStyles(production, env)
-    )
+    ),
+    function removeMisc(cb) {
+      const commands = [
+        "ls . | grep -P '^.+(?<!\\.min)\\.js$' | xargs -d '\\n' rm",
+        "ls . | grep -P '^.+(?<!\\.min)\\.js.map$' | xargs -d '\\n' rm",
+        "ls . | grep -P '^.*[0-9].*.js$' | xargs -d '\\n' rm",
+      ];
+      const cmdOptions = { shell: true, cwd: path.resolve(rootPath, "dist") };
+      commands.forEach((cmd) => {
+        try {
+          execa.commandSync(cmd, cmdOptions).stdout.toString("utf-8");
+        } catch (e) {}
+      });
+      cb();
+    }
   );
 };
 
@@ -41,16 +49,8 @@ const preprocessStyles = (production, env, browserSync = null) => {
     series(
       function preprocessStylesToSeparateFiles() {
         return src(STYLES_PATHS.map((stylesPath) => path.resolve(rootPath, stylesPath)))
-          .pipe(gulpIf(!production, sourcemaps.init()))
-          .pipe(
-            sass({
-              errLogToConsole: true,
-              outputStyle: "compressed",
-              includePaths: [rootPath, path.resolve(rootPath, "styles"), "./"],
-            }).on("error", sass.logError)
-          )
-          .pipe(rename({ extname: `.${getSuffixBy(env)}.min.css` }))
-          .pipe(gulpIf(!production, sourcemaps.write(".")))
+          .pipe(webpackStream(webpackConfig(production), webpack))
+          .pipe(rename({ suffix: `.${getSuffixBy(env)}.min` }))
           .pipe(dest(path.resolve(rootPath, "dist")));
       },
       (cb) => {
@@ -63,16 +63,8 @@ const preprocessStyles = (production, env, browserSync = null) => {
     series(
       function preprocessStylesBundle() {
         return src(path.resolve(rootPath, "styles/index.scss"))
-          .pipe(gulpIf(!production, sourcemaps.init()))
-          .pipe(
-            sass({
-              errLogToConsole: true,
-              outputStyle: "compressed",
-              includePaths: [rootPath, path.resolve(rootPath, "styles"), "./"],
-            }).on("error", sass.logError)
-          )
-          .pipe(rename({ extname: `.${getSuffixBy(env)}.min.css` }))
-          .pipe(gulpIf(!production, sourcemaps.write(".")))
+          .pipe(webpackStream(webpackConfig(production), webpack))
+          .pipe(rename({ suffix: `.${getSuffixBy(env)}.min` }))
           .pipe(dest(path.resolve(rootPath, "dist")));
       },
       (cb) => {
@@ -91,10 +83,8 @@ function transpileFiles(paths, production, env, bundleName = "index") {
   function transpileFiles() {
     return (
       src(paths)
-        .pipe(named((file) => `${_toName(file.path)}.${getSuffixBy(env)}.min`))
-        .pipe(gulpIf(!production, sourcemaps.init()))
+        .pipe(named((file) => `${_toName(file.path).replace(".interface", "")}.${getSuffixBy(env)}.min`))
         .pipe(webpackStream(webpackConfig(production), webpack))
-        .pipe(gulpIf(!production, sourcemaps.write(".")))
         // .pipe(gulpIf(production, gzip(gzipConfig)))
         .pipe(dest(path.resolve(rootPath, "dist")))
     );
@@ -104,7 +94,7 @@ function transpileFiles(paths, production, env, bundleName = "index") {
   function transpileBundle() {
     const imports = paths
       .map((path) => {
-        const alias = _toName(path).replace("-", "_");
+        const alias = _toName(path).replace(".interface", "").replace("-", "_");
         return `import {default as ${alias}} from "${path}"; ${alias};`;
       })
       .join("");
@@ -112,9 +102,7 @@ function transpileFiles(paths, production, env, bundleName = "index") {
 
     return (
       src(importsFilePath)
-        .pipe(gulpIf(!production, sourcemaps.init()))
         .pipe(webpackStream(webpackConfig(production), webpack))
-        .pipe(gulpIf(!production, sourcemaps.write(".")))
         // .pipe(gulpIf(production, gzip(gzipConfig)))
         .pipe(rename({ basename: `${bundleName}.${getSuffixBy(env)}.min` }))
         .pipe(dest(path.resolve(rootPath, "dist")))

@@ -1,7 +1,7 @@
 @import "shared";
 
-eosc-common-main-footer {
-  .footer {
+.eosc-common {
+  &.footer {
     width: 100%;
     background-color: $color-4;
     font-weight: 300;
@@ -116,3 +116,4 @@ eosc-common-main-footer {
     }
   }
 }
+

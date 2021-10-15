@@ -1,7 +1,7 @@
 import { mount } from "enzyme";
 import Cookies from "js-cookie";
 import { environment } from "../../env/env";
-import EoscMainHeader from "./main-header.component";
+import EoscCommonMainHeader from "./main-header.interface";
 import * as AutoLoginUtils from "./auto-login.utils";
 import * as CallbackUtils from "../../core/callback";
 
@@ -17,10 +17,10 @@ describe("Main Header Component", () => {
     const consoleLogSpy = jest.spyOn(console, "log");
     const props = {
       username: "username",
-      loginUrl: "https://test.pl",
-      "(onLogout)": "console.log('test')",
+      "login-url": "https://test.pl",
+      "on-logout": "console.log('test')",
     };
-    const wrapper = mount(<EoscMainHeader {...props} />);
+    const wrapper = mount(<EoscCommonMainHeader {...props} />);
     expect(wrapper.text()).toContain("Logout");
 
     const logoutBtn = wrapper
@@ -36,10 +36,10 @@ describe("Main Header Component", () => {
     const consoleLogSpy = jest.spyOn(console, "log");
     const props = {
       username: "",
-      logoutUrl: "https://test.pl",
-      "(onLogin)": "console.log('test')",
+      "logout-url": "https://test.pl",
+      "on-login": "console.log('test')",
     };
-    const wrapper = mount(<EoscMainHeader {...props} />);
+    const wrapper = mount(<EoscCommonMainHeader {...props} />);
     expect(wrapper.text()).toContain("Login");
     expect(wrapper.text()).toContain(props.username);
 
@@ -54,10 +54,10 @@ describe("Main Header Component", () => {
   test("should display all hrefs", () => {
     const props = {
       username: "",
-      logoutUrl: "https://test.pl",
-      loginUrl: "https://test1.pl",
+      "logout-url": "https://test.pl",
+      "login-url": "https://test1.pl",
     };
-    const wrapper = mount(<EoscMainHeader {...props} />);
+    const wrapper = mount(<EoscCommonMainHeader {...props} />);
     const wrapperTextContent = wrapper.text();
     environment.mainHeaderConfig.forEach((config) => {
       expect(wrapperTextContent).toContain(config.label);
@@ -66,10 +66,10 @@ describe("Main Header Component", () => {
   test("should display username", () => {
     const props = {
       username: "username",
-      logoutUrl: "https://test.pl",
-      loginUrl: "https://test1.pl",
+      "logout-url": "https://test.pl",
+      "login-url": "https://test1.pl",
     };
-    const wrapper = mount(<EoscMainHeader {...props} />);
+    const wrapper = mount(<EoscCommonMainHeader {...props} />);
     expect(wrapper.text()).toContain(props.username);
   });
 
@@ -85,51 +85,62 @@ describe("Main Header Component", () => {
       // eslint-disable-next-line no-restricted-globals
       const props = {
         username: "",
-        logoutUrl: "https://test.pl",
-        loginUrl: "https://test1.pl",
+        "logout-url": "https://test.pl",
+        "login-url": "https://test1.pl",
       };
-      new EoscMainHeader().render(props);
-      expect(window.location.href).toEqual(props.loginUrl);
+      new EoscCommonMainHeader().render(props);
+      expect(window.location.href).toEqual(props["login-url"]);
     });
     test("should try autologin with callback", () => {
       jest.spyOn(Cookies, "get").mockImplementation((cookieName) => cookieName === AUTOLOGIN_COOKIE_NAME);
       const callAllSpy = jest.spyOn(CallbackUtils, "default");
       const props = {
         username: "",
-        logoutUrl: "https://test.pl",
-        "(onLogin)": "console.log('test');",
+        "logout-url": "https://test.pl",
+        "on-login": "console.log('test');",
       };
-      new EoscMainHeader().render(props);
-      expect(callAllSpy).toHaveBeenCalledWith(null, props["(onLogin)"]);
+      new EoscCommonMainHeader().render(props);
+      expect(callAllSpy).toHaveBeenCalledWith(null, props["on-login"]);
+    });
+    test("[Deprecated use with braces] should try autologin with callback", () => {
+      jest.spyOn(Cookies, "get").mockImplementation((cookieName) => cookieName === AUTOLOGIN_COOKIE_NAME);
+      const callAllSpy = jest.spyOn(CallbackUtils, "default");
+      const props = {
+        username: "",
+        "logout-url": "https://test.pl",
+        "(on-login)": "console.log('test');",
+      };
+      new EoscCommonMainHeader().render(props);
+      expect(callAllSpy).toHaveBeenCalledWith(null, props["(on-login)"]);
     });
     test("should try login by default", () => {
       const autoLoginCallSpy = jest.spyOn(AutoLoginUtils, "tryAutologin");
       const props = {
         username: "",
-        logoutUrl: "https://test.pl",
-        loginUrl: "https://test1.pl",
+        "logout-url": "https://test.pl",
+        "login-url": "https://test1.pl",
       };
-      new EoscMainHeader().render(props);
+      new EoscCommonMainHeader().render(props);
       expect(autoLoginCallSpy).toHaveBeenCalled();
     });
     test.skip("should skip on param", () => {
       const autoLoginCallSpy = jest.spyOn(AutoLoginUtils, "tryAutologin");
       const props = {
         username: "",
-        logoutUrl: "https://test.pl",
-        loginUrl: "https://test1.pl",
+        "login-url": "https://test.pl",
+        "logout-url": "https://test1.pl",
         autoLogin: false,
       };
-      new EoscMainHeader().render(props);
+      new EoscCommonMainHeader().render(props);
       expect(autoLoginCallSpy).not.toHaveBeenCalled();
     });
     test("should create login attempt cookie", async () => {
       const props = {
         username: "",
-        logoutUrl: "https://test.pl",
-        loginUrl: "https://test1.pl",
+        "logout-url": "https://test.pl",
+        "login-url": "https://test1.pl",
       };
-      const wrapper = mount(<EoscMainHeader {...props} />);
+      const wrapper = mount(<EoscCommonMainHeader {...props} />);
       const loginBtn = wrapper.find("#login-btn").find("a");
       const setCookieSpy = jest.spyOn(Cookies, "set");
       loginBtn.simulate("click");
@@ -143,10 +154,10 @@ describe("Main Header Component", () => {
     test("should create logout attempt cookie", async () => {
       const props = {
         username: "logged in user",
-        logoutUrl: "https://test.pl",
-        loginUrl: "https://test1.pl",
+        "logout-url": "https://test.pl",
+        "login-url": "https://test1.pl",
       };
-      const wrapper = mount(<EoscMainHeader {...props} />);
+      const wrapper = mount(<EoscCommonMainHeader {...props} />);
       const logoutBtn = wrapper.find("#logout-btn").find("a");
       const setCookieSpy = jest.spyOn(Cookies, "set");
       logoutBtn.simulate("click");
@@ -160,13 +171,13 @@ describe("Main Header Component", () => {
     test("should create autologin cookie", () => {
       const props = {
         username: "logged in user",
-        logoutUrl: "https://test.pl",
-        loginUrl: "https://test1.pl",
+        "logout-url": "https://test.pl",
+        "login-url": "https://test1.pl",
       };
       jest.spyOn(Cookies, "get").mockImplementation((cookieName) => cookieName === LOGIN_ATTEMPT_COOKIE_NAME);
       const setCookieSpy = jest.spyOn(Cookies, "set");
       const removeCookieSpy = jest.spyOn(Cookies, "remove");
-      new EoscMainHeader().render(props);
+      new EoscCommonMainHeader().render(props);
       // eslint-disable-next-line no-restricted-globals
       expect(removeCookieSpy).toHaveBeenCalledWith(LOGIN_ATTEMPT_COOKIE_NAME, { domain: location.hostname });
       environment.defaultConfiguration.autoLoginDomains.forEach((domain) => {
@@ -179,12 +190,12 @@ describe("Main Header Component", () => {
     test("should remove autologin cookie on missing username", () => {
       const props = {
         username: "",
-        logoutUrl: "https://test.pl",
-        loginUrl: "https://test1.pl",
+        "logout-url": "https://test.pl",
+        "login-url": "https://test1.pl",
       };
       jest.spyOn(Cookies, "get").mockImplementation((cookieName) => cookieName === LOGIN_ATTEMPT_COOKIE_NAME);
       const removeCookieSpy = jest.spyOn(Cookies, "remove");
-      new EoscMainHeader().render(props);
+      new EoscCommonMainHeader().render(props);
       expect(removeCookieSpy).toHaveBeenCalledWith(LOGIN_ATTEMPT_COOKIE_NAME, {
         // eslint-disable-next-line no-restricted-globals
         ...getCookieConfig(location.hostname),
@@ -200,15 +211,15 @@ describe("Main Header Component", () => {
     test("should skip autologin on logout attempt", async () => {
       const props = {
         username: "logged in username",
-        logoutUrl: "https://test.pl",
-        loginUrl: "https://test1.pl",
+        "logout-url": "https://test.pl",
+        "login-url": "https://test1.pl",
       };
       jest.spyOn(Cookies, "get").mockImplementation((cookieName) => {
         return cookieName === LOGOUT_ATTEMPT_COOKIE_NAME || cookieName === AUTOLOGIN_COOKIE_NAME;
       });
       const setCookieSpy = jest.spyOn(Cookies, "set");
       const removeCookieSpy = jest.spyOn(Cookies, "remove");
-      const wrapper = mount(<EoscMainHeader {...props} />);
+      const wrapper = mount(<EoscCommonMainHeader {...props} />);
       const logoutBtn = wrapper.find("#logout-btn").find("a");
       logoutBtn.simulate("click");
       await Promise.resolve();

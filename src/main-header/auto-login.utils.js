@@ -72,8 +72,10 @@ function tryLogin(props) {
     return;
   }
 
-  if (props["(onLogin)"]) {
-    callAll(null, props["(onLogin)"]);
+  // TODO: Deprecate braces in props names
+  const onLogin = props["(onLogin)"] && props["(onLogin)"].trim() !== "" ? props["(onLogin)"] : props.onLogin;
+  if (onLogin) {
+    callAll(null, onLogin);
     return;
   }
 

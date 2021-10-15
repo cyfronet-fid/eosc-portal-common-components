@@ -1,8 +1,9 @@
 import { render } from "preact";
-import { fetchPropertiesAsCamelCaseFrom } from "./parsers";
+import { fetchPropertiesFrom } from "./parsers";
 import rwdHOC from "./rwd.hoc";
 import { GRID_KEYS } from "./globals";
 
+// TODO: Render selector deprecation
 /**
  *
  * @param {String} params.selector HTML DOM Element tag to be replaced with Component
@@ -11,27 +12,17 @@ import { GRID_KEYS } from "./globals";
  */
 export default function Render(params) {
   function _renderWrapper(WrappedComponent) {
-    const elementsToBeReplaced = Array.from(document.getElementsByTagName(params.selector));
+    const elementsToBeReplaced = [
+      ...Array.from(document.getElementsByTagName(params.selector)),
+      ...Array.from(document.getElementsByTagName(WrappedComponent.name)),
+    ];
     const displayOnGrid = !!params.rwd && params.rwd.length > 0 ? params.rwd : GRID_KEYS;
-    const hasRwdWrapper = params.rwd && params.rwd.length > 0;
+    const shouldAddRwdWrapper = params.rwd && params.rwd.length > 0;
     elementsToBeReplaced.forEach((element) => {
-      if (hasRwdWrapper) {
-        _render(element, rwdHOC(WrappedComponent, displayOnGrid));
-      } else {
-        _render(element, WrappedComponent);
-      }
+      const props = fetchPropertiesFrom(element);
+      const RenderedComponent = shouldAddRwdWrapper ? rwdHOC(WrappedComponent, displayOnGrid) : WrappedComponent;
+      render(<RenderedComponent {...props} />, element);
     });
   }
   return _renderWrapper;
-}
-
-/**
- * @param {Element} element
- * @param {{ new(props: T): Component<T, S, any> } | { (props: T): JSX.Element }} WrappedComponent
- * @return void
- */
-function _render(element, WrappedComponent) {
-  const props = fetchPropertiesAsCamelCaseFrom(element);
-  element.classList.add("eosc-common");
-  render(<WrappedComponent {...props} />, element);
 }

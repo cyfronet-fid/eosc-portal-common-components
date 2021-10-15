@@ -36,6 +36,8 @@ exports.serve = series(
     const libFilesToBuild = [
       path.resolve(rootPath, "src/**/*.jsx"),
       path.resolve(rootPath, "src/**/*.js"),
+      path.resolve(rootPath, "core/**/*.jsx"),
+      path.resolve(rootPath, "core/**/*.js"),
       path.resolve(rootPath, "configurations/**/*.json"),
     ];
     watch(

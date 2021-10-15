@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import requiredIf from "react-required-if";
 import { Component } from "preact";
 import { getCookieConfig, LOGIN_ATTEMPT_COOKIE_NAME } from "./auto-login.utils";
-import usePropTypes from "../../core/utils";
 import { isJsScript } from "../../core/callback.validators";
 import callAll from "../../core/callback";
+import { usePropTypes } from "../../core/utils";
 
 export default class EoscMainHeaderLoginBtn extends Component {
   static propTypes = {
@@ -19,7 +19,9 @@ export default class EoscMainHeaderLoginBtn extends Component {
   };
 
   render(props) {
-    const { loginUrl, "(onLogin)": onLogin } = usePropTypes(props, EoscMainHeaderLoginBtn);
+    // TODO: deprecate braces around properties names
+    const onLogin = props["(onLogin)"] && props["(onLogin)"].trim() !== "" ? props["(onLogin)"] : props.onLogin;
+    const { loginUrl } = usePropTypes(props, EoscMainHeaderLoginBtn);
     return (
       <li id="login-btn">
         <strong>
@@ -31,7 +33,9 @@ export default class EoscMainHeaderLoginBtn extends Component {
                 LOGIN_ATTEMPT_COOKIE_NAME,
                 getCookieConfig(window.location.hostname)
               );
-              callAll(event, onLogin);
+              if (onLogin && onLogin.trim() !== "") {
+                callAll(event, onLogin);
+              }
             }}
           >
             Login

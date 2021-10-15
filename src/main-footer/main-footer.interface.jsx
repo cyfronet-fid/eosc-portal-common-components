@@ -3,25 +3,17 @@ import { Component } from "preact";
 import { environment } from "../../env/env";
 import EoscMainFooterLogoBar from "./main-footer-logo-bar.component";
 import EoscMainFooterCols from "./main-footer-cols.component";
-import usePropTypes from "../../core/utils";
 import Render from "../../core/render";
+import { fieldsToCamelCase, usePropTypes } from "../../core/utils";
 
 /**
  * @version 1.0
- * @summary Common EOSC footer at bottom of the application.
- * @hideconstructor
- *
- * @component
- * @example
- * <!-- Default footer -->
- * <eosc-common-main-footer></eosc-common-main-footer>
- *
  */
 @Render({
   selector: "eosc-common-main-footer",
 })
 // eslint-disable-next-line no-unused-vars
-class EoscMainFooter extends Component {
+class EoscCommonMainFooter extends Component {
   static propTypes = {
     production: PropTypes.bool,
     socialIcons: PropTypes.arrayOf(
@@ -38,9 +30,9 @@ class EoscMainFooter extends Component {
   };
 
   render(props) {
-    const { production, socialIcons } = usePropTypes(props, EoscMainFooter);
+    const { production, socialIcons } = fieldsToCamelCase(usePropTypes(props, EoscCommonMainFooter));
     return (
-      <footer className={`footer pt-3 pb-3 ${production ? "" : "demo"}`}>
+      <footer className={`eosc-common footer pt-3 pb-3 ${production ? "" : "demo"}`}>
         <div className="container">
           <a className="arrow-up" href="#" /> {/* eslint-disable-line */}
           <EoscMainFooterLogoBar />
@@ -63,4 +55,4 @@ class EoscMainFooter extends Component {
   }
 }
 
-export default EoscMainFooter;
+export default EoscCommonMainFooter;

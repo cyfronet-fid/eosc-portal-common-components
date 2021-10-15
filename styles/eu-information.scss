@@ -1,7 +1,7 @@
 @import "shared";
 
-eosc-common-eu-information {
-  .eu-information {
+.eosc-common {
+  &.eu-information {
     padding: calc(1.5 * #{$font-size-base});
 
     p {

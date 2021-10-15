@@ -5,11 +5,11 @@
     max-width: 1180px;
   }
 
-  .demo {
+  &.demo {
     position: relative;
   }
 
-  .demo {
+  &.demo {
     &:after {
       position: absolute;
       top: 0;

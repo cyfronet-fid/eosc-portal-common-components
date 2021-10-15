@@ -5,9 +5,9 @@ import { Component, Fragment } from "preact";
 import { environment } from "../../env/env";
 import { AUTOLOGIN_COOKIE_NAME, getCookieConfig, LOGOUT_ATTEMPT_COOKIE_NAME } from "./auto-login.utils";
 import { isJsScript } from "../../core/callback.validators";
-import usePropTypes from "../../core/utils";
 import callAll from "../../core/callback";
 import FasUserIcon from "../../core/icons/fas-user.icon";
+import { usePropTypes } from "../../core/utils";
 
 export default class EoscMainHeaderLogoutBtn extends Component {
   static propTypes = {
@@ -23,7 +23,9 @@ export default class EoscMainHeaderLogoutBtn extends Component {
   };
 
   render(props) {
-    const { username, logoutUrl, "(onLogout)": onLogout } = usePropTypes(props, EoscMainHeaderLogoutBtn);
+    // TODO: deprecate braces around properties names
+    const onLogout = props["(onLogout)"] && props["(onLogout)"].trim() !== "" ? props["(onLogout)"] : props.onLogout;
+    const { username, logoutUrl } = usePropTypes(props, EoscMainHeaderLogoutBtn);
     return (
       <Fragment>
         <li>
@@ -42,7 +44,9 @@ export default class EoscMainHeaderLogoutBtn extends Component {
                 );
                 const { autoLoginDomains } = environment.defaultConfiguration;
                 autoLoginDomains.forEach((domain) => Cookies.remove(AUTOLOGIN_COOKIE_NAME, getCookieConfig(domain)));
-                callAll(event, onLogout);
+                if (onLogout && onLogout.trim() !== "") {
+                  callAll(event, onLogout);
+                }
               }}
               data-e2e="logout"
             >
