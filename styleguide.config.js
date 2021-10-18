@@ -9,7 +9,7 @@ module.exports = {
   },
   require: [
     // path.join(__dirname, "dist/index.production.min.js"),
-    path.join(__dirname, "dist/index.min.css"),
+    path.join(__dirname, "dist/index.development.min.css"),
   ],
   styleguideDir: "dist/docs",
 };
