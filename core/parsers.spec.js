@@ -1,4 +1,4 @@
-import { fetchPropertiesAsCamelCaseFrom } from "./parsers";
+import { fetchPropertiesFrom } from "./parsers";
 
 describe("Parsers", () => {
   test("should get element attributes in camel case", () => {
@@ -14,9 +14,10 @@ describe("Parsers", () => {
         },
       ],
     };
-    const parsedAttributes = fetchPropertiesAsCamelCaseFrom(element);
-    expect(Object.keys(parsedAttributes).sort()).toEqual(["(onLogin)", "loginUrl"].sort());
-    expect(parsedAttributes["(onLogin)"]).toEqual(element.attributes[0].nodeValue);
-    expect(parsedAttributes.loginUrl).toEqual(element.attributes[1].nodeValue);
+    const parsedAttributes = fetchPropertiesFrom(element);
+    const elementSortedNames = element.attributes.map((node) => node.nodeName).sort();
+    expect(Object.keys(parsedAttributes).sort()).toEqual(elementSortedNames);
+    const elementSortedValues = element.attributes.map((node) => node.nodeValue).sort();
+    expect(Object.values(parsedAttributes).sort()).toEqual(elementSortedValues);
   });
 });

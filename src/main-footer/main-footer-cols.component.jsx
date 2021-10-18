@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Component, Fragment } from "preact";
 import { environment } from "../../env/env";
-import usePropTypes from "../../core/utils";
+import { usePropTypes } from "../../core/utils";
 
 export default class EoscMainFooterCols extends Component {
   static propTypes = {

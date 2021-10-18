@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { Component } from "preact";
-import usePropTypes from "../../core/utils";
+import { usePropTypes } from "../../core/utils";
 
 export default class EoscMainHeaderBtn extends Component {
   static propTypes = {
