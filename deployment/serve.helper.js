@@ -5,10 +5,14 @@ const { preprocessStyles } = require("./lib-build.helper");
 const browserSync = require("browser-sync").create();
 const execa = require("execa");
 const compression = require("compression");
+const { src, dest } = require("gulp");
 
 const rootPath = path.resolve(__dirname, "../");
 exports.serve = series(
   (cb) => del(path.resolve(rootPath, "dist"), cb),
+  function moveAssets() {
+    return src(path.resolve(rootPath, "styles/assets/*")).pipe(dest(path.resolve(rootPath, "dist/assets")));
+  },
   preprocessStyles(false, "env/env.development.js", browserSync),
   async (cb) => {
     await execa("npm", ["run", "build:docs"]);
