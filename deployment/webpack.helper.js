@@ -13,6 +13,8 @@ exports.webpackConfig = (production) => ({
           ecma: "5",
           topLevel: true,
           compress: true,
+          keep_classnames: true,
+          keep_fnames: true,
         },
       }),
     ],

@@ -16,9 +16,6 @@ export default function Render(params) {
       ...Array.from(document.getElementsByTagName(params.selector)),
       ...Array.from(document.getElementsByTagName(WrappedComponent.name)),
     ];
-
-    console.log(elementsToBeReplaced);
-
     const displayOnGrid = !!params.rwd && params.rwd.length > 0 ? params.rwd : GRID_KEYS;
     const shouldAddRwdWrapper = params.rwd && params.rwd.length > 0;
     elementsToBeReplaced.forEach((element) => {
