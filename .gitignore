@@ -1,7 +1,8 @@
 # Build misc
 dist/
-
+.cache/
 env/env.js
+coverage/
 
 node_modules/
 

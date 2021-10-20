@@ -4,9 +4,9 @@ const euInformationConfig = require("../configurations/eu-information.production
 const defaultConfiguration = require("../configurations/configuration.production.json");
 
 exports.environment = {
-    mainHeaderConfig,
-    mainFooterConfig,
-    defaultConfiguration,
-    euInformationConfig,
-    production: true
-}
+  mainHeaderConfig,
+  mainFooterConfig,
+  defaultConfiguration,
+  euInformationConfig,
+  production: true,
+};

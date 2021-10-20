@@ -2,9 +2,9 @@ name: Remove Pull Request dist from s3
 on:
   pull_request:
     branches:
-      - '**'
-      - '!master'
-      - '!development'
+      - "**"
+      - "!master"
+      - "!development"
     types:
       - closed
 

@@ -2,9 +2,8 @@ name: Run unit tests
 on:
   push:
     branches:
-      - '**'
-      - '!develop'
-      - '!master'
+      - "**"
+      - "!master"
 
 jobs:
   unit-tests:
@@ -13,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: "14"
       - name: Cache node modules
         uses: actions/cache@v2
         env:
@@ -27,5 +26,7 @@ jobs:
             ${{ runner.os }}-
       - name: Install dependecies
         run: npm install
+      - name: Move env file
+        run: mv env/env.production.js env/env.js
       - name: Run unit tests
         run: npm test

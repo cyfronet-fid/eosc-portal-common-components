@@ -5,11 +5,11 @@
   },
   {
     "label": "Portal Home",
-    "url": "https://eoscportal.docker-fid.grid.cyf-kr.edu.pl/"
+    "url": "https://eoscportal.docker-fid.grid.cyf-kr.edu.pl"
   },
   {
     "label": "Catalogue & Marketplace",
-    "url": "https://marketplace-beta.docker-fid.grid.cyf-kr.edu.pl/"
+    "url": "https://marketplace-beta.docker-fid.grid.cyf-kr.edu.pl"
   },
   {
     "label": "Providers Dashboard",
@@ -18,11 +18,5 @@
   {
     "label": "Providers Documentation",
     "url": "https://eoscportal.docker-fid.grid.cyf-kr.edu.pl/providers-documentation"
-  },
-  {
-    "label": "Login"
-  },
-  {
-    "label": "Logout"
   }
 ]

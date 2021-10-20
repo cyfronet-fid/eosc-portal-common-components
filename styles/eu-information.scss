@@ -1,19 +1,20 @@
 @import "shared";
 
-eosc-common-eu-information {
-    .eu-information {
-        padding: calc(1.5 * #{$font-size-base});
+.eosc-common {
+  &.eu-information {
+    padding: calc(1.5 * #{$font-size-base});
 
-        p {
-            font-size: calc(.875 * #{$font-size-base});
-            line-height: calc(1.2 * #{$font-size-base});
-            font-weight: 300;
-            color: #a6aeb1;
-        }
-
-        a, a:hover {
-            color: #3540b6;
-            text-decoration: none;
-        }
+    p {
+      font-size: calc(.875 * #{$font-size-base});
+      line-height: calc(1.2 * #{$font-size-base});
+      font-weight: 300;
+      color: #a6aeb1;
     }
+
+    a,
+    a:hover {
+      color: #3540b6;
+      text-decoration: none;
+    }
+  }
 }

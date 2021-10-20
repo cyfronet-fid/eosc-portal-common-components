@@ -1,18 +1,18 @@
 @import "shared";
 
-eosc-common-main-header {
-  .container {
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-  }
-
-  .top {
+.eosc-common {
+  &.top {
     font-size: $font-size-sm;
     font-weight: $font-weight-normal;
     padding: 6px 0;
     background: $color-3;
+
+    .container {
+      padding-right: 15px;
+      padding-left: 15px;
+      margin-right: auto;
+      margin-left: auto;
+    }
 
     ul {
       padding: 0;
@@ -28,6 +28,7 @@ eosc-common-main-header {
         color: $palette-gray-80;
 
         svg {
+          width: 12px;
           margin-right: 6px;
           margin-bottom: 4px;
         }

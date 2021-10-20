@@ -5,24 +5,18 @@
   },
   {
     "label": "Portal Home",
-    "url": "https://eosc-portal.eu/"
+    "url": "https://eosc-portal.eu"
   },
   {
     "label": "Catalogue & Marketplace",
-    "url": "https://marketplace.eosc-portal.eu/"
+    "url": "https://marketplace.eosc-portal.eu"
   },
   {
     "label": "Providers Dashboard",
-    "url": "https://providers.eosc-portal.eu/"
+    "url": "https://providers.eosc-portal.eu"
   },
   {
     "label": "Providers Documentation",
     "url": "https://eosc-portal.eu/providers-documentation"
-  },
-  {
-    "label": "Login"
-  },
-  {
-    "label": "Logout"
   }
 ]
