@@ -3,7 +3,7 @@
     "xsm": 0,
     "sm": 576,
     "md": 768,
-    "lg": 990,
+    "lg": 992,
     "xl": 1200
   },
   "autoLoginDomains": [".eosc-portal.eu", "eosc-portal.eu", "localhost", ".docker-fid.grid.cyf-kr.edu.pl"]
