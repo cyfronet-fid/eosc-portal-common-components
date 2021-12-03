@@ -179,7 +179,11 @@ describe("Main Header Component", () => {
       const removeCookieSpy = jest.spyOn(Cookies, "remove");
       new EoscCommonMainHeader().render(props);
       // eslint-disable-next-line no-restricted-globals
-      expect(removeCookieSpy).toHaveBeenCalledWith(LOGIN_ATTEMPT_COOKIE_NAME, { domain: location.hostname });
+      expect(removeCookieSpy).toHaveBeenCalledWith(LOGIN_ATTEMPT_COOKIE_NAME, {
+        // eslint-disable-next-line no-restricted-globals
+        ...getCookieConfig(location.hostname),
+        expires: expect.anything(),
+      });
       environment.defaultConfiguration.autoLoginDomains.forEach((domain) => {
         expect(setCookieSpy).toHaveBeenCalledWith(AUTOLOGIN_COOKIE_NAME, AUTOLOGIN_COOKIE_NAME, {
           ...getCookieConfig(domain),

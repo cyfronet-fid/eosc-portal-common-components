@@ -38,7 +38,7 @@ export function getCookieConfig(domain) {
 function setAutologinCookie(isLoggedIn) {
   const _setAutologinCookie = !!Cookies.get(LOGIN_ATTEMPT_COOKIE_NAME) && isLoggedIn;
   if (_setAutologinCookie) {
-    Cookies.remove(LOGIN_ATTEMPT_COOKIE_NAME, { domain: window.location.hostname });
+    Cookies.remove(LOGIN_ATTEMPT_COOKIE_NAME, getCookieConfig(window.location.hostname));
     const setAutologin = (domain) => Cookies.set(AUTOLOGIN_COOKIE_NAME, AUTOLOGIN_COOKIE_NAME, getCookieConfig(domain));
     environment.defaultConfiguration.autoLoginDomains.forEach((domain) => setAutologin(domain));
   }
