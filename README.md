@@ -106,10 +106,9 @@ or [JS tutorial](https://www.w3schools.com/js/default.asp).
       </head>
       <body>
         <eosc-common-main-header
-          name="name"
-          surname="surname"
-          loginUrl="https://marketplace.eosc-portal.eu/users/auth/checkin"
-          logoutUrl="https://marketplace.eosc-portal.eu/users/logout"
+          username="name surname"
+          login-url="https://marketplace.eosc-portal.eu/users/auth/checkin"
+          logout-url="https://marketplace.eosc-portal.eu/users/logout"
         ></eosc-common-main-header>
 
         <script src="https://s3.cloud.cyfronet.pl/eosc-portal-common/index.production.min.js"></script>
@@ -128,10 +127,9 @@ or [JS tutorial](https://www.w3schools.com/js/default.asp).
       </head>
       <body>
         <eosc-common-main-header
-          name="name"
-          surname="surname"
-          loginUrl="https://marketplace.eosc-portal.eu/users/auth/checkin"
-          logoutUrl="https://marketplace.eosc-portal.eu/users/logout"
+          username="name surname"
+          login-url="https://marketplace.eosc-portal.eu/users/auth/checkin"
+          logout-url="https://marketplace.eosc-portal.eu/users/logout"
         ></eosc-common-main-header>
 
         <script src="../dist/index.production.min.js"></script>
@@ -157,10 +155,9 @@ or [JS tutorial](https://www.w3schools.com/js/default.asp).
       </head>
       <body>
         <eosc-common-main-header
-          name="name"
-          surname="surname"
-          loginUrl="https://marketplace.eosc-portal.eu/users/auth/checkin"
-          logoutUrl="https://marketplace.eosc-portal.eu/users/logout"
+          username="name surname"
+          login-url="https://marketplace.eosc-portal.eu/users/auth/checkin"
+          logout-url="https://marketplace.eosc-portal.eu/users/logout"
         ></eosc-common-main-header>
 
         <script src="https://s3.cloud.cyfronet.pl/eosc-portal-common/main-header.production.min.js"></script>
@@ -179,10 +176,9 @@ or [JS tutorial](https://www.w3schools.com/js/default.asp).
       </head>
       <body>
         <eosc-common-main-header
-          name="name"
-          surname="surname"
-          loginUrl="https://marketplace.eosc-portal.eu/users/auth/checkin"
-          logoutUrl="https://marketplace.eosc-portal.eu/users/logout"
+          username="name surname"
+          login-url="https://marketplace.eosc-portal.eu/users/auth/checkin"
+          logout-url="https://marketplace.eosc-portal.eu/users/logout"
         ></eosc-common-main-header>
 
         <script src="../dist/main-header.production.min.js"></script>
@@ -262,15 +258,15 @@ The files name's and its extensions:
     ```text
      https://s3.cloud.cyfronet.pl/eosc-portal-common/latest/index.development.js
     ```
+
 ### How to contribute
 
 1. Go to file you want to edit (for example https://github.com/cyfronet-fid/eosc-portal-common/blob/develop/configurations/configuration.production.json)
 2. Click `pen icon`
-![config](https://user-images.githubusercontent.com/31220811/138041697-ed2af299-65b5-4c2e-9080-5188c92a8b76.png)
+   ![config](https://user-images.githubusercontent.com/31220811/138041697-ed2af299-65b5-4c2e-9080-5188c92a8b76.png)
 3. Provide changes in edition field
-![edition](https://user-images.githubusercontent.com/31220811/138041903-534a21e1-973a-4d8b-9f48-5139df12ec63.png)
+   ![edition](https://user-images.githubusercontent.com/31220811/138041903-534a21e1-973a-4d8b-9f48-5139df12ec63.png)
 4. Click `Propose changes`
-![propose changes](https://user-images.githubusercontent.com/31220811/138042013-65286f41-7f58-4788-9432-439d4e0b8649.png)
+   ![propose changes](https://user-images.githubusercontent.com/31220811/138042013-65286f41-7f58-4788-9432-439d4e0b8649.png)
 5. See provided changes and confirm them by clicking `Create pull request`
-![Provided changes](https://user-images.githubusercontent.com/31220811/138042232-0be21178-25f0-4eb1-94eb-f181e66e338d.png)
-
+   ![Provided changes](https://user-images.githubusercontent.com/31220811/138042232-0be21178-25f0-4eb1-94eb-f181e66e338d.png)
