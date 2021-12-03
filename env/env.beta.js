@@ -8,5 +8,5 @@ exports.environment = {
   mainFooterConfig,
   defaultConfiguration,
   euInformationConfig,
-  production: false,
+  production: true,
 };

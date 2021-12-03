@@ -229,7 +229,11 @@ describe("Main Header Component", () => {
         expires: expect.anything(),
       });
       // eslint-disable-next-line no-restricted-globals
-      expect(removeCookieSpy).toHaveBeenCalledWith(LOGOUT_ATTEMPT_COOKIE_NAME, { domain: location.hostname });
+      expect(removeCookieSpy).toHaveBeenCalledWith(LOGOUT_ATTEMPT_COOKIE_NAME, {
+        // eslint-disable-next-line no-restricted-globals
+        ...getCookieConfig(location.hostname),
+        expires: expect.anything(),
+      });
       environment.defaultConfiguration.autoLoginDomains.forEach((domain) => {
         expect(removeCookieSpy).toHaveBeenCalledWith(AUTOLOGIN_COOKIE_NAME, {
           ...getCookieConfig(domain),

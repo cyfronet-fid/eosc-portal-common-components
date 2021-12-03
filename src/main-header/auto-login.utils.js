@@ -59,7 +59,7 @@ function shouldSkipAutologin(isLoggedIn) {
   const logoutAttempt = !!Cookies.get(LOGOUT_ATTEMPT_COOKIE_NAME);
   const _shouldSkipAutologin = (!Cookies.get(AUTOLOGIN_COOKIE_NAME) && !isLoggedIn) || logoutAttempt || isLoggedIn;
   if (_shouldSkipAutologin) {
-    Cookies.remove(LOGOUT_ATTEMPT_COOKIE_NAME, { domain: window.location.hostname });
+    Cookies.remove(LOGOUT_ATTEMPT_COOKIE_NAME, getCookieConfig(window.location.hostname));
   }
   return _shouldSkipAutologin;
 }
