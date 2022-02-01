@@ -1,15 +1,12 @@
 import { Component } from "preact";
 import PropTypes from "prop-types";
 import { environment } from "../env/env";
-import Render from "../core/render";
 import { fieldsToCamelCase, usePropTypes } from "../core/utils";
+import { renderComponent } from "../core/render";
 
 /**
  * @version 1.0
  */
-@Render({
-  selector: "eosc-common-eu-information",
-})
 class EoscCommonEuInformation extends Component {
   static propTypes = {
     description: PropTypes.string,
@@ -39,5 +36,13 @@ class EoscCommonEuInformation extends Component {
     );
   }
 }
+
+renderComponent(EoscCommonEuInformation, {
+  tagName: "eosc-common-eu-information",
+  className: "eosc-common-eu-information",
+  idName: "eosc-common-eu-information",
+});
+renderComponent(EoscCommonEuInformation, { tagName: EoscCommonEuInformation.name });
+window.EoscCommonEuInformation = EoscCommonEuInformation;
 
 export default EoscCommonEuInformation;

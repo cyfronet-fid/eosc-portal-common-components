@@ -92,6 +92,7 @@
     "terser-webpack-plugin": "^4.2.3",
     "vinyl-named": "^1.1.0",
     "webpack": "^4.46.0",
+    "window-resizeto": "0.0.2",
     "yargs-parser": "^20.2.9"
   },
   "dependencies": {

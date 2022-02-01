@@ -2,22 +2,12 @@ import { useMediaQuery } from "react-responsive";
 import { environment } from "../env/env";
 import { GRID_FIELD, GRID_KEYS } from "./globals";
 
-/**
- * @param {{ new(props: T): Component<T, S, any> }} WrappedComponent
- * @param {GRID_KEYS[]} showOnBreakpoints
- * @return {function(props: T): JSX.Element}
- */
-export default function rwdHOC(WrappedComponent, showOnBreakpoints) {
-  function Wrapper(props) {
-    const styles = { display: isComponentVisible(showOnBreakpoints) ? "block" : "none" };
-    return (
-      <div style={styles}>
-        <WrappedComponent {...props} /> {/* eslint-disable-line */}
-      </div>
-    );
-  }
-  return Wrapper;
-}
+const RWD = function ({ showOn, children }) {
+  const style = { display: isComponentVisible(showOn) ? "block" : "none" };
+  return <div style={style}>{children}</div>;
+};
+
+export default RWD;
 
 /**
  * @type {{[GRID_KEYS]: {minWidth: number, maxWidth?: number}}}

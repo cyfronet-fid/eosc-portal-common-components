@@ -1,28 +1,36 @@
 import { render } from "preact";
 import { fetchPropertiesFrom } from "./parsers";
-import rwdHOC from "./rwd.hoc";
-import { GRID_KEYS } from "./globals";
 
 /**
+ * @param {Component} Component Commons lib component
  *
- * @param {String} params.selector HTML DOM Element tag to be replaced with Component
- * @param {Array.<GRID_KEYS>|String[]} [params.rwd] Sizes of gri when component will be displayed. By default all
+ * @param params {object}
+ * @param {String=} params.tagName HTML DOM Element tag to be replaced with a component
+ * @param {String=} params.className Css class name to be replaced with a component
+ * @param {String=} params.idName Css id name to be replaced with a component
  * @constructor
  */
-export default function Render(params) {
-  function _renderWrapper(WrappedComponent) {
-    const elementsToBeReplaced = [
-      ...Array.from(document.getElementsByTagName(params.selector)),
-      ...Array.from(document.getElementsByClassName(params.selector)),
-      ...Array.from(document.getElementsByTagName(WrappedComponent.name)),
-    ];
-    const displayOnGrid = !!params.rwd && params.rwd.length > 0 ? params.rwd : GRID_KEYS;
-    const shouldAddRwdWrapper = params.rwd && params.rwd.length > 0;
-    elementsToBeReplaced.forEach((element) => {
-      const props = fetchPropertiesFrom(element);
-      const RenderedComponent = shouldAddRwdWrapper ? rwdHOC(WrappedComponent, displayOnGrid) : WrappedComponent;
-      render(<RenderedComponent {...props} />, element);
-    });
+export function renderComponent(Component, params = {}) {
+  getElementsBy({ ...params, tagName: Component.name }).forEach((element) => {
+    render(<Component {...fetchPropertiesFrom(element)} />, element);
+  });
+}
+window.renderCustomComponent = renderComponent;
+
+export function getElementsBy({ tagName, className, idName }) {
+  const elements = [];
+  if (tagName) {
+    elements.push(...Array.from(document.getElementsByTagName(tagName)));
   }
-  return _renderWrapper;
+
+  if (className) {
+    elements.push(...Array.from(document.getElementsByClassName(className)));
+  }
+
+  const element = document.getElementById(idName);
+  if (idName && element) {
+    elements.push(element);
+  }
+
+  return elements;
 }
