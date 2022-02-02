@@ -7,7 +7,7 @@ import { fieldsToCamelCase, usePropTypes } from "../../core/utils";
 import { renderComponent } from "../../core/render";
 
 /**
- * @version 1.0
+ * @version 1.1
  */
 // eslint-disable-next-line no-unused-vars
 class EoscCommonMainFooter extends Component {

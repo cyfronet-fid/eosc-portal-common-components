@@ -11,7 +11,7 @@ import { fieldsToCamelCase, usePropTypes } from "../../core/utils";
 import RWD from "../../core/rwd.hoc";
 
 /**
- * @version 1.0
+ * @version 1.1
  */
 class EoscCommonMainHeader extends Component {
   static propTypes = {
