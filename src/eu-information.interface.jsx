@@ -5,7 +5,7 @@ import { fieldsToCamelCase, usePropTypes } from "../core/utils";
 import { renderComponent } from "../core/render";
 
 /**
- * @version 1.0
+ * @version 1.1
  */
 class EoscCommonEuInformation extends Component {
   static propTypes = {
