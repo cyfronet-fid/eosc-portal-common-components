@@ -71,32 +71,41 @@ Render using build in tools
 
 ```html
 <div
-  id="custom-css-class"
+  id="custom-id"
   username="name surname"
   login-url="https://marketplace.eosc-portal.eu/users/auth/checkin"
   logout-url="https://marketplace.eosc-portal.eu/users/logout"
 ></div>
 <script>
-  window.renderCustomComponent(window.EoscCommonMainHeader, { id: "custom-css-class" });
+  window.eosccommon.renderMainHeader("#custom-id");
 </script>
 
 <div
-  class="custom-css-class"
+  class="custom-class"
   username="name surname"
   login-url="https://marketplace.eosc-portal.eu/users/auth/checkin"
   logout-url="https://marketplace.eosc-portal.eu/users/logout"
 ></div>
 <script>
-  window.renderCustomComponent(window.EoscCommonMainHeader, { className: "custom-css-class" });
+  window.eosccommon.renderMainHeader(".custom-class");
 </script>
 
-<custom-tag-name
+<custom-tag
   username="name surname"
   login-url="https://marketplace.eosc-portal.eu/users/auth/checkin"
   logout-url="https://marketplace.eosc-portal.eu/users/logout"
-></custom-tag-name>
+></custom-tag>
 <script>
-  window.renderCustomComponent(window.EoscCommonMainHeader, { tagName: "custom-tag-name" });
+  window.eosccommon.renderMainHeader("custom-tag");
+</script>
+
+<custom-tag></custom-tag>
+<script>
+  window.eosccommon.renderMainHeader("custom-tag", {
+    username: "name username",
+    "login-url": "https://marketplace.eosc-portal.eu/users/auth/checkin",
+    "logout-url": "https://marketplace.eosc-portal.eu/users/logout",
+  });
 </script>
 ```
 

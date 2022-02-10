@@ -70,12 +70,12 @@ class EoscCommonMainHeader extends Component {
   }
 }
 
-renderComponent(EoscCommonMainHeader, {
-  tagName: "eosc-common-main-header",
-  className: "eosc-common-main-header",
-  idName: "eosc-common-main-header",
-});
-renderComponent(EoscCommonMainHeader, { tagName: EoscCommonMainHeader.name });
-window.EoscCommonMainHeader = EoscCommonMainHeader;
+renderComponent(EoscCommonMainHeader.name, EoscCommonMainHeader);
+renderComponent(".eosc-common-main-header", EoscCommonMainHeader);
+renderComponent("#eosc-common-main-header", EoscCommonMainHeader);
+renderComponent("eosc-common-main-header", EoscCommonMainHeader);
+window[environment.windowTagName].renderMainHeader = (cssSelector, elementAttr = {}) => {
+  renderComponent(cssSelector, EoscCommonMainHeader, elementAttr);
+};
 
 export default EoscCommonMainHeader;

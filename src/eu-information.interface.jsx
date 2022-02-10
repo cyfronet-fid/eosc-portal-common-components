@@ -37,12 +37,12 @@ class EoscCommonEuInformation extends Component {
   }
 }
 
-renderComponent(EoscCommonEuInformation, {
-  tagName: "eosc-common-eu-information",
-  className: "eosc-common-eu-information",
-  idName: "eosc-common-eu-information",
-});
-renderComponent(EoscCommonEuInformation, { tagName: EoscCommonEuInformation.name });
-window.EoscCommonEuInformation = EoscCommonEuInformation;
+renderComponent(EoscCommonEuInformation.name, EoscCommonEuInformation);
+renderComponent("eosc-common-eu-information", EoscCommonEuInformation);
+renderComponent(".eosc-common-eu-information", EoscCommonEuInformation);
+renderComponent("#eosc-common-eu-information", EoscCommonEuInformation);
+window[environment.windowTagName].renderEuInformation = (cssSelector, elementAttr = {}) => {
+  renderComponent(cssSelector, EoscCommonEuInformation, elementAttr);
+};
 
 export default EoscCommonEuInformation;

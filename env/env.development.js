@@ -3,10 +3,16 @@ const mainFooterConfig = require("../configurations/main-footer.development.conf
 const euInformationConfig = require("../configurations/eu-information.development.json");
 const defaultConfiguration = require("../configurations/configuration.development.json");
 
-exports.environment = {
+const environment = {
   mainHeaderConfig,
   mainFooterConfig,
   defaultConfiguration,
   euInformationConfig,
-  production: true,
+  production: false,
+  windowTagName: "eosccommon",
 };
+exports.environment = environment;
+
+if (!window[environment.windowTagName]) {
+  window[environment.windowTagName] = {};
+}

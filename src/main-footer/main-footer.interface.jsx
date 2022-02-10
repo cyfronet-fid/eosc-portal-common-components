@@ -52,12 +52,12 @@ class EoscCommonMainFooter extends Component {
   }
 }
 
-renderComponent(EoscCommonMainFooter, {
-  tagName: "eosc-common-main-footer",
-  className: "eosc-common-main-footer",
-  idName: "eosc-common-main-footer",
-});
-renderComponent(EoscCommonMainFooter, { tagName: EoscCommonMainFooter.name });
-window.EoscCommonMainFooter = EoscCommonMainFooter;
+renderComponent(EoscCommonMainFooter.name, EoscCommonMainFooter);
+renderComponent("eosc-common-main-footer", EoscCommonMainFooter);
+renderComponent(".eosc-common-main-footer", EoscCommonMainFooter);
+renderComponent("#eosc-common-main-footer", EoscCommonMainFooter);
+window[environment.windowTagName].renderMainFooter = (cssSelector, elementAttr) => {
+  renderComponent(cssSelector, EoscCommonMainFooter, elementAttr);
+};
 
 export default EoscCommonMainFooter;

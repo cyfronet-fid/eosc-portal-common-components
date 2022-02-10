@@ -136,17 +136,17 @@ Using render toolset to dynamically re-render components
       logout-url="https://marketplace.eosc-portal.eu/users/logout"
     ></eosc-common-main-header>
     <script>
-      window.renderCustomComponent(window.EoscCommonMainHeader, { tagName: "eosc-common-main-header" });
+      window.eosccommon.renderMainHeader("eosc-common-main-header");
     </script>
 
     <div id="eosc-common-eu-information"></div>
     <script>
-      window.renderCustomComponent(window.EoscCommonEuInformation, { id: "eosc-common-eu-information" });
+      window.eosccommon.renderMainHeader("#eosc-common-eu-information");
     </script>
 
     <EoscCommonMainFooter></EoscCommonMainFooter>
     <script>
-      window.renderCustomComponent(window.EoscCommonMainFooter, { tagName: "EoscCommonMainFooter" });
+      window.eosccommon.renderMainHeader("EoscCommonMainFooter");
     </script>
   </body>
 </html>

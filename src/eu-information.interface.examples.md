@@ -52,19 +52,19 @@ Render using build in tools
 - **Attach script and styles in page header instead of the end of page body**
 
 ```html
-<div id="custom-css-class"></div>
+<div id="custom-id"></div>
 <script>
-  window.renderCustomComponent(window.EoscCommonEuInformation, { id: "custom-css-class" });
+  window.eosccommon.renderEuInformation("#custom-id");
 </script>
 
-<div class="custom-css-class"></div>
+<div class="custom-class"></div>
 <script>
-  window.renderCustomComponent(window.EoscCommonEuInformation, { className: "custom-css-class" });
+  window.eosccommon.renderEuInformation(".custom-class");
 </script>
 
-<custom-tag-name></custom-tag-name>
+<custom-tag></custom-tag>
 <script>
-  window.renderCustomComponent(window.EoscCommonEuInformation, { tagName: "custom-tag-name" });
+  window.eosccommon.renderEuInformation("custom-tag");
 </script>
 ```
 

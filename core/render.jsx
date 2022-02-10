@@ -2,47 +2,38 @@ import { render } from "preact";
 import { fetchPropertiesFrom } from "./parsers";
 
 /**
- * @param {Component} Component Commons lib component
- *
- * @param selectors {object} HTML selectors by which HTML elements will be found
- * @param {String=} selectors.tagName HTML DOM Element tag to be replaced with a component
- * @param {String=} selectors.className Css class name to be replaced with a component
- * @param {String=} selectors.id Css id name to be replaced with a component
- * @constructor
+ * @param cssSelector {string} - CSS tag, id or class, i. e. div, .class, #id
+ * @param {Component} Component - Commons lib component
+ * @param {object=} elementAttr - HTML element attributes to be set
  */
-export function renderComponent(Component, selectors = { tagName: Component.name }) {
-  const elementsToBeRendered = getElementsBy(selectors);
-
-  if (elementsToBeRendered.length === 0) {
-    const { tagName, className, id } = selectors;
-    // eslint-disable-next-line no-console
-    console.warn(`
-      The custom component: ${Component.name} can't be rendered. 
-      No elements to be rendered can be found with CSS/HTML selectors: 
-      .${className}, #${id}, ${tagName}
-    `);
-    return;
-  }
-
+export function renderComponent(cssSelector, Component, elementAttr = {}) {
+  const elementsToBeRendered = getElementsBy(cssSelector);
   elementsToBeRendered.forEach((element) => {
-    render(<Component {...fetchPropertiesFrom(element)} />, element);
+    const params = {
+      ...fetchPropertiesFrom(element),
+      ...elementAttr,
+    };
+    render(<Component {...params} />, element);
   });
 }
 window.renderCustomComponent = renderComponent;
 
-export function getElementsBy({ tagName, className, id }) {
+export function getElementsBy(cssSelector) {
   const elements = [];
-  if (tagName) {
-    elements.push(...Array.from(document.getElementsByTagName(tagName)));
-  }
 
-  if (className) {
-    elements.push(...Array.from(document.getElementsByClassName(className)));
-  }
-
-  const element = document.getElementById(id);
-  if (id && element) {
-    elements.push(element);
+  const element = document.getElementById(cssSelector);
+  const selectorTypeChar = cssSelector.charAt(0);
+  switch (selectorTypeChar) {
+    case ".":
+      elements.push(...Array.from(document.getElementsByClassName(cssSelector)));
+      break;
+    case "#":
+      if (element) {
+        elements.push(element);
+      }
+      break;
+    default:
+      elements.push(...Array.from(document.getElementsByTagName(cssSelector)));
   }
 
   return elements;
