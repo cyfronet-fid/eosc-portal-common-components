@@ -21,11 +21,12 @@ window.renderCustomComponent = renderComponent;
 export function getElementsBy(cssSelector) {
   const elements = [];
 
-  const element = document.getElementById(cssSelector);
+  const element = document.getElementById(cssSelector.substring(1));
   const selectorTypeChar = cssSelector.charAt(0);
+
   switch (selectorTypeChar) {
     case ".":
-      elements.push(...Array.from(document.getElementsByClassName(cssSelector)));
+      elements.push(...Array.from(document.getElementsByClassName(cssSelector.substring(1))));
       break;
     case "#":
       if (element) {
