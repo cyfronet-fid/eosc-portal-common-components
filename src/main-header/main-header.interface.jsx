@@ -6,16 +6,13 @@ import { isAutologinOn, tryAutologin } from "./auto-login.utils";
 import EoscMainHeaderBtn from "./main-header-btn.component";
 import { getAuthBtn, isBtnActive } from "./main-header.utils";
 import { isJsScript } from "../../core/callback.validators";
-import Render from "../../core/render";
+import { renderComponent } from "../../core/render";
 import { fieldsToCamelCase, usePropTypes } from "../../core/utils";
+import RWD from "../../core/rwd.hoc";
 
 /**
- * @version 1.0
+ * @version 1.1
  */
-@Render({
-  selector: "eosc-common-main-header",
-  rwd: ["lg", "xl"],
-})
 class EoscCommonMainHeader extends Component {
   static propTypes = {
     /**
@@ -49,26 +46,36 @@ class EoscCommonMainHeader extends Component {
     }
 
     return (
-      <nav className={`eosc-common top ${environment.production ? "" : "demo"}`}>
-        <div className="container">
-          <ul className="right-links">
-            {environment.mainHeaderConfig.map((config) => (
-              <EoscMainHeaderBtn
-                {...{
-                  ...config,
-                  isActive: isBtnActive(
-                    environment.mainHeaderConfig.map((btn) => btn.url),
-                    config.url
-                  ),
-                }}
-              />
-            ))}
-            {getAuthBtn(parsedProps)}
-          </ul>
-        </div>
-      </nav>
+      <RWD showOn={["lg", "xl"]}>
+        <nav className={`eosc-common top ${environment.production ? "" : "demo"}`}>
+          <div className="container">
+            <ul className="right-links">
+              {environment.mainHeaderConfig.map((config) => (
+                <EoscMainHeaderBtn
+                  {...{
+                    ...config,
+                    isActive: isBtnActive(
+                      environment.mainHeaderConfig.map((btn) => btn.url),
+                      config.url
+                    ),
+                  }}
+                />
+              ))}
+              {getAuthBtn(parsedProps)}
+            </ul>
+          </div>
+        </nav>
+      </RWD>
     );
   }
 }
+
+renderComponent(EoscCommonMainHeader.name, EoscCommonMainHeader);
+renderComponent(".eosc-common-main-header", EoscCommonMainHeader);
+renderComponent("#eosc-common-main-header", EoscCommonMainHeader);
+renderComponent("eosc-common-main-header", EoscCommonMainHeader);
+window[environment.windowTagName].renderMainHeader = (cssSelector, elementAttr = {}) => {
+  renderComponent(cssSelector, EoscCommonMainHeader, elementAttr);
+};
 
 export default EoscCommonMainHeader;

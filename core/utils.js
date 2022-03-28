@@ -32,7 +32,7 @@ const _toCamelCase = (sentence) => {
 /**
  * Valid input types and required fields. Merge default properties.
  * @param {Object} initialProps
- * @param {class} WrappedComponent
+ * @param {Component} WrappedComponent
  * @returns {Object} valid properties
  */
 export function usePropTypes(initialProps, WrappedComponent) {

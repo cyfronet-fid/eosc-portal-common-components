@@ -4,6 +4,7 @@ import { environment } from "../../env/env";
 import EoscCommonMainHeader from "./main-header.interface";
 import * as AutoLoginUtils from "./auto-login.utils";
 import * as CallbackUtils from "../../core/callback";
+import "window-resizeto/polyfill";
 
 import {
   AUTOLOGIN_COOKIE_NAME,
@@ -20,6 +21,7 @@ describe("Main Header Component", () => {
       "login-url": "https://test.pl",
       "on-logout": "console.log('test')",
     };
+
     const wrapper = mount(<EoscCommonMainHeader {...props} />);
     expect(wrapper.text()).toContain("Logout");
 

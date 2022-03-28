@@ -3,15 +3,12 @@ import { Component } from "preact";
 import { environment } from "../../env/env";
 import EoscMainFooterLogoBar from "./main-footer-logo-bar.component";
 import EoscMainFooterCols from "./main-footer-cols.component";
-import Render from "../../core/render";
 import { fieldsToCamelCase, usePropTypes } from "../../core/utils";
+import { renderComponent } from "../../core/render";
 
 /**
- * @version 1.0
+ * @version 1.1
  */
-@Render({
-  selector: "eosc-common-main-footer",
-})
 // eslint-disable-next-line no-unused-vars
 class EoscCommonMainFooter extends Component {
   static propTypes = {
@@ -54,5 +51,13 @@ class EoscCommonMainFooter extends Component {
     );
   }
 }
+
+renderComponent(EoscCommonMainFooter.name, EoscCommonMainFooter);
+renderComponent("eosc-common-main-footer", EoscCommonMainFooter);
+renderComponent(".eosc-common-main-footer", EoscCommonMainFooter);
+renderComponent("#eosc-common-main-footer", EoscCommonMainFooter);
+window[environment.windowTagName].renderMainFooter = (cssSelector, elementAttr) => {
+  renderComponent(cssSelector, EoscCommonMainFooter, elementAttr);
+};
 
 export default EoscCommonMainFooter;

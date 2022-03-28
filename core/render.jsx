@@ -1,28 +1,41 @@
 import { render } from "preact";
 import { fetchPropertiesFrom } from "./parsers";
-import rwdHOC from "./rwd.hoc";
-import { GRID_KEYS } from "./globals";
 
-// TODO: Render selector deprecation
 /**
- *
- * @param {String} params.selector HTML DOM Element tag to be replaced with Component
- * @param {Array.<GRID_KEYS>|String[]} [params.rwd] Sizes of gri when component will be displayed. By default all
- * @constructor
+ * @param cssSelector {string} - CSS tag, id or class, i. e. div, .class, #id
+ * @param {Component} Component - Commons lib component
+ * @param {object=} elementAttr - HTML element attributes to be set
  */
-export default function Render(params) {
-  function _renderWrapper(WrappedComponent) {
-    const elementsToBeReplaced = [
-      ...Array.from(document.getElementsByTagName(params.selector)),
-      ...Array.from(document.getElementsByTagName(WrappedComponent.name)),
-    ];
-    const displayOnGrid = !!params.rwd && params.rwd.length > 0 ? params.rwd : GRID_KEYS;
-    const shouldAddRwdWrapper = params.rwd && params.rwd.length > 0;
-    elementsToBeReplaced.forEach((element) => {
-      const props = fetchPropertiesFrom(element);
-      const RenderedComponent = shouldAddRwdWrapper ? rwdHOC(WrappedComponent, displayOnGrid) : WrappedComponent;
-      render(<RenderedComponent {...props} />, element);
-    });
+export function renderComponent(cssSelector, Component, elementAttr = {}) {
+  const elementsToBeRendered = getElementsBy(cssSelector);
+  elementsToBeRendered.forEach((element) => {
+    const params = {
+      ...fetchPropertiesFrom(element),
+      ...elementAttr,
+    };
+    render(<Component {...params} />, element);
+  });
+}
+window.renderCustomComponent = renderComponent;
+
+export function getElementsBy(cssSelector) {
+  const elements = [];
+
+  const element = document.getElementById(cssSelector.substring(1));
+  const selectorTypeChar = cssSelector.charAt(0);
+
+  switch (selectorTypeChar) {
+    case ".":
+      elements.push(...Array.from(document.getElementsByClassName(cssSelector.substring(1))));
+      break;
+    case "#":
+      if (element) {
+        elements.push(element);
+      }
+      break;
+    default:
+      elements.push(...Array.from(document.getElementsByTagName(cssSelector)));
   }
-  return _renderWrapper;
+
+  return elements;
 }
