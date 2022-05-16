@@ -125,17 +125,6 @@ describe("Main Header Component", () => {
       new EoscCommonMainHeader().render(props);
       expect(autoLoginCallSpy).toHaveBeenCalled();
     });
-    test.skip("should skip on param", () => {
-      const autoLoginCallSpy = jest.spyOn(AutoLoginUtils, "tryAutologin");
-      const props = {
-        username: "",
-        "login-url": "https://test.pl",
-        "logout-url": "https://test1.pl",
-        autoLogin: false,
-      };
-      new EoscCommonMainHeader().render(props);
-      expect(autoLoginCallSpy).not.toHaveBeenCalled();
-    });
     test("should create login attempt cookie", async () => {
       const props = {
         username: "",
