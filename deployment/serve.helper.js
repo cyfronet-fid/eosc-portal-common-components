@@ -6,12 +6,18 @@ const browserSync = require("browser-sync").create();
 const execa = require("execa");
 const compression = require("compression");
 const { src, dest } = require("gulp");
+const rename = require("gulp-rename");
 
 const rootPath = path.resolve(__dirname, "../");
 exports.serve = series(
   (cb) => del(path.resolve(rootPath, "dist"), cb),
   function moveAssets() {
     return src(path.resolve(rootPath, "styles/assets/*")).pipe(dest(path.resolve(rootPath, "dist/assets")));
+  },
+  function moveEnv() {
+    return src(path.resolve(rootPath, "env/env.development.js"))
+      .pipe(rename("env.js"))
+      .pipe(dest(path.resolve(rootPath, "env")));
   },
   preprocessStyles(false, "env/env.development.js", browserSync),
   async (cb) => {

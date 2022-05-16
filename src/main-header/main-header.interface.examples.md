@@ -173,3 +173,9 @@ Handle multiple callbacks in onLogout (substitute of logoutUrl)
   login-url="https://marketplace.eosc-portal.eu/users/auth/checkin"
 ></EoscCommonMainHeader>
 ```
+
+Handle all missing params
+
+```js
+<EoscCommonMainHeader></EoscCommonMainHeader>
+```

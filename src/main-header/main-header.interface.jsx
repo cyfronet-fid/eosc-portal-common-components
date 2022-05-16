@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import requiredIf from "react-required-if";
 import { Component } from "preact";
 import { environment } from "../../env/env";
 import { isAutologinOn, tryAutologin } from "./auto-login.utils";
@@ -19,10 +18,10 @@ class EoscCommonMainHeader extends Component {
      * Username property
      */
     username: PropTypes.string,
-    "login-url": requiredIf(PropTypes.string, (props) => !props["(onLogin)"] || props["(onLogin)"].trim() === ""),
-    "logout-url": requiredIf(PropTypes.string, (props) => !props["(onLogout)"] || props["(onLogout)"].trim() === ""),
-    "on-login": requiredIf(isJsScript, (props) => !props.loginUrl || props.loginUrl.trim() === ""),
-    "on-logout": requiredIf(isJsScript, (props) => !props.logoutUrl || props.logoutUrl.trim() === ""),
+    "login-url": PropTypes.string,
+    "logout-url": PropTypes.string,
+    "on-login": isJsScript,
+    "on-logout": isJsScript,
     autoLogin: PropTypes.bool,
   };
 
