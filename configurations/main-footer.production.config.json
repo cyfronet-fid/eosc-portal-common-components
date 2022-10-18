@@ -20,11 +20,11 @@
           "label": "EOSC Glossary",
           "url": "https://eosc-portal.eu/glossary"
         },
-               {
+        {
           "label": "EOSC Association",
           "url": "https://www.eosc.eu"
         },
-                 {
+        {
           "label": "EOSC Enhance",
           "url": "https://eosc-portal.eu/enhance"
         },
@@ -38,7 +38,7 @@
       "label": "Services & Resources",
       "url": "https://eosc-portal.eu/services-resources",
       "navBtns": [
-            {
+        {
           "label": "Access physical & einfrastructures",
           "url": "https://marketplace.eosc-portal.eu/categories/access-physical-einfrastructures"
         },
@@ -46,15 +46,15 @@
           "label": "Aggregators & Integrators",
           "url": "https://marketplace.eosc-portal.eu/categories/aggregators-integrators"
         },
-                 {
+        {
           "label": "Processing & Analysis",
           "url": "https://marketplace.eosc-portal.eu/categories/processing-analysis"
         },
-              {
+        {
           "label": "Security & Operation",
           "url": "https://marketplace.eosc-portal.eu/categories/security-operations"
         },
-          {
+        {
           "label": "Sharing & Discovery",
           "url": "https://marketplace.eosc-portal.eu/categories/sharing-discovery"
         },
@@ -62,7 +62,7 @@
           "label": "Training & Support",
           "url": "https://marketplace.eosc-portal.eu/categories/training-support"
         },
-                {
+        {
           "label": "Help Desk",
           "url": "https://eosc-portal.eu/helpdesk"
         }
@@ -71,17 +71,21 @@
     {
       "label": "Policy",
       "navBtns": [
-         {
+        {
           "label": "EC Documents",
           "url": "https://eosc-portal.eu/policy/ec-documents"
         },
-               {
+        {
           "label": "EU+ Countries",
           "url": "https://eosc-portal.eu/policy/EU-Countries"
         },
-         {
+        {
           "label": "European Union",
           "url": "https://eosc-portal.eu/policy/europe"
+        },
+        {
+          "label": "Privacy Policy - Search Service",
+          "url": "https://search.eosc-portal.eu/privacy-policy"
         }
       ]
     },
@@ -92,7 +96,7 @@
           "label": "Community Use Cases",
           "url": "https://eosc-portal.eu/eosc-in-practice/use-cases"
         },
-               {
+        {
           "label": "Submit Use Case",
           "url": "https://eosc-portal.eu/eosc-in-practice/open-call"
         }
@@ -117,7 +121,7 @@
           "label": "Submit your News/Event",
           "url": "https://eosc-portal.eu/contribute-to-eosc"
         },
-                {
+        {
           "label": "Newsletters",
           "url": "https://eosc-portal.eu/newsletters"
         },
@@ -125,7 +129,7 @@
           "label": "Community",
           "url": "https://eosc-portal.eu/documents/community"
         }
-             ]
+      ]
     },
     {
       "label": "For providers",
@@ -135,21 +139,25 @@
           "label": "Providers Documentation",
           "url": "https://eosc-portal.eu/providers-documentation"
         },
-          {
+        {
           "label": "Promote your service",
           "url": "https://www.eosc-portal.eu/contribute-promotional-article-your-service"
         }
       ]
     },
-        {
+    {
       "label": "Using the Portal",
       "url": "https://eosc-portal.eu/using-the-portal",
       "navBtns": [
         {
           "label": "EOSC Portal FAQs",
           "url": "https://eosc-portal.eu/about/faqs"
+        },
+        {
+          "label": "Term of use - Search Service",
+          "url": "https://search.eosc-portal.eu/acceptable-use-policy"
         }
-               ]
+      ]
     }
   ],
   "socials": [

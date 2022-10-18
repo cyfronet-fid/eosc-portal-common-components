@@ -90,6 +90,10 @@
         {
           "label": "Member States",
           "url": "https://eosc-portal.eu/policy/eu-member-states"
+        },
+        {
+          "label": "Privacy Policy - Search Service",
+          "url": "https://search.eosc-portal.eu/privacy-policy"
         }
       ]
     },
@@ -155,7 +159,17 @@
     },
     {
       "label": "Subscribe",
-      "url": "https://eosc-portal.eu/subscribe"
+      "url": "https://eosc-portal.eu/subscribe",
+      "navBtns": [
+        {
+          "label": "EOSC Portal FAQs",
+          "url": "https://eosc-portal.eu/about/faqs"
+        },
+        {
+          "label": "Term of use - Search Service",
+          "url": "https://search.eosc-portal.eu/acceptable-use-policy"
+        }
+      ]
     },
     {
       "label": "Using the portal",
