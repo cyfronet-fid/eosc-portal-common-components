@@ -28,18 +28,45 @@ jobs:
 
             ## See your changes with
 
-            - [development data](https://s3.cloud.cyfronet.pl/eosc-portal-common/pr-${{ steps.branch-name.outputs.current_branch }}/index.development.html)
+            ### [Documentation for development build](https://s3.cloud.cyfronet.pl/eosc-portal-common/pr-${{ steps.branch-name.outputs.current_branch }}/docs/index.html)
+            
+            ### Development build 
 
-              ```
-              <script src="https://s3.cloud.cyfronet.pl/eosc-portal-common/pr-${{ steps.branch-name.outputs.current_branch }}/index.development.js"></script>
-
+              ```html
+              <script src="https://s3.cloud.cyfronet.pl/eosc-portal-common/pr-${{ steps.branch-name.outputs.current_branch }}/index.development.min.js"></script>
               <link rel="stylesheet" href="https://s3.cloud.cyfronet.pl/eosc-portal-common/pr-${{ steps.branch-name.outputs.current_branch }}/index.development.min.css" />
               ```
 
-            - [production data](https://s3.cloud.cyfronet.pl/eosc-portal-common/pr-${{ steps.branch-name.outputs.current_branch }}/index.production.html)
+            ### Production build 
 
-              ```
-              <script src="https://s3.cloud.cyfronet.pl/eosc-portal-common/pr-${{ steps.branch-name.outputs.current_branch }}/index.production.js"></script>
-
+              ```html
+              <script src="https://s3.cloud.cyfronet.pl/eosc-portal-common/pr-${{ steps.branch-name.outputs.current_branch }}/index.production.min.js"></script>
               <link rel="stylesheet" href="https://s3.cloud.cyfronet.pl/eosc-portal-common/pr-${{ steps.branch-name.outputs.current_branch }}/index.production.min.css" />
               ```
+            
+            ### Run commons locally with production build
+            - copy paste beneath snippet to `index.html`
+            - run `index.html` in a browser
+            
+            ```html
+            
+            <!DOCTYPE html>
+            
+            <html>
+              <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+              </head>
+              <body>
+                <eosc-common-main-header
+                  username="name surname"
+                  login-url="https://marketplace.eosc-portal.eu/users/auth/checkin"
+                  logout-url="https://marketplace.eosc-portal.eu/users/logout"
+                ></eosc-common-main-header>
+                <div id="eosc-common-eu-information"></div>
+                <EoscCommonMainFooter></EoscCommonMainFooter>
+                <script src="https://s3.cloud.cyfronet.pl/eosc-portal-common/pr-${{ steps.branch-name.outputs.current_branch }}/index.production.min.js"></script>
+                <link rel="stylesheet" href="https://s3.cloud.cyfronet.pl/eosc-portal-common/pr-${{ steps.branch-name.outputs.current_branch }}/index.production.min.css" />
+              </body>
+            </html>
+            
+            ```
