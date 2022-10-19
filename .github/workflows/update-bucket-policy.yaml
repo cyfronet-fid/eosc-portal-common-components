@@ -1,0 +1,28 @@
+name: Update bucket policy
+on: workflow_dispatch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+      - name: Install AWS CLI
+        run: |
+          python -m pip install --upgrade pip
+          pip install awscli
+      - run: echo ${{ secrets.AWS_S3_BUCKET }} | sed 's/./& /g'
+      - name: Update AWS bucket policy
+        run: |
+          POLICY_FILE_PATH=$(pwd)/deployment/s3.policy.json
+          aws --endpoint-url ${{ secrets.AWS_S3_ENDPOINT }} s3api put-bucket-policy --bucket ${{ secrets.AWS_S3_BUCKET }} --policy "file://$POLICY_FILE_PATH"
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Check bucket policy
+        run: aws --endpoint-url ${{ secrets.AWS_S3_ENDPOINT }} s3api get-bucket-policy --bucket ${{ secrets.AWS_S3_BUCKET }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

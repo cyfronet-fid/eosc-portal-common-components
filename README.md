@@ -10,7 +10,8 @@ consistent visualization and events triggering through many services.
 
 ### Table of contents
 
-- [Requirements](#requirements)
+- [Requirements](#requirements)0
+- [Bucket policy update](#bucket-policy-update)
 - [Dependencies installation](#dependencies-installation)
 - [Development](#development)
 - [Building](#building)
@@ -27,6 +28,9 @@ consistent visualization and events triggering through many services.
 Only for build purposes
 
 - nodejs >= 14.17.1 LTE
+
+### Bucket policy update
+Sometimes reading files may not work. To fix the issue run [Update bucket policy workflow](https://github.com/cyfronet-fid/eosc-portal-common/actions/workflows/update-bucket-policy.yaml)
 
 ### Dependencies installation
 
