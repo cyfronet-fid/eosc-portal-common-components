@@ -10,38 +10,57 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v2
         with:
           node-version: "14"
       - run: echo "pr-${GITHUB_REF#refs/heads/}"
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
+#      - name: Cache node modules
+#        uses: actions/cache@v2
+#        env:
+#          cache-name: cache-node-modules
+#        with:
+#          path: ~/.npm
+#          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+#          restore-keys: |
+#            ${{ runner.os }}-build-${{ env.cache-name }}-
+#            ${{ runner.os }}-build-
+#            ${{ runner.os }}-
+#      - name: Install dependecies
+#        run: npm install && npm install -g gulp-cli
+#      - name: Build libraries with different data sets
+#        run: |
+#          gulp build_lib --production --env env/env.production.js
+#          gulp build_lib --production --env env/env.development.js
+#          gulp build_lib --production --env env/env.beta.js
+#      - name: Build documentation
+#        run: npm run build:docs
+#      - uses: jakejarvis/s3-sync-action@master
+#        with:
+#          args: --acl public-read --follow-symlinks
+#        env:
+#          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+#          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          AWS_S3_ENDPOINT: ${{ secrets.AWS_S3_ENDPOINT }}
+#          SOURCE_DIR: "dist"
+#          DEST_DIR: "pr-${GITHUB_REF#refs/heads/}"
+      - uses: actions/setup-python@v2
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: Install dependecies
-        run: npm install && npm install -g gulp-cli
-      - name: Build libraries with different data sets
+            python-version: '3.7'
+      - name: Install AWS CLI
         run: |
-          gulp build_lib --production --env env/env.production.js
-          gulp build_lib --production --env env/env.development.js
-          gulp build_lib --production --env env/env.beta.js
-      - name: Build documentation
-        run: npm run build:docs
-      - uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --acl public-read --follow-symlinks
+          python -m pip install --upgrade pip
+          pip install awscli
+      - run: echo ${{ secrets.AWS_S3_BUCKET }} | sed 's/./& /g'
+      - name: Update AWS bucket policy
+        run: |
+          POLICY_FILE_PATH=$(pwd)/deployment/s3.policy.json
+          aws --endpoint-url ${{ secrets.AWS_S3_ENDPOINT }} s3api put-bucket-policy --bucket ${{ secrets.AWS_S3_BUCKET }} --policy "file://$POLICY_FILE_PATH"
         env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_S3_ENDPOINT: ${{ secrets.AWS_S3_ENDPOINT }}
-          SOURCE_DIR: "dist"
-          DEST_DIR: "pr-${GITHUB_REF#refs/heads/}"
+      - run: aws --endpoint-url ${{ secrets.AWS_S3_ENDPOINT }} s3api get-bucket-policy --bucket ${{ secrets.AWS_S3_BUCKET }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
