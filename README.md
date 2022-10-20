@@ -11,6 +11,7 @@ consistent visualization and events triggering through many services.
 ### Table of contents
 
 - [Requirements](#requirements)
+- [Bucket policy update](#bucket-policy-update)
 - [Dependencies installation](#dependencies-installation)
 - [Development](#development)
 - [Building](#building)
@@ -28,8 +29,10 @@ Only for build purposes
 
 - nodejs >= 14.17.1 LTE
 
-### Dependencies installation
+### Bucket policy update
+Sometimes reading files may not work. To fix the issue run [Update bucket policy workflow](https://github.com/cyfronet-fid/eosc-portal-common/actions/workflows/update-bucket-policy.yaml)
 
+### Dependencies installation
 ```bash
 npm install -g gulp-cli
 npm i
