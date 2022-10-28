@@ -8,7 +8,11 @@
     "url": "https://eosc-portal.eu"
   },
   {
-    "label": "Catalogue & Marketplace",
+    "label": "Catalogue",
+    "url": "https://search.eosc-portal.eu"
+  },
+  {
+    "label": "Marketplace",
     "url": "https://marketplace.eosc-portal.eu"
   },
   {
