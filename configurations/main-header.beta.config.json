@@ -8,8 +8,12 @@
     "url": "https://eoscportal.docker-fid.grid.cyf-kr.edu.pl"
   },
   {
-    "label": "Catalogue & Marketplace",
-    "url": "https://marketplace-beta.docker-fid.grid.cyf-kr.edu.pl"
+    "label": "Catalogue",
+    "url": "https://eosc-search-service.grid.cyfronet.pl"
+  },
+  {
+    "label": "Marketplace",
+    "url": "https://beta.marketplace.eosc-portal.eu"
   },
   {
     "label": "Providers Dashboard",
