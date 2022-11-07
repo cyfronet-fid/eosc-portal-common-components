@@ -9,11 +9,7 @@
   },
   {
     "label": "Catalogue",
-    "url": "https://eosc-search-service.grid.cyfronet.pl"
-  },
-  {
-    "label": "Marketplace",
-    "url": "https://beta.marketplace.eosc-portal.eu"
+    "url": "https://search.eosc-portal.eu/search/all?q=*"
   },
   {
     "label": "Providers Dashboard",
