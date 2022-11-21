@@ -18,5 +18,13 @@
   {
     "label": "Providers Documentation",
     "url": "https://eosc-portal.eu/providers-documentation"
+  },
+  {
+    "label": "Monitoring",
+    "url": "https://monitoring.eosc-portal.eu"
+  },
+  {
+    "label": "EOSC Core Status",
+    "url": "https://eosccore.status.argo.grnet.gr"
   }
 ]
