@@ -14,10 +14,10 @@ class EoscCommonMainFooter extends Component {
   static propTypes = {
     production: PropTypes.bool,
     socialIcons: PropTypes.arrayOf(
-      PropTypes.shape({
-        class: PropTypes.string.isRequired,
-        url: PropTypes.string.isRequired,
-      })
+        PropTypes.shape({
+          class: PropTypes.string.isRequired,
+          url: PropTypes.string.isRequired,
+        })
     ),
   };
 
@@ -27,27 +27,22 @@ class EoscCommonMainFooter extends Component {
   };
 
   render(props) {
-    const { production, socialIcons } = fieldsToCamelCase(usePropTypes(props, EoscCommonMainFooter));
+    const { production } = fieldsToCamelCase(usePropTypes(props, EoscCommonMainFooter));
     return (
-      <footer className={`eosc-common footer pt-3 pb-3 ${production ? "" : "demo"}`}>
-        <div className="container">
-          <a className="arrow-up" href="#" /> {/* eslint-disable-line */}
-          <EoscMainFooterLogoBar />
-          <hr className="mb-4" />
-          <EoscMainFooterCols />
-          <div className="row mt-4 socials">
-            <div className="col-md-6">
-              {socialIcons.map((social) => {
-                return (
-                  <a className={social.class} href={social.url}>
-                    &nbsp;
-                  </a>
-                );
-              })}
+        <div>
+          <footer className={`eosc-common footer pt-3 pb-3 ${production ? "" : "demo"}`}>
+            <div className="container">
+              <EoscMainFooterLogoBar />
+              <EoscMainFooterCols />
             </div>
+          </footer>
+          <div className="eosc-common copyright container">
+            <span className="copy-text">Copyright 2022 &nbsp;&nbsp; | &nbsp;&nbsp; All rights reserved</span> &nbsp;&nbsp; |  &nbsp;&nbsp;
+            <a href="https://eosc-portal.eu/privacy-policy-summary">
+              Privacy policy
+            </a>
           </div>
         </div>
-      </footer>
     );
   }
 }

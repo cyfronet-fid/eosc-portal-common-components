@@ -4,8 +4,8 @@
   &.top {
     font-size: $font-size-sm;
     font-weight: $font-weight-normal;
-    padding: 6px 0;
-    background: $color-3;
+    padding: 15px 0;
+    background: $color-white;
 
     .container {
       padding-right: 15px;
@@ -22,7 +22,7 @@
       text-align: right;
 
       li {
-        margin: 0 calc(0.5 * #{$font-size-base});
+        margin: 0 calc(0.5 * 26px);
         display: inline-block;
         font-size: $font-size-sm;
         color: $palette-gray-80;
@@ -35,11 +35,13 @@
 
         a {
           color: $palette-gray-80;
-          padding-bottom: 5px;
+          padding-bottom: 3px;
           text-decoration: none;
 
           &.active {
-            border-bottom: 2px solid $color-secondary;
+            border-bottom: 1px solid $color-secondary;
+            font-weight: 600;
+            color: $color-new-blue;
           }
 
           &:hover {
