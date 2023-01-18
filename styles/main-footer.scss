@@ -59,7 +59,7 @@
           color: $color-7;
 
           &:hover {
-            text-decoration: none;
+            text-decoration: underline;
           }
         }
       }
@@ -86,7 +86,8 @@
       font-size: calc(1 * #{$font-size-base});
 
       &:hover {
-        color: $color-secondary;
+        color: $color-white;
+        text-decoration: underline;
       }
     }
 
@@ -118,6 +119,12 @@
     .yt-logo {
       background-image: url("assets/yt-icon.svg");
       background-position: 0 9px;
+    }
+  }
+
+  .logo-row {
+    .col-md {
+      align-self: center;
     }
   }
 }
