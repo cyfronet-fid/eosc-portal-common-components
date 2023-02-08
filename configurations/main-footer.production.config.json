@@ -67,36 +67,40 @@
     ],
     [
       {
-        "label": "Services & Resources",
+        "label": "Services & Research products",
         "url": "https://eosc-portal.eu/services-resources",
         "navBtns": [
           {
-            "label": "Access physical & einfrastructures",
-            "url": "https://marketplace.eosc-portal.eu/categories/access-physical-einfrastructures"
+            "label": "Manage Research Data",
+            "url": "https://search.marketplace.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Manage%20Research%20Data%22)"
           },
           {
-            "label": "Aggregators & Integrators",
-            "url": "https://marketplace.eosc-portal.eu/categories/aggregators-integrators"
+            "label": "Access Computing and Storage Resources",
+            "url": "https://search.marketplace.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Access%20Computing%20and%20Storage%20Resources%22)"
           },
           {
-            "label": "Processing & Analysis",
-            "url": "https://marketplace.eosc-portal.eu/categories/processing-analysis"
+            "label": "Access Research Infrastructures",
+            "url": "https://search.marketplace.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Access%20Research%20Infrastructures%22)"
           },
           {
-            "label": "Security & Operation",
-            "url": "https://marketplace.eosc-portal.eu/categories/security-operations"
+            "label": "Access Training Material",
+            "url": "https://search.marketplace.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Access%20Training%20Material%22)"
           },
           {
-            "label": "Sharing & Discovery",
-            "url": "https://marketplace.eosc-portal.eu/categories/sharing-discovery"
+            "label": "Find Bundles",
+            "url": "https://search.marketplace.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Find%20Bundles%22)"
           },
           {
-            "label": "Training & Support",
-            "url": "https://marketplace.eosc-portal.eu/categories/training-support"
+            "label": "Find Instruments & Equipment",
+            "url": "https://search.marketplace.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Find%20Instruments%20%5C%26%20Equipment%22)"
           },
           {
-            "label": "Help Desk",
-            "url": "https://eosc-portal.eu/helpdesk"
+            "label": "Process and Analyse",
+            "url": "https://search.marketplace.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Process%20and%20Analyse%22)"
+          },
+          {
+            "label": "Publish Research Outputs",
+            "url": "https://search.marketplace.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Publish%20Research%20Outputs%22)"
           }
         ]
       }
@@ -143,7 +147,7 @@
           },
           {
             "label": "Term of use - Search Service",
-            "url": "https://search.eosc-portal.eu/acceptable-use-policy"
+            "url": "https://search.marketplace.eosc-portal.eu/acceptable-use-policy"
           }
         ]
       },
@@ -164,7 +168,7 @@
           },
           {
             "label": "Privacy Policy - Search Service",
-            "url": "https://search.eosc-portal.eu/privacy-policy"
+            "url": "https://search.marketplace.eosc-portal.eu/privacy-policy"
           }
         ]
       }
