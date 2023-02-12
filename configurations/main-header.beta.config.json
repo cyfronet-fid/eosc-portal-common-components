@@ -1,30 +1,22 @@
 [
   {
-    "label": "Contact us",
-    "url": "https://eoscportal.docker-fid.grid.cyf-kr.edu.pl/contact-us"
+    "label": "About EOSC",
+    "url": "https://eosc-portal.eu"
   },
   {
-    "label": "Portal Home",
-    "url": "https://eoscportal.docker-fid.grid.cyf-kr.edu.pl"
-  },
-  {
-    "label": "Catalogue & Marketplace",
-    "url": "https://marketplace.eosc-portal.eu/"
-  },
-  {
-    "label": "Providers Dashboard",
-    "url": "https://beta.providers.eosc-portal.eu/becomeAProvider"
-  },
-  {
-    "label": "Providers Documentation",
-    "url": "https://eoscportal.docker-fid.grid.cyf-kr.edu.pl/providers-documentation"
+    "label": "Providers Hub",
+    "url": "https://providers.eosc-portal.eu"
   },
   {
     "label": "Monitoring",
     "url": "https://monitoring.eosc-portal.eu"
   },
   {
-    "label": "EOSC Core Status",
+    "label": "Status",
     "url": "https://eosccore.status.argo.grnet.gr"
+  },
+  {
+    "label": "Contact us",
+    "url": "https://eosc-portal.eu/contact-us"
   }
 ]

@@ -84,35 +84,35 @@
         "navBtns": [
           {
             "label": "Manage Research Data",
-            "url": "https://search.marketplace.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Manage%20Research%20Data%22)"
+            "url": "https://search.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Manage%20Research%20Data%22)"
           },
           {
             "label": "Access Computing and Storage Resources",
-            "url": "https://search.marketplace.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Access%20Computing%20and%20Storage%20Resources%22)"
+            "url": "https://search.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Access%20Computing%20and%20Storage%20Resources%22)"
           },
           {
             "label": "Access Research Infrastructures",
-            "url": "https://search.marketplace.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Access%20Research%20Infrastructures%22)"
+            "url": "https://search.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Access%20Research%20Infrastructures%22)"
           },
           {
             "label": "Access Training Material",
-            "url": "https://search.marketplace.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Access%20Training%20Material%22)"
+            "url": "https://search.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Access%20Training%20Material%22)"
           },
           {
             "label": "Find Bundles",
-            "url": "https://search.marketplace.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Find%20Bundles%22)"
+            "url": "https://search.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Find%20Bundles%22)"
           },
           {
             "label": "Find Instruments & Equipment",
-            "url": "https://search.marketplace.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Find%20Instruments%20%5C%26%20Equipment%22)"
+            "url": "https://search.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Find%20Instruments%20%5C%26%20Equipment%22)"
           },
           {
             "label": "Process and Analyse",
-            "url": "https://search.marketplace.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Process%20and%20Analyse%22)"
+            "url": "https://search.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Process%20and%20Analyse%22)"
           },
           {
             "label": "Publish Research Outputs",
-            "url": "https://search.marketplace.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Publish%20Research%20Outputs%22)"
+            "url": "https://search.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Publish%20Research%20Outputs%22)"
           }
         ]
       }
@@ -159,7 +159,7 @@
           },
           {
             "label": "Term of use - Search Service",
-            "url": "https://search.marketplace.eosc-portal.eu/acceptable-use-policy"
+            "url": "https://search.eosc-portal.eu/acceptable-use-policy"
           }
         ]
       },
@@ -180,7 +180,7 @@
           },
           {
             "label": "Privacy Policy - Search Service",
-            "url": "https://search.marketplace.eosc-portal.eu/privacy-policy"
+            "url": "https://search.eosc-portal.eu/privacy-policy"
           }
         ]
       }
