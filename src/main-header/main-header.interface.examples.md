@@ -174,6 +174,17 @@ Handle multiple callbacks in onLogout (substitute of logoutUrl)
 ></EoscCommonMainHeader>
 ```
 
+Customize profile links
+
+```js
+<EoscCommonMainHeader
+  username="John Doe"
+  on-logout="alert('logout btn');"
+  login-url="https://marketplace.eosc-portal.eu/users/auth/checkin"
+  profile-links='[{"href": "https://search.marketplace.eosc-portal.eu", "caption": "EOSC Search Service"}, {"href": "#", "caption": "Custom link #2"}]'
+></EoscCommonMainHeader>
+```
+
 Handle all missing params
 
 ```js

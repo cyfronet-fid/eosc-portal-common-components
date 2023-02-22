@@ -1,30 +1,22 @@
 [
   {
-    "label": "Contact us",
-    "url": "https://www.eosc-portal.eu/contact-us"
-  },
-  {
-    "label": "Portal Home",
+    "label": "About EOSC",
     "url": "https://eosc-portal.eu"
   },
   {
-    "label": "Catalogue & Marketplace",
-    "url": "https://marketplace.eosc-portal.eu/"
-  },
-  {
-    "label": "Providers Dashboard",
+    "label": "Providers Hub",
     "url": "https://providers.eosc-portal.eu"
-  },
-  {
-    "label": "Providers Documentation",
-    "url": "https://eosc-portal.eu/providers-documentation"
   },
   {
     "label": "Monitoring",
     "url": "https://monitoring.eosc-portal.eu"
   },
   {
-    "label": "EOSC Core Status",
+    "label": "Status",
     "url": "https://eosccore.status.argo.grnet.gr"
+  },
+  {
+    "label": "Contact us",
+    "url": "https://eosc-portal.eu/contact-us"
   }
 ]

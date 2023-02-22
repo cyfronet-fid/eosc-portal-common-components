@@ -12,6 +12,102 @@
       padding-left: 15px;
       margin-right: auto;
       margin-left: auto;
+      display: flex;
+      flex-flow: row;
+    }
+
+    .center-links {
+      text-align: center;
+      flex-grow: 2;
+    }
+
+    .left-links {
+      text-align: left;
+
+      .header-logo {
+        width: 84px;
+        height: 32px;
+        background: url("assets/eosc-logo.svg") center no-repeat;
+        display: block;
+        margin-top: -5px;
+      }
+    }
+
+    .right-links {
+      text-align: right;
+      color: $color-primary;
+      flex-basis: auto;
+      flex-grow: 1;
+
+      .browse-link {
+        margin-right: 0;
+        margin-left: 0;
+
+        a {
+          border: 1px solid $color-primary;
+          border-radius: 24px;
+          background: $color-white;
+          font-size: 12px;
+          position: relative;
+          padding: 7px 20px 7px 38px;
+          transition: all 0.25s ease;
+
+          &:before {
+            content:'';
+            position: absolute;
+            left: 12px;
+            top: 6px;
+            width: 16px;
+            height: 16px;
+            background: url("assets/search.svg") center no-repeat;
+            background-size: cover;
+            display: block;
+          }
+
+          &:hover {
+            -webkit-box-shadow: 0px 0px 12px 0px rgba(66, 68, 90, 0.2);
+            -moz-box-shadow: 0px 0px 12px 0px rgba(66, 68, 90, 0.2);
+            box-shadow: 0px 0px 12px 0px rgba(66, 68, 90, 0.2);
+            color: $color-primary;
+          }
+        }
+      }
+
+      li {
+        font-size: 12px;
+        margin-right: 0;
+
+        a {
+          color: $color-primary;
+          font-size: 12px;
+        }
+      }
+
+      .dropdown {
+        display: inline;
+        margin-left: 10px;
+
+        .account-dropdown {
+          display:inline-block;
+          cursor: pointer;
+          border-radius: 100%;
+          width: 32px;
+          height: 32px;
+          line-height: 32px;
+          text-align: center;
+          background: #EDF4FF;
+          color: $color-primary;
+
+          > svg {
+            margin-left: auto;
+            margin-right: auto;
+          }
+        }
+
+        .dropdown-menu {
+          left: auto !important;
+        }
+      }
     }
 
     ul {
@@ -19,17 +115,16 @@
       margin: 0;
       list-style: none;
       line-height: calc(1.5 * #{$font-size-base});
-      text-align: right;
 
       li {
-        margin: 0 calc(0.5 * 26px);
+        margin: 0 calc(0.5 * 32px);
         display: inline-block;
         font-size: $font-size-sm;
         color: $palette-gray-80;
 
         svg {
-          width: 12px;
-          margin-right: 6px;
+          width: 15px;
+          display: inline-block;
           margin-bottom: 4px;
         }
 
@@ -47,6 +142,73 @@
           &:hover {
             color: $palette-gray-50;
             text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+ul.login-dropdown {
+  list-style: none;
+  position: absolute;
+  display: block;
+  background-color: white;
+  width: 150px;
+  padding: 10px;
+  border-radius: 5px;
+  border-color: gray;
+  border-width: 1px;
+
+  li {
+    display: block;
+    text-align: left;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+
+  .eosc-common {
+    .top {
+      ul {
+        li {
+          margin: 0 6px;
+          font-size: 13px;
+
+          svg {
+            width: 11px;
+            margin-bottom: 3px;
+            margin-left: auto;
+            margin-right: auto;
+          }
+        }
+      }
+
+      .center-links {
+        text-align: right;
+        padding-right: 20px;
+      }
+
+      .right-links {
+
+        a {
+          font-size: 11px;
+        }
+
+        .browse-link {
+          margin-right: 5px;
+
+          a {
+            font-size: 11px;
+            padding: 7px 14px 7px 38px;
+          }
+        }
+
+        .dropdown {
+          .account-dropdown {
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
           }
         }
       }
