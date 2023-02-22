@@ -72,7 +72,7 @@ class EoscCommonMainHeader extends Component {
             </ul>
             <ul className="right-links">
               <li className="browse-link">
-                <a href="https://search.eosc-portal.eu/search/all?q=*">Browse Marketplace</a>
+                <a href="https://marketplace.eosc-portal.eu/">Browse Marketplace</a>
               </li>
               {getAuthBtn(parsedProps)}
             </ul>
