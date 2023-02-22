@@ -7,6 +7,7 @@ import { getAuthBtn, isBtnActive } from "./main-header.utils";
 import { isJsScript } from "../../core/callback.validators";
 import { renderComponent } from "../../core/render";
 import { fieldsToCamelCase, usePropTypes } from "../../core/utils";
+import React from 'react';
 import RWD from "../../core/rwd.hoc";
 
 /**
@@ -23,6 +24,7 @@ class EoscCommonMainHeader extends Component {
     "on-login": isJsScript,
     "on-logout": isJsScript,
     autoLogin: PropTypes.bool,
+    "profile-links": PropTypes.string
   };
 
   static defaultProps = {
@@ -32,6 +34,7 @@ class EoscCommonMainHeader extends Component {
     "on-login": "",
     "on-logout": "",
     autoLogin: true,
+    "profile-links": '[]'
   };
 
   render(props) {
@@ -39,6 +42,7 @@ class EoscCommonMainHeader extends Component {
      * IMPORTANT!!! By default is on
      */
     const parsedProps = fieldsToCamelCase(usePropTypes(props, EoscCommonMainHeader));
+    parsedProps.profileLinks = JSON.parse(parsedProps.profileLinks)
     const { autoLogin } = parsedProps;
     if (isAutologinOn(autoLogin)) {
       tryAutologin(parsedProps);
@@ -48,7 +52,12 @@ class EoscCommonMainHeader extends Component {
       <RWD showOn={["lg", "xl"]}>
         <nav className={`eosc-common top ${environment.production ? "" : "demo"}`}>
           <div className="container">
-            <ul className="right-links">
+            <div className="left-links">
+              <a href="https://eosc-portal.eu" className="header-logo">
+                &nbsp;
+              </a>
+            </div>
+            <ul className="center-links">
               {environment.mainHeaderConfig.map((config) => (
                 <EoscMainHeaderBtn
                   {...{
@@ -60,6 +69,11 @@ class EoscCommonMainHeader extends Component {
                   }}
                 />
               ))}
+            </ul>
+            <ul className="right-links">
+              <li className="browse-link">
+                <a href="https://search.eosc-portal.eu/search/all?q=*">Browse Marketplace</a>
+              </li>
               {getAuthBtn(parsedProps)}
             </ul>
           </div>
