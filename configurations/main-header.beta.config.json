@@ -4,6 +4,10 @@
     "url": "https://eosc-portal.eu"
   },
   {
+    "label": "Browse Marketplace",
+    "url": "https://beta.marketplace.eosc-portal.eu"
+  },
+  {
     "label": "Providers Hub",
     "url": "https://providers.eosc-portal.eu"
   },
