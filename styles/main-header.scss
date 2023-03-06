@@ -40,7 +40,8 @@
       text-align: right;
       color: $color-primary;
       flex-basis: auto;
-      flex-grow: 1;
+      align-items: center;
+      display: flex;
 
       .browse-link {
         margin-right: 0;
@@ -50,7 +51,8 @@
           border: 1px solid $color-primary;
           border-radius: 24px;
           background: $color-white;
-          font-size: 12px;
+          font-size: 14px;
+          font-weight: 400;
           position: relative;
           padding: 7px 20px 7px 38px;
           transition: all 0.25s ease;
@@ -77,12 +79,12 @@
       }
 
       li {
-        font-size: 12px;
+        font-size: 14px;
         margin-right: 0;
 
         a {
           color: $color-primary;
-          font-size: 12px;
+          font-size: 14px;
         }
       }
 
@@ -125,12 +127,6 @@
         font-size: $font-size-sm;
         color: $palette-gray-80;
 
-        &:nth-child(2) {
-          a {
-            border-bottom: 2px solid $color-primary;
-          }
-        }
-
         svg {
           width: 15px;
           display: inline-block;
@@ -140,12 +136,12 @@
         a {
           color: $palette-gray-80;
           padding-bottom: 4px;
+          font-weight: 400;
           text-decoration: none;
 
           &.active {
-            border-bottom: 1px solid $color-secondary;
-            font-weight: 600;
-            color: $color-new-blue;
+            border-bottom: 2px solid $color-primary;
+            font-weight: 400;
           }
 
           &:hover {
@@ -201,7 +197,7 @@ ul.login-dropdown {
       .right-links {
 
         a {
-          font-size: 11px;
+          font-size: 13px;
         }
 
         .dropdown {
