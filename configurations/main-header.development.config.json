@@ -22,5 +22,9 @@
   {
     "label": "Contact us",
     "url": "https://eosc-portal.eu/contact-us"
+  },
+  {
+    "label": "Custom Link To check Commons",
+    "url": "https://eosc-portal.eu/contact-us"
   }
 ]
