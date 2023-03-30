@@ -73,3 +73,10 @@ Render using build in tools
 ```js
 <EoscCommonMainFooter></EoscCommonMainFooter>
 ```
+
+### Custom Privacy Policy and Terms of Use
+
+```js
+<EoscCommonMainFooter privacy-policy="https://search.marketplace.eosc-portal.eu/privacy-policy" 
+                      terms-of-use="https://search.marketplace.eosc-portal.eu/acceptable-use-policy"></EoscCommonMainFooter>
+```
