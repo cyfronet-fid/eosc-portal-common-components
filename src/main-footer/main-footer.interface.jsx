@@ -19,6 +19,8 @@ class EoscCommonMainFooter extends Component {
           url: PropTypes.string.isRequired,
         })
     ),
+    termsOfUse: PropTypes.string,
+    privacyPolicy: PropTypes.string
   };
 
   static defaultProps = {
@@ -27,13 +29,13 @@ class EoscCommonMainFooter extends Component {
   };
 
   render(props) {
-    const { production } = fieldsToCamelCase(usePropTypes(props, EoscCommonMainFooter));
+    const { production, termsOfUse, privacyPolicy} = fieldsToCamelCase(usePropTypes(props, EoscCommonMainFooter));
     return (
         <div>
           <footer className={`eosc-common footer pt-3 pb-3 ${production ? "" : "demo"}`}>
             <div className="container">
               <EoscMainFooterLogoBar />
-              <EoscMainFooterCols />
+              <EoscMainFooterCols termsOfUse={termsOfUse} privacyPolicy={privacyPolicy} />
             </div>
           </footer>
           <div className="eosc-common copyright container">

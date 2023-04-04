@@ -146,8 +146,8 @@
             "url": "https://eosc-portal.eu/about/faqs"
           },
           {
-            "label": "Term of use - Search Service",
-            "url": "https://search.eosc-portal.eu/acceptable-use-policy"
+            "type": "termsOfUse",
+            "label": "Term of use"
           }
         ]
       },
@@ -167,8 +167,8 @@
             "url": "https://eosc-portal.eu/policy/europe"
           },
           {
-            "label": "Privacy Policy - Search Service",
-            "url": "https://search.eosc-portal.eu/privacy-policy"
+            "type": "privacyPolicy",
+            "label": "Privacy Policy"
           }
         ]
       }
