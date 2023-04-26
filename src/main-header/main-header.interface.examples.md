@@ -190,3 +190,27 @@ Handle all missing params
 ```js
 <EoscCommonMainHeader></EoscCommonMainHeader>
 ```
+
+Use default eosc links
+
+```js
+<EoscCommonMainHeader
+  username="John Doe"
+  on-logout="alert('logout btn');"
+  login-url="https://marketplace.eosc-portal.eu/users/auth/checkin"
+  show-eosc-links="true"
+></EoscCommonMainHeader>
+```
+
+
+Use default eosc links with custom links defined via `profile-links`
+
+```js
+<EoscCommonMainHeader
+  username="John Doe"
+  on-logout="alert('logout btn');"
+  login-url="https://marketplace.eosc-portal.eu/users/auth/checkin"
+  show-eosc-links="true"
+  profile-links='[{"href": "https://search.marketplace.eosc-portal.eu", "caption": "EOSC Search Service"}]'
+></EoscCommonMainHeader>
+```

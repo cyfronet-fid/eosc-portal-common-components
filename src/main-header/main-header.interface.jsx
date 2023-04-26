@@ -24,6 +24,7 @@ class EoscCommonMainHeader extends Component {
     "on-login": isJsScript,
     "on-logout": isJsScript,
     autoLogin: PropTypes.bool,
+    "show-eosc-links": PropTypes.bool,
     "profile-links": PropTypes.string
   };
 
@@ -34,6 +35,7 @@ class EoscCommonMainHeader extends Component {
     "on-login": "",
     "on-logout": "",
     autoLogin: true,
+    "show-eosc-links": false,
     "profile-links": '[]'
   };
 
