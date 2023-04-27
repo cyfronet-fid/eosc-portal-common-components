@@ -9,25 +9,26 @@ import callAll from "../../core/callback";
 import FasUserIcon from "../../core/icons/fas-user.icon";
 import { usePropTypes } from "../../core/utils";
 import Dropdown from "react-bootstrap/Dropdown";
-import * as React from 'react';
+import * as React from "react";
 
 const AccountToggle = React.forwardRef(({ children, onClick }, ref) => (
-    <a
-        className={"account-dropdown"}
-        ref={ref}
-        onClick={(e) => {
-            e.preventDefault();
-            onClick(e);
-        }}
-    >
-        <FasUserIcon />
-    </a>
+  <a
+    className={"account-dropdown"}
+    ref={ref}
+    onClick={(e) => {
+      e.preventDefault();
+      onClick(e);
+    }}
+  >
+    <FasUserIcon />
+  </a>
 ));
 
 export default class EoscMainHeaderLogoutBtn extends Component {
   static propTypes = {
     username: PropTypes.string,
     profileLinks: PropTypes.array,
+    showEoscLinks: PropTypes.bool,
     logoutUrl: requiredIf(PropTypes.string, (props) => !props["(onLogout)"] || props["(onLogout)"].trim() === ""),
     "(onLogout)": requiredIf(isJsScript, (props) => !props.logoutUrl || props.logoutUrl.trim() === ""),
   };
@@ -36,8 +37,22 @@ export default class EoscMainHeaderLogoutBtn extends Component {
     username: "",
     profileLinks: [],
     logoutUrl: "",
+    showEoscLinks: false,
     "(onLogout)": "",
   };
+
+  eoscLinks() {
+    const marketplaceUrl = environment.marketplaceUrl;
+    const dashboardUrl = environment.dashboardUrl;
+    return [
+      { href: dashboardUrl, caption: "Dashboard" },
+      { href: `${marketplaceUrl}/projects`, caption: "My projects" },
+      // favourites will be move shortly to dashboard
+      // { href: "/favourites", caption: "Favourite resources", "data-e2e": "favourites" },
+      { href: `${marketplaceUrl}/profile`, caption: "Profile", "data-e2e": "profile" },
+      { href: `${marketplaceUrl}/api_docs`, caption: "Marketplace API", "data-e2e": "marketplace-api" },
+    ];
+  }
 
   render(props) {
     // TODO: deprecate braces around properties names
@@ -50,26 +65,30 @@ export default class EoscMainHeaderLogoutBtn extends Component {
           <Dropdown>
             <Dropdown.Toggle as={AccountToggle} />
             <Dropdown.Menu>
-                {props.profileLinks.map((link) => (
-                    <Dropdown.Item {...link}>{link.caption}</Dropdown.Item>
-                ))}
-              <Dropdown.Item href={logoutUrl || "#!"}
-                             id="logout-btn"
-                             data-e2e="logout"
-                             onClick={(event) => {
-                               Cookies.set(
-                                   LOGOUT_ATTEMPT_COOKIE_NAME,
-                                   LOGOUT_ATTEMPT_COOKIE_NAME,
-                                   getCookieConfig(window.location.hostname)
-                               );
-                               const { autoLoginDomains } = environment.defaultConfiguration;
-                               autoLoginDomains.forEach((domain) =>
-                                   Cookies.remove(AUTOLOGIN_COOKIE_NAME, getCookieConfig(domain))
-                               );
-                               if (onLogout && onLogout.trim() !== "") {
-                                 callAll(event, onLogout);
-                               }
-                             }}>
+              {(props.showEoscLinks ? this.eoscLinks() : []).map((link) => (
+                <Dropdown.Item {...link}>{link.caption}</Dropdown.Item>
+              ))}
+
+              {props.profileLinks.map((link) => (
+                <Dropdown.Item {...link}>{link.caption}</Dropdown.Item>
+              ))}
+              <Dropdown.Item
+                href={logoutUrl || "#!"}
+                id="logout-btn"
+                data-e2e="logout"
+                onClick={(event) => {
+                  Cookies.set(
+                    LOGOUT_ATTEMPT_COOKIE_NAME,
+                    LOGOUT_ATTEMPT_COOKIE_NAME,
+                    getCookieConfig(window.location.hostname)
+                  );
+                  const { autoLoginDomains } = environment.defaultConfiguration;
+                  autoLoginDomains.forEach((domain) => Cookies.remove(AUTOLOGIN_COOKIE_NAME, getCookieConfig(domain)));
+                  if (onLogout && onLogout.trim() !== "") {
+                    callAll(event, onLogout);
+                  }
+                }}
+              >
                 Logout
               </Dropdown.Item>
             </Dropdown.Menu>

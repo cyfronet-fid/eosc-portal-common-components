@@ -8,6 +8,8 @@ const environment = {
   mainFooterConfig,
   defaultConfiguration,
   euInformationConfig,
+  marketplaceUrl: "https://marketplace.eosc-portal.eu",
+  dashboardUrl: "https://my.eosc-portal.eu",
   production: true,
   windowTagName: "eosccommon",
 };
