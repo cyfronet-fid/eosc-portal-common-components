@@ -8,6 +8,8 @@ const environment = {
   mainFooterConfig,
   defaultConfiguration,
   euInformationConfig,
+  marketplaceUrl: "http://marketplace.docker-fid.grid.cyf-kr.edu.pl",
+  dashboardUrl: "https://eosc-user-dashboard.docker-fid.grid.cyf-kr.edu.pl",
   production: false,
   windowTagName: "eosccommon",
 };

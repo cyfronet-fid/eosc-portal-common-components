@@ -9,18 +9,18 @@
   },
   {
     "label": "Providers Hub",
-    "url": "https://providers.eosc-portal.eu"
+    "url": "https://sandbox.providers.eosc-portal.eu"
   },
   {
     "label": "Monitoring",
-    "url": "https://monitoring.eosc-portal.eu"
+    "url": "https://eosc.ui.devel.argo.grnet.gr/eosc/Default"
   },
   {
     "label": "Status",
-    "url": "https://eosccore.status.argo.grnet.gr"
+    "url": "https://eosccore.status.devel.argo.grnet.gr"
   },
   {
     "label": "Contact us",
-    "url": "https://eosc-portal.eu/contact-us"
+    "url": "https://eosc-portal.eu"
   }
 ]

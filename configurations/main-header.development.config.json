@@ -5,22 +5,22 @@
   },
   {
     "label": "Browse Marketplace",
-    "url": "https://marketplace.grid.cyf-kr.edu.pl"
+    "url": "https://marketplace.docker-fid.grid.cyf-kr.edu.pl"
   },
   {
     "label": "Providers Hub",
-    "url": "https://providers.eosc-portal.eu"
+    "url": "https://beta.providers.eosc-portal.eu"
   },
   {
     "label": "Monitoring",
-    "url": "https://monitoring.eosc-portal.eu"
+    "url": "https://eosc.ui.devel.argo.grnet.gr/eosc/Default"
   },
   {
     "label": "Status",
-    "url": "https://eosccore.status.argo.grnet.gr"
+    "url": "https://eosccore.status.devel.argo.grnet.gr"
   },
   {
     "label": "Contact us",
-    "url": "https://eosc-portal.eu/contact-us"
+    "url": "https://eosc-portal.eu"
   }
 ]
