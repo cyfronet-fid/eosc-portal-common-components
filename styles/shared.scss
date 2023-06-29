@@ -1,12 +1,12 @@
 $font-size-base: 16px !default;// 1rem !default; // Assumes the browser default, typically `16px`
 
-$color-4: #333333;
+$color-4: #007019;
 $color-white: #fff;
 $color-secondary: #ffcd00;
 $color-6: #a6aeb1;
 $color-7: #F2F2F2;
 
-$color-primary: #0c2bd5;
+$color-primary: #246119;
 $color-secondary: #ffcd00;
 $color-text: #233d4c;
 $color-3: #f8f9fa;
@@ -17,6 +17,6 @@ $palette-gray-100: $color-text;
 $palette-gray-50: rgba($palette-gray-100, 0.5);
 $palette-gray-80: rgba($palette-gray-100, 0.8);
 
-$font-size-sm: $font-size-base * .875 !default;
+$font-size-sm: 16px !default;
 
 $font-weight-normal: 300; // Ubuntu regular

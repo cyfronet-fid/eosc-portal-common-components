@@ -18,21 +18,21 @@
     }
 
     .center-links {
-      text-align: center;
       flex-grow: 2;
       display: flex;
-      justify-content: center;
-      align-items: center;
+      justify-content: right;
+      align-items: flex-end;
     }
 
     .left-links {
       text-align: left;
 
       .header-logo {
-        width: 84px;
-        height: 32px;
-        background: url("assets/eosc-logo.svg") center no-repeat;
+        width: 91px;
+        height: 35px;
+        background: url("assets/sample-logo.png") center no-repeat;
         display: block;
+        background-size: 91px auto;
       }
     }
 
@@ -51,7 +51,7 @@
           border: 1px solid $color-primary;
           border-radius: 24px;
           background: $color-white;
-          font-size: 14px;
+          font-size: 16px;
           font-weight: 400;
           position: relative;
           padding: 7px 20px 7px 38px;
@@ -79,12 +79,12 @@
       }
 
       li {
-        font-size: 14px;
+        font-size: 16px;
         margin-right: 0;
 
         a {
           color: $color-primary;
-          font-size: 14px;
+          font-size: 16px;
         }
       }
 

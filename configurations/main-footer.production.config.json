@@ -2,173 +2,94 @@
   "cols": [
     [
       {
-        "label": "About",
-        "url": "https://eosc-portal.eu/about-eosc-portal",
+        "label": "Organizacja",
+        "url": "#",
         "navBtns": [
           {
-            "label": "EOSC",
+            "label": "Zespół",
             "url": "https://eosc-portal.eu/about/eosc"
           },
           {
-            "label": "EOSC Portal",
-            "url": "https://eosc-portal.eu/about-eosc-portal"
+            "label": "Partnerzy",
+            "url": "#"
           },
           {
-            "label": "EOSC Projects",
-            "url": "https://eosc-portal.eu/about/eosc-projects"
+            "label": "Historia",
+            "url": "#"
           },
           {
-            "label": "EOSC Glossary",
-            "url": "https://eosc-portal.eu/glossary"
-          },
-          {
-            "label": "EOSC Association",
-            "url": "https://www.eosc.eu"
-          },
-          {
-            "label": "EOSC Enhance",
-            "url": "https://eosc-portal.eu/enhance"
-          },
-          {
-            "label": "EOSC Future",
-            "url": "https://eoscfuture.eu/"
+            "label": "Kariera",
+            "url": "#"
           }
         ]
       }
     ],
     [
       {
-        "label": "Use Cases",
+        "label": "Platforma",
         "navBtns": [
           {
-            "label": "Community Use Cases",
-            "url": "https://eosc-portal.eu/eosc-in-practice/use-cases"
+            "label": "Narzędzia",
+            "url": "#"
           },
           {
-            "label": "Submit Use Case",
-            "url": "https://eosc-portal.eu/eosc-in-practice/open-call"
-          }
-        ]
-      },
-      {
-        "label": "For providers",
-        "url": "https://eosc-portal.eu/for-providers",
-        "navBtns": [
-          {
-            "label": "Providers Documentation",
-            "url": "https://eosc-portal.eu/providers-documentation"
+            "label": "Treningi",
+            "url": "#"
           },
           {
-            "label": "Promote your service",
-            "url": "https://www.eosc-portal.eu/contribute-promotional-article-your-service"
+            "label": "Społeczność",
+            "url": "#"
+          },
+          {
+            "label": "Prywatność",
+            "url": "#"
           }
         ]
       }
     ],
     [
       {
-        "label": "Services & Research products",
-        "url": "https://eosc-portal.eu/services-resources",
+        "label": "Otwarta nauka",
+        "url": "#",
         "navBtns": [
           {
-            "label": "Manage Research Data",
-            "url": "https://search.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Manage%20Research%20Data%22)"
+            "label": "Badania",
+            "url": "#"
           },
           {
-            "label": "Access Computing and Storage Resources",
-            "url": "https://search.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Access%20Computing%20and%20Storage%20Resources%22)"
+            "label": "Zasoby",
+            "url": "#"
           },
           {
-            "label": "Access Research Infrastructures",
-            "url": "https://search.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Access%20Research%20Infrastructures%22)"
-          },
-          {
-            "label": "Access Training Material",
-            "url": "https://search.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Access%20Training%20Material%22)"
-          },
-          {
-            "label": "Find Bundles",
-            "url": "https://search.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Find%20Bundles%22)"
-          },
-          {
-            "label": "Find Instruments & Equipment",
-            "url": "https://search.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Find%20Instruments%20%5C%26%20Equipment%22)"
-          },
-          {
-            "label": "Process and Analyse",
-            "url": "https://search.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Process%20and%20Analyse%22)"
-          },
-          {
-            "label": "Publish Research Outputs",
-            "url": "https://search.eosc-portal.eu/search/all?q=*&fq=unified_categories:(%22Publish%20Research%20Outputs%22)"
+            "label": "Use cases",
+            "url": "#"
           }
         ]
       }
     ],
     [
       {
-        "label": "Media",
+        "label": "Aktualności",
         "navBtns": [
           {
-            "label": "News",
-            "url": "https://eosc-portal.eu/media/news"
+            "label": "Wydarzenia",
+            "url": "#"
           },
           {
-            "label": "Forthcoming events",
-            "url": "https://eosc-portal.eu/media/events"
+            "label": "Blog",
+            "url": "#"
           },
           {
-            "label": "Past events",
-            "url": "https://eosc-portal.eu/media/past-events"
+            "label": "Projekty",
+            "url": "#"
           },
           {
-            "label": "Submit your News/Event",
-            "url": "https://eosc-portal.eu/contribute-to-eosc"
+            "label": "Newsletter",
+            "url": "#"
           },
           {
-            "label": "Newsletters",
-            "url": "https://eosc-portal.eu/newsletters"
-          },
-          {
-            "label": "Community",
-            "url": "https://eosc-portal.eu/documents/community"
-          }
-        ]
-      }
-    ],
-    [
-      {
-        "label": "Using the Portal",
-        "url": "https://eosc-portal.eu/using-the-portal",
-        "navBtns": [
-          {
-            "label": "EOSC Portal FAQs",
-            "url": "https://eosc-portal.eu/about/faqs"
-          },
-          {
-            "type": "termsOfUse",
-            "label": "Term of use"
-          }
-        ]
-      },
-      {
-        "label": "Policy",
-        "navBtns": [
-          {
-            "label": "EC Documents",
-            "url": "https://eosc-portal.eu/policy/ec-documents"
-          },
-          {
-            "label": "EU+ Countries",
-            "url": "https://eosc-portal.eu/policy/EU-Countries"
-          },
-          {
-            "label": "European Union",
-            "url": "https://eosc-portal.eu/policy/europe"
-          },
-          {
-            "type": "privacyPolicy",
-            "label": "Privacy Policy"
+            "label": "Kontakt",
+            "url": "#"
           }
         ]
       }
@@ -177,11 +98,11 @@
   "socials": [
     {
       "class": "social-logo twitter-logo d-inline-block mr-2",
-      "url": "https://twitter.com/EoscPortal"
+      "url": "https://twitter.com/"
     },
     {
       "class": "social-logo yt-logo d-inline-block",
-      "url": "https://www.youtube.com/channel/UCHsaUFy5LJ3rJ28qDg2StGA"
+      "url": "https://www.youtube.com/"
     }
   ]
 }
