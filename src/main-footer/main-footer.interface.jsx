@@ -34,7 +34,6 @@ class EoscCommonMainFooter extends Component {
         <div>
           <footer className={`eosc-common footer pt-3 pb-3 ${production ? "" : "demo"}`}>
             <div className="container">
-              <EoscMainFooterLogoBar />
               <EoscMainFooterCols termsOfUse={termsOfUse} privacyPolicy={privacyPolicy} />
             </div>
           </footer>
