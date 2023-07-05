@@ -212,7 +212,7 @@ ul.login-dropdown {
   }
 }
 
-.header ul.menu {
+.commons-header ul.menu {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -220,19 +220,19 @@ ul.login-dropdown {
   background-color: #fff;
 }
 
-.header .menu li a {
+.commons-header .menu li a {
   display: block;
   text-decoration: none;
 }
 
-.header .menu li a:hover,
-.header .menu-btn:hover {
+.commons-header .menu li a:hover,
+.commons-header .menu-btn:hover {
   color: $color-primary;
 }
 
 /* menu */
 
-.header .menu {
+.commons-header .menu {
   clear: both;
   max-height: 0;
   transition: max-height .2s ease-out;
@@ -240,7 +240,7 @@ ul.login-dropdown {
 
 /* menu icon */
 
-.header .menu-icon {
+.commons-header .menu-icon {
   cursor: pointer;
   display: inline-block;
   float: left;
@@ -250,7 +250,7 @@ ul.login-dropdown {
   user-select: none;
 }
 
-.header .menu-icon .navicon {
+.commons-header .menu-icon .navicon {
   background: #333;
   display: block;
   height: 3px;
@@ -259,8 +259,8 @@ ul.login-dropdown {
   width: 22px;
 }
 
-.header .menu-icon .navicon:before,
-.header .menu-icon .navicon:after {
+.commons-header .menu-icon .navicon:before,
+.commons-header .menu-icon .navicon:after {
   background: #333;
   content: '';
   display: block;
@@ -270,54 +270,54 @@ ul.login-dropdown {
   width: 100%;
 }
 
-.header .menu-icon .navicon:before {
+.commons-header .menu-icon .navicon:before {
   top: 7px;
 }
 
-.header .menu-icon .navicon:after {
+.commons-header .menu-icon .navicon:after {
   top: -7px;
 }
 
 /* menu btn */
 
-.header .menu-btn {
+.commons-header .menu-btn {
   display: none;
 }
 
-.header .menu-btn:checked ~ .menu {
+.commons-header .menu-btn:checked ~ .menu {
   max-height: 240px;
 }
 
-.header .menu-btn:checked ~ .menu-icon .navicon {
+.commons-header .menu-btn:checked ~ .menu-icon .navicon {
   background: transparent;
 }
 
-.header .menu-btn:checked ~ .menu-icon .navicon:before {
+.commons-header .menu-btn:checked ~ .menu-icon .navicon:before {
   transform: rotate(-45deg);
 }
 
-.header .menu-btn:checked ~ .menu-icon .navicon:after {
+.commons-header .menu-btn:checked ~ .menu-icon .navicon:after {
   transform: rotate(45deg);
 }
 
-.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
-.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
+.commons-header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
+.commons-header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
   top: 0;
 }
 
 
 @media (min-width: 992px) {
 
-  .header .menu li {
+  .commons-header .menu li {
     float: left;
   }
 
-  .header .menu {
+  .commons-header .menu {
     clear: none;
     float: right;
     max-height: none;
   }
-  .header .menu-icon {
+  .commons-header .menu-icon {
     display: none;
   }
 }
