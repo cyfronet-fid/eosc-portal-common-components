@@ -281,7 +281,7 @@ ul.login-dropdown {
 /* menu btn */
 
 .commons-header .menu-btn {
-  display: none;
+  display: none !important;
 }
 
 .commons-header .menu-btn:checked ~ .menu {
