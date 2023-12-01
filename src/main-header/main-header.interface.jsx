@@ -82,19 +82,6 @@ class EoscCommonMainHeader extends Component {
               </ul>
             </div>
           </nav>
-          <div>
-            <p>
-            We are excited to announce that we are rolling out new features to enhance your experience on our platform. As a result, some functionalities may experience temporary disruptions during the deployment process.
-            </p>
-            <p>
-              Scheduled Maintenance Details:<br></br>
-            <b>Date:</b> November 30th to December 1st<br></br>
-            <b>Impact:</b> Certain functions may not operate at full capacity during this period.
-            </p>
-            <p>
-              If you do experience any difficulties at this time, please contact the EOSC Helpdesk at help@eosc-portal.eu. Thank you for your patience during this period.
-            </p>
-            </div>
         </div>
       </RWD>
     );
