@@ -1,15 +1,15 @@
 [
   {
     "label": "About EOSC",
-    "url": "https://eosc-portal.eu"
+    "url": "https://eosc.eu/eosc-about"
   },
   {
     "label": "Browse Marketplace",
-    "url": "https://marketplace.docker-fid.grid.cyf-kr.edu.pl"
+    "url": "https://marketplace.sandbox.eosc-beyond.eu/"
   },
   {
     "label": "Providers Hub",
-    "url": "https://beta.providers.eosc-portal.eu"
+    "url": "https://providers.sandbox.eosc-beyond.eu/"
   },
   {
     "label": "Monitoring",
@@ -21,6 +21,6 @@
   },
   {
     "label": "Contact us",
-    "url": "https://eosc-portal.eu"
+    "url": "https://www.eosc-beyond.eu/"
   }
 ]
