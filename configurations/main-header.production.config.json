@@ -1,15 +1,15 @@
 [
   {
     "label": "About EOSC",
-    "url": "https://eosc-portal.eu"
+    "url": "https://www.eosc-beyond.eu/eosc"
   },
   {
     "label": "Browse Marketplace",
-    "url": "https://marketplace.eosc-portal.eu"
+    "url": "https://marketplace.sandbox.eosc-beyond.eu/"
   },
   {
     "label": "Providers Hub",
-    "url": "https://providers.eosc-portal.eu"
+    "url": "https://integration.providers.sandbox.eosc-beyond.eu/home"
   },
   {
     "label": "Monitoring",
@@ -21,6 +21,6 @@
   },
   {
     "label": "Contact us",
-    "url": "https://eosc-portal.eu/contact-us"
+    "url": "mailto:eosc-beyond-po@mailman.egi.eu"
   }
 ]
