@@ -1,19 +1,16 @@
 export default function EoscMainFooterLogoBar() {
     return (
         <div className="row h-100 logo-row">
-            <div className="col-md">
-                <a className="logo-one d-block" href="https://eosc-portal.eu">
+            <div className="logo-wrapper">
+                <a className="logo-one d-block" href="#">
                     &nbsp;
                 </a>
             </div>
-            <div className="col-md">
-                <a href={"https://twitter.com/EoscPortal"} className="social-logo twitter-logo" target="_blank">@EOSCPortal</a>
+            <div className="social-wrapper">
+                <a href={"https://www.linkedin.com/company/eosc-beyond/"} className="social-logo linkedIn-logo" target="_blank"></a>
+                <a href={"https://www.youtube.com/channel/UCWj5vLL8OJ7I8fRPW3eTzDQ"} className="social-logo yt-logo" target="_blank"></a>
+                <a href={"mailto:eosc-beyond-po@mailman.egi.eu"} className="social-logo mailto" target="_blank"></a>
             </div>
-            <div className="col-md">
-                <a href={"https://www.youtube.com/channel/UCHsaUFy5LJ3rJ28qDg2StGA"} className="social-logo yt-logo" target="_blank">@EOSCPortal</a>
-            </div>
-            <div className="col-md"></div>
-            <div className="col-md"></div>
         </div>
     );
 }
