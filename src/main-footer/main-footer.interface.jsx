@@ -2,9 +2,11 @@ import PropTypes from "prop-types";
 import { Component } from "preact";
 import { environment } from "../../env/env";
 import EoscMainFooterLogoBar from "./main-footer-logo-bar.component";
-import EoscMainFooterCols from "./main-footer-cols.component";
+import EoscMainFooterLegalBar from "./main-footer-legal.component";
+import EoscMainFooterBtn from "./main-footer-btn.component";
 import { fieldsToCamelCase, usePropTypes } from "../../core/utils";
 import { renderComponent } from "../../core/render";
+import { isBtnActive } from "../main-header/main-header.utils";
 
 /**
  * @version 1.1
@@ -25,24 +27,34 @@ class EoscCommonMainFooter extends Component {
 
   static defaultProps = {
     production: environment.production,
-    socialIcons: environment.mainFooterConfig.socials,
   };
 
   render(props) {
     const { production, termsOfUse, privacyPolicy} = fieldsToCamelCase(usePropTypes(props, EoscCommonMainFooter));
     return (
         <div>
-          <footer className={`eosc-common footer pt-3 pb-3 ${production ? "" : "demo"}`}>
+          <div className={`eosc-common footer-common pt-3 pb-3 ${production ? "" : "demo"}`}>
             <div className="container">
-              <EoscMainFooterLogoBar />
-              <EoscMainFooterCols termsOfUse={termsOfUse} privacyPolicy={privacyPolicy} />
+              <div className="footer-row">
+                <ul className="footer-menu">
+                  {environment.mainFooterConfig.links.map((config) => (
+                      <EoscMainFooterBtn
+                          {...{
+                            ...config,
+                            isActive: isBtnActive(
+                                environment.mainFooterConfig.links.map((btn) => btn.url),
+                                config.url
+                            ),
+                          }}
+                      />
+                  ))}
+                </ul>
+                <EoscMainFooterLogoBar/>
+              </div>
+              <div className="eosc-common copyright">
+                <EoscMainFooterLegalBar/>
+              </div>
             </div>
-          </footer>
-          <div className="eosc-common copyright container">
-            <span className="copy-text">Copyright 2023 &nbsp;&nbsp; | &nbsp;&nbsp; All rights reserved</span> &nbsp;&nbsp; |  &nbsp;&nbsp;
-            <a href="https://eosc-portal.eu/privacy-policy-summary">
-              Privacy policy
-            </a>
           </div>
         </div>
     );
