@@ -62,7 +62,6 @@ class EoscCommonMainHeader extends Component {
                 <a href="https://www.eosc-beyond.eu/" className="beyond-logo">
                   &nbsp;
                 </a>
-                <div class="beyond-logo"></div>
               </div>
 
               <input className="menu-btn" type="checkbox" id="menu-btn"/>
