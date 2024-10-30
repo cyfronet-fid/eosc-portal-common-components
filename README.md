@@ -93,7 +93,6 @@ Simple page with custom components
       login-url="https://marketplace.eosc-portal.eu/users/auth/checkin"
       logout-url="https://marketplace.eosc-portal.eu/users/logout"
     ></eosc-common-main-header>
-    <div id="eosc-common-eu-information"></div>
     <EoscCommonMainFooter></EoscCommonMainFooter>
 
     <script src="https://s3.cloud.cyfronet.pl/eosc-portal-common/index.production.min.js"></script>
@@ -142,12 +141,6 @@ Using render toolset to dynamically re-render components
     <script>
       window.eosccommon.renderMainHeader("eosc-common-main-header");
     </script>
-
-    <div id="eosc-common-eu-information"></div>
-    <script>
-      window.eosccommon.renderMainHeader("#eosc-common-eu-information");
-    </script>
-
     <EoscCommonMainFooter></EoscCommonMainFooter>
     <script>
       window.eosccommon.renderMainHeader("EoscCommonMainFooter");
