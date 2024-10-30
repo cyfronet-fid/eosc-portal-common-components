@@ -1,15 +1,13 @@
 const mainHeaderConfig = require("../configurations/main-header.beta.config.json");
 const mainFooterConfig = require("../configurations/main-footer.development.config.json");
-const euInformationConfig = require("../configurations/eu-information.development.json");
 const defaultConfiguration = require("../configurations/configuration.development.json");
 
 const environment = {
   mainHeaderConfig,
   mainFooterConfig,
   defaultConfiguration,
-  euInformationConfig,
-  marketplaceUrl: "https://beta.marketplace.eosc-portal.eu",
-  dashboardUrl: "https://eosc-user-dashboard.docker-fid.grid.cyf-kr.edu.pl",
+  marketplaceUrl: "https://marketplace.sandbox.eosc-beyond.eu",
+  dashboardUrl: "https://my.sandbox.eosc-beyond.eu",
   production: false,
   windowTagName: "eosccommon",
 };
