@@ -1,26 +1,26 @@
 [
   {
     "label": "About EOSC",
-    "url": "https://eosc-portal.eu"
+    "url": "https://www.eosc-beyond.eu/eosc"
   },
   {
     "label": "Browse Marketplace",
-    "url": "https://marketplace.docker-fid.grid.cyf-kr.edu.pl"
+    "url": "https://marketplace.sandbox.eosc-beyond.eu"
   },
   {
     "label": "Providers Hub",
-    "url": "https://beta.providers.eosc-portal.eu"
+    "url": "https://integration.providers.sandbox.eosc-beyond.eu/home"
   },
   {
     "label": "Monitoring",
-    "url": "https://eosc.ui.devel.argo.grnet.gr/eosc/Default"
+    "url": "https://monitoring.eosc-portal.eu"
   },
   {
     "label": "Status",
-    "url": "https://eosccore.status.devel.argo.grnet.gr"
+    "url": "https://eosccore.status.argo.grnet.gr"
   },
   {
     "label": "Contact us",
-    "url": "https://eosc-portal.eu"
+    "url": "mailto:eosc-beyond-po@mailman.egi.eu"
   }
 ]
